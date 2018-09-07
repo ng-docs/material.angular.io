@@ -6,14 +6,14 @@
               [attr.aria-label]="category.name + ', section toggle'"
               [attr.aria-controls]="'panel-' + category.id"
               [attr.aria-expanded]="panel.expanded">
-        {{category.name}}
+        {{category.name}} <small>{{category.nameCn}}</small>
         <mat-icon>{{panel.expanded ? 'keyboard_arrow_up' :  'keyboard_arrow_down'}}</mat-icon>
       </button>
       <ul [@bodyExpansion]="panel.expanded ? 'expanded' : 'collapsed'" id="panel-{{category.id}}">
         <li *ngFor="let component of category.items">
           <a [routerLink]="'/' + (params | async)?.section+ '/' + component.id"
             routerLinkActive="docs-component-viewer-sidenav-item-selected">
-            {{component.name}}
+            {{component.name}} <small>{{component.nameCn}}</small>
           </a>
         </li>
       </ul>

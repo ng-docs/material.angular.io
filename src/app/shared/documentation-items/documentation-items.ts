@@ -3,7 +3,9 @@ import {Injectable} from '@angular/core';
 export interface DocItem {
   id: string;
   name: string;
+  nameCn?: string;
   summary?: string;
+  summaryCn?: string;
   packageName?: string;
   examples?: string[];
 }
@@ -11,27 +13,39 @@ export interface DocItem {
 export interface DocCategory {
   id: string;
   name: string;
+  nameCn?: string;
   items: DocItem[];
   summary?: string;
+  summaryCn?: string;
 }
 
 export interface DocSection {
   name: string;
+  nameCn?: string;
   summary: string;
+  summaryCn?: string;
 }
 
 const CDK = 'cdk';
 const COMPONENTS = 'components';
 export const SECTIONS: {[key: string]: DocSection} = {
   [COMPONENTS]: {
-    name: '组件',
-    summary: 'Angular Material 包含一组控件，这些控件都基于 Material Design 规范实现了一些共同的交互模式。'
+    name: 'Components',
+    nameCn: '组件',
+    summaryCn: 'Angular Material 包含一组控件，这些控件都基于 Material Design 规范实现了一些共同的交互模式。',
+    summary: 'Angular Material comprises a range of components which implement common ' +
+    'interaction patterns according to the Material Design specification.'
   },
   [CDK]: {
     name: 'CDK',
-    summary: '组件开发工具包（CDK）是一组工具库，它们实现了共同的交互模式，同时对其外观不做任何假设。' +
+    summaryCn: '组件开发工具包（CDK）是一组工具库，它们实现了共同的交互模式，同时对其外观不做任何假设。' +
       '它代表了 Angular Material 库中一些核心功能的抽象，没有使用任何专属于 Material Design 的样式。' +
-      '你可以将 CDK 看做经过充分测试的空白库，并基于它来开发你的自定义组件。'
+      '你可以将 CDK 看做经过充分测试的空白库，并基于它来开发你的自定义组件。',
+    summary: 'The Component Dev Kit (CDK) is a set of tools that implement common interaction ' +
+    'patterns whilst being unopinionated about their presentation. It represents an abstraction ' +
+    'of the core functionalities found in the Angular Material library, without any styling ' +
+    'specific to Material Design. Think of the CDK as a blank state of well-tested functionality ' +
+    'upon which you can develop your own bespoke components.'
   },
 };
 
@@ -40,13 +54,17 @@ const DOCS: {[key: string]: DocCategory[]} = {
   [COMPONENTS]: [
     {
       id: 'forms',
-      name: '表单控件',
-      summary: '一些用于收集和验证用户输入的控件',
+      name: 'Form Controls',
+      nameCn: '表单控件',
+      summaryCn: '一些用于收集和验证用户输入的控件',
+      summary: 'Controls that collect and validate user input.',
       items: [
         {
           id: 'autocomplete',
-          name: '自动完成 (Auto complete)',
-          summary: '提供与用户输入有关联的选项。',
+          name: 'Autocomplete',
+          nameCn: '自动完成',
+          summaryCn: '提供与用户输入有关联的选项。',
+          summary: 'Suggests relevant options as the user types.',
           examples: [
             'autocomplete-overview',
             'autocomplete-simple',
@@ -58,14 +76,18 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'checkbox',
-          name: '检查框 (Check box)',
-          summary: '获取用户输入的布尔值，且支持未决状态。',
+          name: 'Checkbox',
+          nameCn: '检查框',
+          summaryCn: '获取用户输入的布尔值，且支持未决状态。',
+          summary: 'Captures boolean input with an optional indeterminate mode.',
           examples: ['checkbox-configurable']
         },
         {
           id: 'datepicker',
-          name: '日期选择器 (Date picker)',
-          summary: '捕获日期，不关心其内部表示方式。',
+          name: 'Datepicker',
+          nameCn: '日期选择器',
+          summaryCn: '捕获日期，不关心其内部表示方式。',
+          summary: 'Captures dates, agnostic about their internal representation.',
           examples: [
             'datepicker-overview',
             'datepicker-start-view',
@@ -84,8 +106,10 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'form-field',
-          name: '表单字段 (Form field)',
-          summary: '包装表单字段，以便可以让它们的显示保持一致。',
+          name: 'Form field',
+          nameCn: '表单字段',
+          summaryCn: '包装表单字段，以便可以让它们的显示保持一致。',
+          summary: 'Wraps input fields so they are displayed consistently.',
           examples: [
             'form-field-overview',
             'form-field-label',
@@ -98,7 +122,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'input',
-          name: '输入框 (Input)',
+          name: 'Input',
+          nameCn: '输入框',
           summary: 'Enables native inputs to be used within a Form field.',
           examples: [
             'input-overview',
@@ -113,13 +138,15 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'radio',
-          name: '单选按钮 (Radio Button)',
+          name: 'Radio button',
+          nameCn: '单选按钮',
           summary: 'Allows the user to select one option from a group.',
           examples: ['radio-ng-model']
         },
         {
           id: 'select',
-          name: '选择框 (Select)',
+          name: 'Select',
+          nameCn: '选择框',
           summary: 'Allows the user to select one or more options using a dropdown.',
           examples: [
             'select-overview',
@@ -138,13 +165,15 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'slider',
-          name: '滑块 (Slider)',
+          name: 'Slider',
+          nameCn: '滑块',
           summary: 'Allows the user to input a value by dragging along a slider.',
           examples: ['slider-configurable']
         },
         {
           id: 'slide-toggle',
-          name: '滑块开关 (Slide toggle)',
+          name: 'Slide toggle',
+          nameCn: '滑块开关',
           summary: 'Captures boolean values as a clickable and draggable switch.',
           examples: ['slide-toggle-configurable']
         },
@@ -152,12 +181,15 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'nav',
-      name: '导航',
-      summary: '菜单、侧边栏、工具条，用于组织你的内容',
+      name: 'Navigation',
+      nameCn: '导航',
+      summaryCn: '菜单、侧边栏、工具条，用于组织你的内容',
+      summary: 'Menus, sidenavs and toolbars that organise your content.',
       items: [
         {
           id: 'menu',
-          name: '菜单 (Menu)',
+          name: 'Menu',
+          nameCn: '菜单',
           summary: 'A floating panel of nestable options.',
           examples: [
             'menu-overview',
@@ -167,7 +199,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'sidenav',
-          name: '侧边导航 (Side nav)',
+          name: 'Sidenav',
+          nameCn: '侧边导航',
           summary: 'A container for content that is fixed to one side of the screen.',
           examples: [
             'sidenav-overview',
@@ -183,7 +216,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
         {
           id: 'toolbar',
-          name: '工具条 (Toolbar)',
+          name: 'Toolbar',
+          nameCn: '工具条',
           summary: 'A container for top-level titles and controls.',
           examples: ['toolbar-multirow']
         },
@@ -191,48 +225,57 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'layout',
-      name: '布局',
-      summary: '用于表示内容的基本构造块',
+      name: 'Layout',
+      nameCn: '布局',
+      summaryCn: '用于表示内容的基本构造块',
+      summary: 'Essential building blocks for presenting your content.',
       items: [
         {
           id: 'card',
-          name: '卡片 (Card)',
+          name: 'Card',
+          nameCn: '卡片',
           summary: 'A styled container for pieces of itemized content.',
           examples: ['card-fancy']
         },
         {
           id: 'divider',
-          name: '分隔器 (Divider)',
+          name: 'Divider',
+          nameCn: '分隔器',
           summary: 'A vertical or horizontal visual divider.',
           examples: ['divider-overview']
         },
         {
           id: 'expansion',
-          name: '可展开面板 (Expansion Panel)',
+          name: 'Expansion Panel',
+          nameCn: '可展开面板',
           summary: 'A container which can be expanded to reveal more content.',
           examples: ['expansion-overview', 'expansion-steps']
         },
         {
           id: 'grid-list',
-          name: '网格列表 (Grid list)',
+          name: 'Grid list',
+          nameCn: '网格列表',
           summary: 'A flexible structure for presenting content items in a grid.',
           examples: ['grid-list-dynamic']
         },
         {
           id: 'list',
-          name: '列表 (List)',
+          name: 'List',
+          nameCn: '列表',
           summary: 'Presents conventional lists of items.',
           examples: ['list-sections']
         },
         {
           id: 'stepper',
-          name: '步进器 (Stepper)',
+          name: 'Stepper',
+          nameCn: '步进器',
           summary: 'Presents content as steps through which to progress.',
           examples: ['stepper-overview']
         },
         {
           id: 'tabs',
-          name: '分页标签 (Tabs)',
+          name: 'Tabs',
+          nameCn: '分页标签',
           summary: 'Only presents one view at a time from a provided set of views.',
           examples: [
             'tab-group-basic',
@@ -248,7 +291,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           ]},
         {
           id: 'tree',
-          name: '树 (Tree)',
+          name: 'Tree',
+          nameCn: '树',
           summary: 'Presents hierarchical content as an expandable tree.',
           examples: [
           'tree-dynamic',
@@ -261,47 +305,56 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'buttons',
-      name: '按钮与指示器',
-      summary: '按钮、开关、状态指示器、进度指示器',
+      name: 'Buttons & Indicators',
+      nameCn: '按钮与指示器',
+      summaryCn: '按钮、开关、状态指示器、进度指示器',
+      summary: 'Buttons, toggles, status and progress indicators.',
       items: [
         {
           id: 'button',
-          name: '按钮 (Button)',
+          name: 'Button',
+          nameCn: '按钮',
           summary: 'An interactive button with a range of presentation options.',
           examples: ['button-types']},
         {
           id: 'button-toggle',
-          name: '开关按钮 (Button toggle)',
+          name: 'Button toggle',
+          nameCn: '开关按钮',
           summary: 'A groupable on/off toggle for enabling and disabling options.',
           examples: ['button-toggle-exclusive']
         },
         {
           id: 'badge',
-          name: '徽章 (Badge)',
+          name: 'Badge',
+          nameCn: '徽章',
           summary: 'A small value indicator that can be overlaid on another object.',
           examples: ['badge-overview']
         },
         {
           id: 'chips',
-          name: '活页夹 (Chips)',
+          name: 'Chips',
+          nameCn: '活页夹',
           summary: 'Presents a list of items as a set of small, tactile entities.',
           examples: ['chips-stacked']
         },
         {
           id: 'icon',
-          name: '图标 (Icon)',
+          name: 'Icon',
+          nameCn: '图标',
           summary: 'Renders a specified icon.',
           examples: ['icon-svg']
         },
         {
           id: 'progress-spinner',
-          name: '进度圈 (Progress spinner)',
+          name: 'Progress spinner',
+          nameCn: '进度圈',
           summary: 'A circular progress indicator.',
           examples: ['progress-spinner-configurable']
         },
         {
           id: 'progress-bar',
-          name: '进度条 (Progress bar)',
+          name: 'Progress bar',
+          nameCn: '进度条',
           summary: 'A linear progress indicator.',
           examples: ['progress-bar-configurable']
         },
@@ -309,30 +362,36 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'modals',
-      name: '弹框与模态框',
+      name: 'Popups & Modals',
+      nameCn: '弹框与模态框',
       summary: '可以动态显示和隐藏的浮层组件',
+      summaryCn: 'Floating components that can be dynamically shown or hidden.',
       items: [
         {
           id: 'bottom-sheet',
-          name: '底部操作表 (Bottom sheet)',
+          name: 'Bottom Sheet',
+          nameCn: '底部操作表',
           summary: 'A large interactive panel primarily for mobile devices.',
           examples: ['bottom-sheet-overview']
         },
         {
           id: 'dialog',
-          name: '对话框 (Dialog)',
+          name: 'Dialog',
+          nameCn: '对话框',
           summary: 'A configurable modal that displays dynamic content.',
           examples: ['dialog-overview']
         },
         {
           id: 'snack-bar',
-          name: '快餐条 (Snack bar)',
+          name: 'Snackbar',
+          nameCn: '快餐条',
           summary: 'Displays short actionable messages as an uninvasive alert.',
           examples: ['snack-bar-component']
         },
         {
           id: 'tooltip',
-          name: '提示框 (Tooltip)',
+          name: 'Tooltip',
+          nameCn: '提示框',
           summary: 'Displays floating content when an object is hovered.',
           examples: [
             'tooltip-overview',
@@ -350,24 +409,29 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'tables',
-      name: '数据表',
-      summary: '用于显示表格型数据并与之交互的工具',
+      name: 'Data table',
+      nameCn: '数据表',
+      summaryCn: '用于显示表格型数据并与之交互的工具',
+      summary: 'Tools for displaying and interacting with tabular data.',
       items: [
         {
           id: 'paginator',
-          name: '分页器 (Paginator)',
+          name: 'Paginator',
+          nameCn: '分页器',
           summary: 'Controls for displaying paged data.',
           examples: ['paginator-configurable']
         },
         {
           id: 'sort',
-          name: '排序头 (Sort Header)',
+          name: 'Sort header',
+          nameCn: '排序头',
           summary: 'Allows the user to configure how tabular data is sorted.',
           examples: ['sort-overview']
         },
         {
           id: 'table',
-          name: '表格 (Table)',
+          name: 'Table',
+          nameCn: '表格',
           summary: 'A configurable component for displaying tabular data.',
           examples: [
             'table-basic',
@@ -395,60 +459,71 @@ const DOCS: {[key: string]: DocCategory[]} = {
   [CDK] : [
     {
       id: 'component-composition',
-      name: '常用行为',
-      summary: '用于实现应用中常用功能的工具',
+      name: 'Common Behaviors',
+      nameCn: '常用行为',
+      summaryCn: '用于实现应用中常用功能的工具',
+      summary: 'Tools for implementing common application features.',
       items: [
         {
           id: 'a11y',
-          name: '可访问性 (A11y)',
+          name: 'Accessibility',
+          nameCn: '可访问性',
           summary: 'Utilities for screen readers, focus and more.',
           examples: []
         },
         {
           id: 'bidi',
-          name: '文字方向 (Bidirectionality)',
+          name: 'Bidirectionality',
+          nameCn: '文字方向',
           summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
           examples: []
         },
         {
           id: 'layout',
-          name: '布局 (Layout)',
+          name: 'Layout',
+          nameCn: '布局',
           summary: 'Utilities to respond to changes in viewport size.',
           examples: []
         },
         {
           id: 'observers',
-          name: '观察者 (Observers)',
+          name: 'Observers',
+          nameCn: '观察者',
           summary: 'Utilities to respond to changes to element properties.',
           examples: []
         },
         {
           id: 'overlay',
-          name: '浮层 (Overlay)',
+          name: 'Overlay',
+          nameCn: '浮层',
           summary: 'Utilities for dynamically displaying floating content.',
           examples: []
         },
         {
           id: 'platform',
-          name: '平台 (Platform)',
+          name: 'Platform',
+          nameCn: '平台',
           summary: 'Provides information about the user\'s platform.',
           examples: []
         },
         {
           id: 'portal',
-          name: '门户 (Portal)',
+          name: 'Portal',
+          nameCn: '门户',
           summary: 'Utilities for dynamically displaying content into a target.',
           examples: []
         },
         {
           id: 'scrolling',
-          name: '滚动 (Scrolling)',
+          name: 'Scrolling',
+          nameCn: '滚动',
           summary: 'Directives for managing scroll events.',
           examples: []
         },
         {
           id: 'text-field',
-          name: '文本字段 (Text field)',
+          name: 'Text field',
+          nameCn: '文本字段',
           summary: 'Utilities for working with text input fields.',
           examples: []
         },
@@ -456,23 +531,28 @@ const DOCS: {[key: string]: DocCategory[]} = {
     },
     {
       id: 'components',
-      name: '组件',
-      summary: '不带样式的组件，具有一些实用功能。',
+      name: 'Components',
+      nameCn: '组件',
+      summaryCn: '不带样式的组件，具有一些实用功能。',
+      summary: 'Unstyled components with useful functionality.',
       items: [
         {id: 'stepper',
-          name: '步进器 (Stepper)',
+          name: 'Stepper',
+          nameCn: '步进器',
           summary: 'Presents content as steps through which to progress.',
           examples: []
         },
         {
           id: 'table',
-          name: '表格 (Table)',
+          name: 'Table',
+          nameCn: '表格',
           summary: 'A configurable component for displaying tabular data.',
           examples: []
         },
         {
           id: 'tree',
-          name: '树 (Tree)',
+          name: 'Tree',
+          nameCn: '树',
           summary: 'Presents hierarchical content as an expandable tree.',
           examples: []
         },

@@ -56,6 +56,7 @@ export class ComponentSidenav implements OnInit {
 
 @Component({
   selector: 'app-component-nav',
+  styleUrls: ['./component-nav.scss'],
   templateUrl: './component-nav.html',
   animations: [
     trigger('bodyExpansion', [
