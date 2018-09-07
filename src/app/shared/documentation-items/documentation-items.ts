@@ -333,7 +333,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'chips',
           name: 'Chips',
-          nameCn: '活页夹',
+          nameCn: '芯片',
           summary: 'Presents a list of items as a set of small, tactile entities.',
           examples: ['chips-stacked']
         },
