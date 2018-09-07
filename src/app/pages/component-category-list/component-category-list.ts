@@ -32,8 +32,8 @@ export class ComponentCategoryList implements OnInit, OnDestroy {
     this.routeParamSubscription = this.params.subscribe(params => {
       const sectionName = params['section'];
       const section = SECTIONS[sectionName];
-      this._componentPageTitle.title = section.name;
-      this._categoryListSummary = section.summary;
+      this._componentPageTitle.title = section.nameCn || section.name;
+      this._categoryListSummary = section.summaryCn || section.summary;
     });
   }
 

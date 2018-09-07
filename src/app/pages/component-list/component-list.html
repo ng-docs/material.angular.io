@@ -14,7 +14,7 @@
         </div>
       </mat-card-header>
       <mat-card-content class="docs-component-list-card-summary" *ngIf="component.summary">
-        <p translation-result>{{component.summaryCn}}</p>
+        <p translation-result>{{component.summaryCn || component.summary}}</p>
         <p translation-origin="off">{{component.summary}}</p>
       </mat-card-content>
     </mat-card>
