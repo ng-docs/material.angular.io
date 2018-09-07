@@ -4,6 +4,7 @@
 
 nvm use 8
 
+set -e
 set -x
 
 ./tools/build-themes.sh
