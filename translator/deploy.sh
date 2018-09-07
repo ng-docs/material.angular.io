@@ -13,6 +13,8 @@ npm run prod-build
 
 cd `dirname $0`
 
+npx gulp
+
 rm -fr ../../material-cn.github.io/*
 cp -r ../dist/* ../../material-cn.github.io
 cd ../../material-cn.github.io
