@@ -57,6 +57,14 @@ export class ComponentViewer implements OnDestroy {
   ngOnDestroy(): void {
     this._destroyed.next();
   }
+
+  titleOf(id: string): string {
+    return {
+      overview: '概览',
+      api: 'API',
+      examples: '范例'
+    }[id];
+  }
 }
 
 @Component({

@@ -9,7 +9,8 @@
   <a mat-button class="docs-navbar-hide-small docs-button"
      *ngFor="let key of sectionKeys"
      [routerLink]="key">{{sections[key].name}}</a>
-  <a mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">Guides</a>
+  <a translate-result mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">指南</a>
+  <a translation-origin="off" mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">Guides</a>
   <div class="flex-spacer"></div>
   <version-picker></version-picker>
   <theme-picker></theme-picker>

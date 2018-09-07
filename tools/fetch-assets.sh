@@ -12,7 +12,7 @@ cd $(dirname ${0})/../
 docsContentBranch=${1:-'master'}
 
 # Directory where documentation assets should be copied to (overviews, api docs)
-documentsDestination=./src/assets/documents/
+documentsDestination=./src/assets/documents-en/
 
 # Directory where the live example assets will be copied to.
 examplesDestination=./src/assets/
