@@ -9,7 +9,7 @@ gulp.task('translate', ['clean'], () => {
   return gulp.src('../src/assets/documents-en/**/*.html')
   // 加翻译指令
     .pipe(replace(/<(span|a|t)\b([^<]*?)<\/\1>(\s*)<\1\b([^<]*?)<\/\1>/gim, addTranslationDirectives))
-    .pipe(replace(/<(h\d|p|header)\b([\s\S]*?)<\/\1>(\s*)<\1\b([\s\S]*?)<\/\1>/gim, addTranslationDirectives))
+    .pipe(replace(/<(h\d|p|header)\b(?! class="docs-markdown-p"><em>)([\s\S]*?)<\/\1>(\s*)<\1\b([\s\S]*?)<\/\1>/gim, addTranslationDirectives))
     .pipe(replace(/<(div)\b(.*?)<\/\1>(\s*)<\1\b(.*?)<\/\1>/gim, addTranslationDirectives))
     .pipe(replace(/<h3 translation-result id=".*?<\/span> (.*?)<\/h3><h3 translation-origin="off" (id=".*?<\/span>) (.*?)<\/h3>/gim,
       '<h3 translation-result $2 $1</h3><h3 translation-origin="off">$3</h3>'))
