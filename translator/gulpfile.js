@@ -11,8 +11,8 @@ gulp.task('translate', ['clean'], () => {
     .pipe(replace(/<(span|a|t)\b([^<]*?)<\/\1>(\s*)<\1\b([^<]*?)<\/\1>/gim, addTranslationDirectives))
     .pipe(replace(/<(h\d|p|header)\b(?! class="docs-markdown-p"><em>)([\s\S]*?)<\/\1>(\s*)<\1\b([\s\S]*?)<\/\1>/gim, addTranslationDirectives))
     .pipe(replace(/<(div)\b(.*?)<\/\1>(\s*)<\1\b(.*?)<\/\1>/gim, addTranslationDirectives))
-    .pipe(replace(/<h3 translation-result id=".*?<\/span> (.*?)<\/h3><h3 translation-origin="off" (id=".*?<\/span>) (.*?)<\/h3>/gim,
-      '<h3 translation-result $2 $1</h3><h3 translation-origin="off">$3</h3>'))
+    .pipe(replace(/<(h\d) translation-result id=".*?<\/span> (.*?)<\/\1><\1 translation-origin="off" (id=".*?<\/span>) (.*?)<\/\1>/gim,
+      '<$1 translation-result $3 $2</$1><$1 translation-origin="off">$4</$1>'))
     .pipe(gulp.dest('../src/assets/documents/'));
 });
 
