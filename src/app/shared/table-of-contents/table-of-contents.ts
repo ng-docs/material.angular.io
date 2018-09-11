@@ -31,7 +31,7 @@ export class TableOfContents implements OnInit {
 
   @Input() links: Link[] = [];
   @Input() container: string;
-  @Input() headerSelectors = '.docs-markdown-h3,.docs-markdown-h4';
+  @Input() headerSelectors = '.docs-markdown-h3:not([translation-origin]),.docs-markdown-h4:not([translation-origin])';
 
   _rootUrl = this._router.url.split('#')[0];
   private _scrollContainer: any;
