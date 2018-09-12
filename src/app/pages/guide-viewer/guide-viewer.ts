@@ -28,7 +28,7 @@ export class GuideViewer implements OnInit {
   }
 
   ngOnInit(): void {
-    this._componentPageTitle.title = this.guide.name;
+    this._componentPageTitle.titleCn = this.guide.name;
   }
 }
 

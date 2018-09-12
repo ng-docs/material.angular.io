@@ -45,6 +45,7 @@ export class ComponentViewer implements OnDestroy {
           this.componentDocItem = d.doc;
           if (this.componentDocItem) {
             this._componentPageTitle.title = `${this.componentDocItem.name}`;
+            this._componentPageTitle.titleCn = `${this.componentDocItem.nameCn}`;
             this.componentDocItem.examples.length ?
                 this.sections.add('examples') :
                 this.sections.delete('examples');

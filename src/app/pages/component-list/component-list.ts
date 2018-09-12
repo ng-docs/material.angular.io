@@ -30,6 +30,7 @@ export class ComponentList {
 
         if (this.category) {
           this._componentPageTitle.title = this.category.name;
+          this._componentPageTitle.titleCn = this.category.nameCn;
         } else {
           this.router.navigate(['../'], {relativeTo: this._route});
         }

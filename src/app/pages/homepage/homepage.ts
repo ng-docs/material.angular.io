@@ -15,6 +15,7 @@ export class Homepage implements OnInit {
 
   ngOnInit(): void {
     this._componentPageTitle.title = '';
+    this._componentPageTitle.titleCn = '';
   }
 }
 

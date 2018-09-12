@@ -2,10 +2,16 @@
 <div class="docs-component-category-list">
   <a *ngFor="let category of docItems.getCategories((params | async)?.section)"
      class="docs-component-category-list-item"
-    [routerLink]="['../', category.id]">
+     [routerLink]="['../', category.id]">
     <mat-card class="docs-component-category-list-card">
-      <mat-card-title>{{category.name}} <small>{{category.nameCn}}</small></mat-card-title>
-      <mat-card-content class="docs-component-category-list-card-summary">{{category.summaryCn || category.summary}}</mat-card-content>
+      <mat-card-title>
+        <p translation-result>{{category.nameCn}}</p>
+        <p translation-origin="off">{{category.name}}</p>
+      </mat-card-title>
+      <mat-card-content class="docs-component-category-list-card-summary">
+        <p translation-result>{{category.summaryCn}}</p>
+        <p translation-origin="off">{{category.summary}}</p>
+      </mat-card-content>
     </mat-card>
   </a>
 </div>
