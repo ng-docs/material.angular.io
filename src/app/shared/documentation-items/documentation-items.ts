@@ -86,7 +86,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'datepicker',
           name: 'Datepicker',
           nameCn: '日期选择器',
-          summaryCn: '捕获日期，不关心其内部表示方式。',
+          summaryCn: '捕获日期，和其内部表示形式无关。',
           summary: 'Captures dates, agnostic about their internal representation.',
           examples: [
             'datepicker-overview',
@@ -108,7 +108,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'form-field',
           name: 'Form field',
           nameCn: '表单字段',
-          summaryCn: '包装表单字段，以便可以让它们的显示保持一致。',
+          summaryCn: '包装表单字段，来让它们的显示保持一致。',
           summary: 'Wraps input fields so they are displayed consistently.',
           examples: [
             'form-field-overview',
@@ -124,6 +124,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'input',
           name: 'Input',
           nameCn: '输入框',
+          summaryCn: '让原生输入框可用于表单字段中。',
           summary: 'Enables native inputs to be used within a Form field.',
           examples: [
             'input-overview',
@@ -140,6 +141,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'radio',
           name: 'Radio button',
           nameCn: '单选按钮',
+          summaryCn: '允许用户从组中显示一个选项。',
           summary: 'Allows the user to select one option from a group.',
           examples: ['radio-ng-model']
         },
@@ -147,6 +149,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'select',
           name: 'Select',
           nameCn: '选择框',
+          summaryCn: '允许用户从下拉框中选择一个或多个选项。',
           summary: 'Allows the user to select one or more options using a dropdown.',
           examples: [
             'select-overview',
@@ -167,6 +170,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'slider',
           name: 'Slider',
           nameCn: '滑竿',
+          summaryCn: '允许用户以拖曳滑竿的方式输入一个值。',
           summary: 'Allows the user to input a value by dragging along a slider.',
           examples: ['slider-configurable']
         },
@@ -174,6 +178,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'slide-toggle',
           name: 'Slide toggle',
           nameCn: '滑块开关',
+          summaryCn: '以可点击、可拖曳开关的形式捕获一个 boolean 值。',
           summary: 'Captures boolean values as a clickable and draggable switch.',
           examples: ['slide-toggle-configurable']
         },
@@ -201,6 +206,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'sidenav',
           name: 'Sidenav',
           nameCn: '侧边栏',
+          summaryCn: '一个固定在屏幕一侧的内容容器。',
           summary: 'A container for content that is fixed to one side of the screen.',
           examples: [
             'sidenav-overview',
@@ -218,6 +224,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'toolbar',
           name: 'Toolbar',
           nameCn: '工具条',
+          summaryCn: '一个顶级标题和控件的容器。',
           summary: 'A container for top-level titles and controls.',
           examples: ['toolbar-multirow']
         },
@@ -234,6 +241,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'card',
           name: 'Card',
           nameCn: '卡片',
+          summaryCn: '用于存放逐项内容的样式化容器。',
           summary: 'A styled container for pieces of itemized content.',
           examples: ['card-fancy']
         },
@@ -241,6 +249,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'divider',
           name: 'Divider',
           nameCn: '分隔器',
+          summaryCn: '垂直或水平的视觉分割器。',
           summary: 'A vertical or horizontal visual divider.',
           examples: ['divider-overview']
         },
@@ -248,6 +257,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'expansion',
           name: 'Expansion Panel',
           nameCn: '可展开面板',
+          summaryCn: '可以展开，以揭示更多内容的容器。',
           summary: 'A container which can be expanded to reveal more content.',
           examples: ['expansion-overview', 'expansion-steps']
         },
@@ -255,6 +265,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'grid-list',
           name: 'Grid list',
           nameCn: '网格列表',
+          summaryCn: '一种在网格中展示逐项内容的灵活结构。',
           summary: 'A flexible structure for presenting content items in a grid.',
           examples: ['grid-list-dynamic']
         },
@@ -262,6 +273,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'list',
           name: 'List',
           nameCn: '列表',
+          summaryCn: '提供传统的条目清单。',
           summary: 'Presents conventional lists of items.',
           examples: ['list-sections']
         },
@@ -269,6 +281,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'stepper',
           name: 'Stepper',
           nameCn: '步进器',
+          summaryCn: '以分步进展的方式呈现内容。',
           summary: 'Presents content as steps through which to progress.',
           examples: ['stepper-overview']
         },
@@ -276,6 +289,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'tabs',
           name: 'Tabs',
           nameCn: '分页标签',
+          summaryCn: '在指定的一组视图中，只同时呈现一个视图',
           summary: 'Only presents one view at a time from a provided set of views.',
           examples: [
             'tab-group-basic',
@@ -293,6 +307,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'tree',
           name: 'Tree',
           nameCn: '树',
+          summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
           summary: 'Presents hierarchical content as an expandable tree.',
           examples: [
           'tree-dynamic',
@@ -314,12 +329,14 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'button',
           name: 'Button',
           nameCn: '按钮',
+          summaryCn: '带有一系列候选项的交互式按钮。',
           summary: 'An interactive button with a range of presentation options.',
           examples: ['button-types']},
         {
           id: 'button-toggle',
           name: 'Button toggle',
           nameCn: '开关按钮',
+          summaryCn: '用来启用或禁用候选项的可分组开关。',
           summary: 'A groupable on/off toggle for enabling and disabling options.',
           examples: ['button-toggle-exclusive']
         },
@@ -327,6 +344,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'badge',
           name: 'Badge',
           nameCn: '徽章',
+          summaryCn: '可以挂在其它对象上方的小型数值指示器。',
           summary: 'A small value indicator that can be overlaid on another object.',
           examples: ['badge-overview']
         },
@@ -334,6 +352,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'chips',
           name: 'Chips',
           nameCn: '芯片',
+          summaryCn: '将列表中的条目呈现为一组小的触觉实体。',
           summary: 'Presents a list of items as a set of small, tactile entities.',
           examples: ['chips-stacked']
         },
@@ -341,6 +360,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'icon',
           name: 'Icon',
           nameCn: '图标',
+          summaryCn: '渲染一个指定的图标。',
           summary: 'Renders a specified icon.',
           examples: ['icon-svg']
         },
@@ -348,6 +368,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'progress-spinner',
           name: 'Progress spinner',
           nameCn: '进度圈',
+          summaryCn: '圆形进度指示器。',
           summary: 'A circular progress indicator.',
           examples: ['progress-spinner-configurable']
         },
@@ -355,6 +376,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'progress-bar',
           name: 'Progress bar',
           nameCn: '进度条',
+          summaryCn: '线性进度指示器。',
           summary: 'A linear progress indicator.',
           examples: ['progress-bar-configurable']
         },
@@ -364,13 +386,14 @@ const DOCS: {[key: string]: DocCategory[]} = {
       id: 'modals',
       name: 'Popups & Modals',
       nameCn: '弹框与模态框',
-      summary: '可以动态显示和隐藏的浮层组件',
-      summaryCn: 'Floating components that can be dynamically shown or hidden.',
+      summaryCn: '可以动态显示和隐藏的浮层组件',
+      summary: 'Floating components that can be dynamically shown or hidden.',
       items: [
         {
           id: 'bottom-sheet',
           name: 'Bottom Sheet',
           nameCn: '底部操作表',
+          summaryCn: '主要用于移动设备的大型交互面板。',
           summary: 'A large interactive panel primarily for mobile devices.',
           examples: ['bottom-sheet-overview']
         },
@@ -378,13 +401,15 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'dialog',
           name: 'Dialog',
           nameCn: '对话框',
+          summaryCn: '一个用于显示动态内容的可配置的模态框。',
           summary: 'A configurable modal that displays dynamic content.',
           examples: ['dialog-overview']
         },
         {
           id: 'snack-bar',
           name: 'Snackbar',
-          nameCn: '快餐条',
+          nameCn: '快餐栏',
+          summaryCn: '将简短的可操作消息显示为一个无打扰警报。',
           summary: 'Displays short actionable messages as an uninvasive alert.',
           examples: ['snack-bar-component']
         },
@@ -392,6 +417,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'tooltip',
           name: 'Tooltip',
           nameCn: '提示框',
+          summaryCn: '当鼠标移到某个对象之上时显示浮动内容。',
           summary: 'Displays floating content when an object is hovered.',
           examples: [
             'tooltip-overview',
@@ -418,6 +444,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'paginator',
           name: 'Paginator',
           nameCn: '分页器',
+          summaryCn: '用于显示分页信息的控件。',
           summary: 'Controls for displaying paged data.',
           examples: ['paginator-configurable']
         },
@@ -425,6 +452,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'sort',
           name: 'Sort header',
           nameCn: '排序头',
+          summaryCn: '让用户可以指定表格型数据该如何排序。',
           summary: 'Allows the user to configure how tabular data is sorted.',
           examples: ['sort-overview']
         },
@@ -432,6 +460,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'table',
           name: 'Table',
           nameCn: '表格',
+          summaryCn: '用于显示表格型数据的可配置组件。',
           summary: 'A configurable component for displaying tabular data.',
           examples: [
             'table-basic',
@@ -468,6 +497,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'a11y',
           name: 'Accessibility',
           nameCn: '可访问性',
+          summaryCn: '供屏幕阅读器使用的工具，如焦点控制等。',
           summary: 'Utilities for screen readers, focus and more.',
           examples: []
         },
@@ -475,6 +505,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'bidi',
           name: 'Bidirectionality',
           nameCn: '文字方向',
+          summaryCn: '用于响应 LTR/RTL 布局方向变化的工具。',
           summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
           examples: []
         },
@@ -482,6 +513,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'layout',
           name: 'Layout',
           nameCn: '布局',
+          summaryCn: '用于响应视口尺寸变化的工具。',
           summary: 'Utilities to respond to changes in viewport size.',
           examples: []
         },
@@ -496,6 +528,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'overlay',
           name: 'Overlay',
           nameCn: '浮层',
+          summaryCn: '用于动态显示浮动内容的工具。',
           summary: 'Utilities for dynamically displaying floating content.',
           examples: []
         },
@@ -503,6 +536,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'platform',
           name: 'Platform',
           nameCn: '平台',
+          summaryCn: '提供关于用户所用平台的信息。',
           summary: 'Provides information about the user\'s platform.',
           examples: []
         },
@@ -510,6 +544,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'portal',
           name: 'Portal',
           nameCn: '门户',
+          summaryCn: '用于把内容动态显示到目标中的工具。',
           summary: 'Utilities for dynamically displaying content into a target.',
           examples: []
         },
@@ -517,6 +552,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'scrolling',
           name: 'Scrolling',
           nameCn: '滚动',
+          summaryCn: '用于管理滚动事件的指令。',
           summary: 'Directives for managing scroll events.',
           examples: []
         },
@@ -524,6 +560,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'text-field',
           name: 'Text field',
           nameCn: '文本字段',
+          summaryCn: '用来和文本输入框协同工作的工具。',
           summary: 'Utilities for working with text input fields.',
           examples: []
         },
@@ -539,6 +576,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {id: 'stepper',
           name: 'Stepper',
           nameCn: '步进器',
+          summaryCn: '以分步进展的方式呈现内容。',
           summary: 'Presents content as steps through which to progress.',
           examples: []
         },
@@ -546,6 +584,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'table',
           name: 'Table',
           nameCn: '表格',
+          summaryCn: '显示表格型数据的可配置组件。',
           summary: 'A configurable component for displaying tabular data.',
           examples: []
         },
@@ -553,6 +592,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           id: 'tree',
           name: 'Tree',
           nameCn: '树',
+          summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
           summary: 'Presents hierarchical content as an expandable tree.',
           examples: []
         },
