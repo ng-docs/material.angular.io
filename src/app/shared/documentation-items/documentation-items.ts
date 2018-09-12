@@ -166,7 +166,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'slider',
           name: 'Slider',
-          nameCn: '滑块',
+          nameCn: '滑竿',
           summary: 'Allows the user to input a value by dragging along a slider.',
           examples: ['slider-configurable']
         },
@@ -200,7 +200,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'sidenav',
           name: 'Sidenav',
-          nameCn: '侧边导航',
+          nameCn: '侧边栏',
           summary: 'A container for content that is fixed to one side of the screen.',
           examples: [
             'sidenav-overview',
