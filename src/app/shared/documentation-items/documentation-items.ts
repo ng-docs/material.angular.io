@@ -188,7 +188,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
       id: 'nav',
       name: 'Navigation',
       nameCn: '导航',
-      summaryCn: '菜单、侧边栏、工具条，用于组织你的内容',
+      summaryCn: '菜单、侧边栏、工具栏，用于组织你的内容',
       summary: 'Menus, sidenavs and toolbars that organise your content.',
       items: [
         {
@@ -223,7 +223,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'toolbar',
           name: 'Toolbar',
-          nameCn: '工具条',
+          nameCn: '工具栏',
           summaryCn: '一个顶级标题和控件的容器。',
           summary: 'A container for top-level titles and controls.',
           examples: ['toolbar-multirow']
@@ -288,7 +288,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'tabs',
           name: 'Tabs',
-          nameCn: '分页标签',
+          nameCn: '选项卡',
           summaryCn: '在指定的一组视图中，只同时呈现一个视图',
           summary: 'Only presents one view at a time from a provided set of views.',
           examples: [
