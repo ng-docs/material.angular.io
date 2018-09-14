@@ -57,3 +57,10 @@ table-of-contents {
     padding-left: 0;
   }
 }
+
+::ng-deep blockquote {
+  border-left: 8px solid #1976d2;
+  margin: 0;
+  padding: 0.5em 2em;
+  background-color: rgba(25,118,210,.05);
+}
