@@ -10,11 +10,15 @@ set -x
 ./tools/build-themes.sh
 ./tools/fetch-assets.sh
 
-npm run prod-build
-
 cd `dirname $0`
 
 npx gulp
+
+cd -
+
+npm run prod-build
+
+cd -
 
 rm -fr ../../material-cn.github.io/*
 cp -r ../dist/* ../../material-cn.github.io
