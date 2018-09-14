@@ -38,6 +38,7 @@ export const SECTIONS: {[key: string]: DocSection} = {
   },
   [CDK]: {
     name: 'CDK',
+    nameCn: '组件开发包',
     summaryCn: '组件开发工具包（CDK）是一组工具库，它们实现了共同的交互模式，同时对其外观不做任何假设。' +
       '它代表了 Angular Material 库中一些核心功能的抽象，没有使用任何专属于 Material Design 的样式。' +
       '你可以将 CDK 看做经过充分测试的空白库，并基于它来开发你的自定义组件。',
