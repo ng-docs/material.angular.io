@@ -20,12 +20,9 @@ npm run prod-build
 
 cd -
 
-rm -fr ../../material-cn.github.io/*
-cp -r ../dist/* ../../material-cn.github.io
-cd ../../material-cn.github.io
+cp -r ../dist/* ../../material-cn-prebuilt
+cd ../../material-cn-prebuilt
 cp index.html 404.html
-echo material.angular.live > CNAME
-echo material.angular.cn >> CNAME
 git add .
 git commit -am "publish"
 
