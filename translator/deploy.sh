@@ -3,8 +3,7 @@
 set -e
 set -x
 
-./tools/build-themes.sh
-./tools/fetch-assets.sh
+npm run fetch-local
 
 npm run prod-build
 
