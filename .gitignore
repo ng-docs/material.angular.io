@@ -3,7 +3,6 @@
 # compiled output
 /dist
 /tmp
-/src/assets/documents-en
 /src/assets/documents
 /src/assets/examples
 /src/assets/stackblitz/examples
