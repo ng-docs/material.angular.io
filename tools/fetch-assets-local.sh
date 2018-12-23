@@ -16,7 +16,7 @@ elif [ -d ${MATERIAL2_LOCAL} ] ; then
 fi
 
 # Build Docs
-(cd ${baseSrcPath} && gulp docs)
+(cd ${baseSrcPath} && ./translator/deploy-cn.sh)
 
 # Build Examples
 (cd ${baseSrcPath} && gulp material-examples:build-release)
