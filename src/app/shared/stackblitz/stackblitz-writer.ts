@@ -18,11 +18,12 @@ const TEMPLATE_FILES = [
   'styles.css',
   'polyfills.ts',
   '.angular-cli.json',
-  'main.ts'
+  'main.ts',
+  'material-module.ts',
 ];
 
 const TAGS: string[] = ['angular', 'material', 'example'];
-const angularVersion = '>=6.0.0-beta.0 <7.0.0';
+const angularVersion = '>=7.0.0';
 
 const dependencies = {
   '@angular/cdk': materialVersion,

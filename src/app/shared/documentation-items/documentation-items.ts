@@ -114,6 +114,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           examples: [
             'form-field-overview',
             'form-field-label',
+            'form-field-appearance',
             'form-field-hint',
             'form-field-error',
             'form-field-prefix-suffix',
@@ -355,7 +356,12 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '芯片',
           summaryCn: '将列表中的条目呈现为一组小的触觉实体。',
           summary: 'Presents a list of items as a set of small, tactile entities.',
-          examples: ['chips-stacked']
+          examples: [
+            'chips-overview',
+            'chips-autocomplete',
+            'chips-input',
+            'chips-stacked',
+          ]
         },
         {
           id: 'icon',
@@ -381,6 +387,12 @@ const DOCS: {[key: string]: DocCategory[]} = {
           summary: 'A linear progress indicator.',
           examples: ['progress-bar-configurable']
         },
+        {
+          id: 'ripple',
+          name: 'Ripples',
+          summary: 'Directive for adding Material Design ripple effects',
+          examples: ['ripple-overview']
+        }
       ]
     },
     {
@@ -477,11 +489,9 @@ const DOCS: {[key: string]: DocCategory[]} = {
             'table-row-context',
             'table-selection',
             'table-sorting',
-
-            // Expose these examples with 6.3.0 release (sticky table)
-            // 'table-sticky-column',
-            // 'table-sticky-footer',
-            // 'table-sticky-header',
+            'table-sticky-columns',
+            'table-sticky-footer',
+            'table-sticky-header',
         ]},
       ]
     }
@@ -509,6 +519,21 @@ const DOCS: {[key: string]: DocCategory[]} = {
           summaryCn: '用于响应 LTR/RTL 布局方向变化的工具。',
           summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
           examples: []
+        },
+        {
+          id: 'drag-drop',
+          name: 'Drag and Drop',
+          summary: 'Directives enabling drag-and-drop interactions',
+          examples: [
+            'cdk-drag-drop-axis-lock',
+            'cdk-drag-drop-sorting',
+            'cdk-drag-drop-overview',
+            'cdk-drag-drop-horizontal-sorting',
+            'cdk-drag-drop-custom-preview',
+            'cdk-drag-drop-root-element',
+            'cdk-drag-drop-handle',
+            'cdk-drag-drop-connected-sorting',
+          ],
         },
         {
           id: 'layout',
@@ -539,7 +564,9 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '平台',
           summaryCn: '提供关于用户所用平台的信息。',
           summary: 'Provides information about the user\'s platform.',
-          examples: []
+          examples: [
+            'cdk-platform-overview',
+          ]
         },
         {
           id: 'portal',

@@ -44,23 +44,55 @@ describe('DocViewer', () => {
     expect(docViewer.componentInstance.textContent).toBe('my docs page');
   });
 
-  it('should show error message when doc not found', () => {
+
+  it('should correct hash based links', () => {
     let fixture = TestBed.createComponent(DocViewerTestComponent);
+    fixture.componentInstance.documentUrl = `http://material.angular.io/doc-with-links.html`;
     fixture.detectChanges();
 
     const url = fixture.componentInstance.documentUrl;
     http.expectOne(url).flush(FAKE_DOCS[url]);
 
-    fixture.componentInstance.documentUrl = 'http://material.angular.io/error-doc.html';
+    let docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    // Our test runner runs at the page /context.html, so it will be the prepended value.
+    expect(docViewer.nativeElement.innerHTML).toContain(`/context.html#test"`);
+  });
+
+  it('should preserve document element ids', () => {
+    const fixture = TestBed.createComponent(DocViewerTestComponent);
+    const testUrl = 'http://material.angular.io/doc-with-element-ids.html';
+
+    fixture.componentInstance.documentUrl = testUrl;
     fixture.detectChanges();
 
-    const errorUrl = fixture.componentInstance.documentUrl;
+    http.expectOne(testUrl).flush(FAKE_DOCS[testUrl]);
+
+    const docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    expect(docViewer.nativeElement.innerHTML).toContain('id="my-header"');
+  });
+
+  it('should show error message when doc not found', () => {
+    spyOn(console, 'log');
+
+    const fixture = TestBed.createComponent(DocViewerTestComponent);
+    const docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    fixture.detectChanges();
+
+    const url = fixture.componentInstance.documentUrl;
+    http.expectOne(url).flush(FAKE_DOCS[url]);
+
+    const errorUrl = 'http://material.angular.io/error-doc.html';
+
+    fixture.componentInstance.documentUrl = errorUrl;
+    fixture.detectChanges();
+
     http.expectOne(errorUrl).flush('Not found', {status: 404, statusText: 'Not found'});
 
-    let docViewer = fixture.debugElement.query(By.directive(DocViewer));
+
     expect(docViewer).not.toBeNull();
     expect(docViewer.nativeElement.innerHTML).toContain(
         'Failed to load document: http://material.angular.io/error-doc.html');
+    expect(console.log).toHaveBeenCalledTimes(1);
   });
 
   // TODO(mmalerba): Add test that example-viewer is instantiated.
@@ -79,4 +111,6 @@ const FAKE_DOCS = {
   'http://material.angular.io/doc-with-example.html': `
       <div>Check out this example:</div>
       <div material-docs-example="some-example"></div>`,
+  'http://material.angular.io/doc-with-links.html': `<a href="#test">Test link</a>`,
+  'http://material.angular.io/doc-with-element-ids.html': `<h4 id="my-header">Header</h4>`,
 };
