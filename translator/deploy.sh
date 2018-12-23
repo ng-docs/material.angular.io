@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-. ~/.nvm/nvm.sh
-
-nvm use 8
-
 set -e
 set -x
 
