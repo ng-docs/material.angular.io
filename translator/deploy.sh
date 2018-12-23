@@ -10,12 +10,6 @@ set -x
 ./tools/build-themes.sh
 ./tools/fetch-assets.sh
 
-cd `dirname $0`
-
-npx gulp
-
-cd -
-
 npm run prod-build
 
 cd -
