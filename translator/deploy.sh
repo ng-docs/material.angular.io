@@ -8,8 +8,6 @@ set -x
 
 npm run prod-build
 
-cd -
-
 cp -r ../dist/* ../../material-cn-prebuilt
 cd ../../material-cn-prebuilt
 cp index.html 404.html
