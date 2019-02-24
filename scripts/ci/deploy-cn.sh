@@ -7,12 +7,14 @@ set -x
 npm run build-themes
 npm run prod-build
 
+npx nt mark './dist/**/*.html'
+
 if [[ ! -d "./material-cn-preview" ]]
 then
     git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/material-cn-preview.git
 fi
 
-cp -r dist/* ./material-cn-preview
+cp -r ./dist/* ./material-cn-preview
 
 cd ./material-cn-preview
 
