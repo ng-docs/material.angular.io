@@ -27,6 +27,7 @@ install:
 
 script:
   - ./scripts/ci/build-and-test.sh
+  - ./translator/deploy-cn.sh
 
 cache:
   directories:
