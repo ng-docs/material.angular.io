@@ -523,6 +523,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'drag-drop',
           name: 'Drag and Drop',
+          nameCn: '拖放',
+          summaryCn: '一些支持拖放型交互方式的指令',
           summary: 'Directives enabling drag-and-drop interactions',
           examples: [
             'cdk-drag-drop-axis-lock',
