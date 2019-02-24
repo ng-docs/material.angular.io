@@ -507,7 +507,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'a11y',
           name: 'Accessibility',
-          nameCn: '可访问性',
+          nameCn: '无障碍性',
           summaryCn: '供屏幕阅读器使用的工具，如焦点控制等。',
           summary: 'Utilities for screen readers, focus and more.',
           examples: []
