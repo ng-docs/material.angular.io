@@ -3,6 +3,10 @@
 set -e
 set -x
 
+./tools/fetch-assets.sh
+npm run build-themes
+npm run prod-build
+
 if [[ ! -d "./material-cn-preview" ]]
 then
     git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/material-cn-preview.git

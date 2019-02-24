@@ -9,25 +9,16 @@ node_js:
 
 branches:
   only:
-  - master
+    - master
 
 addons:
   chrome: stable
-  firefox: latest
-
-env:
-  matrix:
-    - MODE=lint
-    # TODO(josephperrott): Add e2e tests
-    # - MODE=e2e
-    - MODE=test
 
 install:
   - npm install
 
 script:
-  - ./scripts/ci/build-and-test.sh
-  - ./translator/deploy-cn.sh
+  - ./scripts/ci/deploy-cn.sh
 
 cache:
   directories:
