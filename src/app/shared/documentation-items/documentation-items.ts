@@ -390,6 +390,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
         {
           id: 'ripple',
           name: 'Ripples',
+          nameCn: '水波',
+          summaryCn: '用于添加 Material Design 水波效果的指令',
           summary: 'Directive for adding Material Design ripple effects',
           examples: ['ripple-overview']
         }
