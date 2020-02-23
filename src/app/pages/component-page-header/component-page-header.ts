@@ -1,7 +1,8 @@
 import {Component, EventEmitter, NgModule, Output} from '@angular/core';
 import {ComponentPageTitle} from '../page-title/page-title';
 import {NavigationFocusModule} from '../../shared/navigation-focus/navigation-focus';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'component-page-header',
@@ -26,6 +27,5 @@ export class ComponentPageHeader {
   imports: [MatButtonModule, MatIconModule, NavigationFocusModule],
   exports: [ComponentPageHeader],
   declarations: [ComponentPageHeader],
-  providers: [ComponentPageTitle],
 })
 export class ComponentHeaderModule { }

@@ -1,5 +1,5 @@
 <div class="docs-component-list-category">
-  <a *ngFor="let component of category.items"
+  <a *ngFor="let component of category?.items"
     class="docs-component-list-item"
     [routerLink]="'/' + section + '/' + component.id">
     <mat-card>
@@ -10,9 +10,7 @@
         </mat-card-title>
         <div class="docs-component-list-icon-spacer"></div>
         <div class="docs-component-list-item-icon">
-          <docs-svg-viewer
-            [attr.aria-label]="component.name"
-            scaleToContainer="true"
+          <docs-svg-viewer [attr.aria-label]="component.name" [scaleToContainer]="true"
             [src]="'../../../assets/img/components/' + component.id + '.svg'"></docs-svg-viewer>
         </div>
       </mat-card-header>
@@ -23,5 +21,3 @@
     </mat-card>
   </a>
 </div>
-
-

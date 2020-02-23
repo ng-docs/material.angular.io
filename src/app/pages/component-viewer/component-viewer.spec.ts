@@ -3,14 +3,13 @@ import {ActivatedRoute} from '@angular/router';
 import {of as observableOf} from 'rxjs';
 import {ComponentViewer, ComponentViewerModule} from './component-viewer';
 import {DocsAppTestingModule} from '../../testing/testing-module';
-
-import {EXAMPLE_COMPONENTS} from '@angular/material-examples';
-import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {NgModule} from '@angular/core';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {ButtonExamplesModule} from '@angular/components-examples/material/button';
 
 const docItemsId = 'button';
-const exampleKey = 'button-types';
 
 const mockActivatedRoute = {
   snapshot: {},
@@ -40,7 +39,11 @@ describe('ComponentViewer', () => {
   it('should set page title correctly', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
-    const expected = `${component.docItems.getItemById(docItemsId, 'material').name}`;
+    const docItem = component.docItems.getItemById(docItemsId, 'material');
+    if (docItem === undefined) {
+      throw Error(`Unable to find DocItem: '${docItemsId}' in section: 'material'.`);
+    }
+    const expected = `${docItem.name}`;
     expect(component._componentPageTitle.title).toEqual(expected);
   });
 });
@@ -53,8 +56,7 @@ describe('ComponentViewer', () => {
     MatButtonModule,
     MatIconModule,
     NoopAnimationsModule,
+    ButtonExamplesModule,
   ],
-  declarations: [EXAMPLE_COMPONENTS[exampleKey].component],
-  entryComponents: [EXAMPLE_COMPONENTS[exampleKey].component],
 })
 class TestExampleModule { }

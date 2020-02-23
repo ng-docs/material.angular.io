@@ -1,9 +1,15 @@
-import {Component, ElementRef, Inject, Input, OnInit} from '@angular/core';
-import {DOCUMENT} from '@angular/platform-browser';
+import {
+  AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, OnInit
+} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Subject, fromEvent} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
 
+interface LinkSection {
+  name: string;
+  links: Link[];
+}
 
 interface Link {
   /* id of the section*/
@@ -27,11 +33,12 @@ interface Link {
   styleUrls: ['./table-of-contents.scss'],
   templateUrl: './table-of-contents.html'
 })
-export class TableOfContents implements OnInit {
-
-  @Input() links: Link[] = [];
+export class TableOfContents implements OnInit, AfterViewInit, OnDestroy {
   @Input() container: string;
   @Input() headerSelectors = '.docs-markdown-h3:not([translation-origin]),.docs-markdown-h4:not([translation-origin])';
+
+  _linkSections: LinkSection[] = [];
+  _links: Link[] = [];
 
   _rootUrl = this._router.url.split('#')[0];
   private _scrollContainer: any;
@@ -47,7 +54,6 @@ export class TableOfContents implements OnInit {
       if (event instanceof NavigationEnd) {
         const rootUrl = _router.url.split('#')[0];
         if (rootUrl !== this._rootUrl) {
-          this.links = this.createLinks();
           this._rootUrl = rootUrl;
         }
       }
@@ -88,16 +94,38 @@ export class TableOfContents implements OnInit {
   }
 
   updateScrollPosition(): void {
-    this.links = this.createLinks();
-
     const target = document.getElementById(this._urlFragment);
     if (target) {
       target.scrollIntoView();
     }
   }
 
+  resetHeaders() {
+    this._linkSections = [];
+    this._links = [];
+  }
+
+  addHeaders(sectionName: string, docViewerContent: HTMLElement) {
+    const headers = Array.from<HTMLHeadingElement>(docViewerContent.querySelectorAll('h3, h4'));
+    const links: Link[] = [];
+    headers.forEach((header) => {
+      // remove the 'link' icon name from the inner text
+      const name = header.innerText.trim().replace(/^link/, '');
+      const {top} = header.getBoundingClientRect();
+      links.push({
+        name,
+        type: header.tagName.toLowerCase(),
+        top: top,
+        id: header.id,
+        active: false
+      });
+    });
+    this._linkSections.push({name: sectionName, links});
+    this._links.push(...links);
+  }
+
   /** Gets the scroll offset of the scroll container */
-  private getScrollOffset(): number {
+  private getScrollOffset(): number | void {
     const {top} = this._element.nativeElement.getBoundingClientRect();
     if (typeof this._scrollContainer.scrollTop !== 'undefined') {
       return this._scrollContainer.scrollTop + top;
@@ -106,32 +134,9 @@ export class TableOfContents implements OnInit {
     }
   }
 
-  private createLinks(): Link[] {
-    const links = [];
-    const headers =
-        Array.from(this._document.querySelectorAll(this.headerSelectors)) as HTMLElement[];
-
-    if (headers.length) {
-      for (const header of headers) {
-        // remove the 'link' icon name from the inner text
-        const name = header.innerText.trim().replace(/^link/, '');
-        const {top} = header.getBoundingClientRect();
-        links.push({
-          name,
-          type: header.tagName.toLowerCase(),
-          top: top,
-          id: header.id,
-          active: false
-        });
-      }
-    }
-
-    return links;
-  }
-
   private onScroll(): void {
-    for (let i = 0; i < this.links.length; i++) {
-      this.links[i].active = this.isLinkActive(this.links[i], this.links[i + 1]);
+    for (let i = 0; i < this._links.length; i++) {
+      this._links[i].active = this.isLinkActive(this._links[i], this._links[i + 1]);
     }
   }
 

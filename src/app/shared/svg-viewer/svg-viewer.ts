@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, ElementRef, Input, NgModule, OnInit} from '@angular/core';
 
-
 @Component({
   selector: 'docs-svg-viewer',
   template: '<div class="docs-svg-viewer" aria-hidden="true"></div>',
@@ -16,11 +15,11 @@ export class SvgViewer implements OnInit {
     this.fetchAndInlineSvgContent(this.src);
   }
 
-  private inlineSvgContent(template) {
+  private inlineSvgContent(template: string) {
     this.elementRef.nativeElement.innerHTML = template;
 
     if (this.scaleToContainer) {
-      let svg = this.elementRef.nativeElement.querySelector('svg');
+      const svg = this.elementRef.nativeElement.querySelector('svg');
       svg.setAttribute('width', '100%');
       svg.setAttribute('height', '100%');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');

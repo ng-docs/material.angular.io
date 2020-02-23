@@ -22,38 +22,37 @@ describe('DocViewer', () => {
   }));
 
   it('should load doc into innerHTML', () => {
-    let fixture = TestBed.createComponent(DocViewerTestComponent);
+    const fixture = TestBed.createComponent(DocViewerTestComponent);
     fixture.detectChanges();
 
     const url = fixture.componentInstance.documentUrl;
     http.expectOne(url).flush(FAKE_DOCS[url]);
 
-    let docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    const docViewer = fixture.debugElement.query(By.directive(DocViewer));
     expect(docViewer).not.toBeNull();
     expect(docViewer.nativeElement.innerHTML).toBe('<div>my docs page</div>');
   });
 
   it('should save textContent of the doc', () => {
-    let fixture = TestBed.createComponent(DocViewerTestComponent);
+    const fixture = TestBed.createComponent(DocViewerTestComponent);
     fixture.detectChanges();
 
     const url = fixture.componentInstance.documentUrl;
     http.expectOne(url).flush(FAKE_DOCS[url]);
 
-    let docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    const docViewer = fixture.debugElement.query(By.directive(DocViewer));
     expect(docViewer.componentInstance.textContent).toBe('my docs page');
   });
 
-
   it('should correct hash based links', () => {
-    let fixture = TestBed.createComponent(DocViewerTestComponent);
+    const fixture = TestBed.createComponent(DocViewerTestComponent);
     fixture.componentInstance.documentUrl = `http://material.angular.io/doc-with-links.html`;
     fixture.detectChanges();
 
     const url = fixture.componentInstance.documentUrl;
     http.expectOne(url).flush(FAKE_DOCS[url]);
 
-    let docViewer = fixture.debugElement.query(By.directive(DocViewer));
+    const docViewer = fixture.debugElement.query(By.directive(DocViewer));
     // Our test runner runs at the page /context.html, so it will be the prepended value.
     expect(docViewer.nativeElement.innerHTML).toContain(`/context.html#test"`);
   });
@@ -106,7 +105,7 @@ class DocViewerTestComponent {
   documentUrl = 'http://material.angular.io/simple-doc.html';
 }
 
-const FAKE_DOCS = {
+const FAKE_DOCS: {[key: string]: string} = {
   'http://material.angular.io/simple-doc.html': '<div>my docs page</div>',
   'http://material.angular.io/doc-with-example.html': `
       <div>Check out this example:</div>

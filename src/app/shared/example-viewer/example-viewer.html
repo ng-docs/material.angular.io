@@ -3,7 +3,7 @@
     <div class="docs-example-viewer-title-spacer">{{exampleData?.title}}</div>
 
     <button mat-icon-button type="button" (click)="toggleSourceView()"
-            [matTooltip]="'View source'">
+            [matTooltip]="'View ' + exampleData?.title + ' source'" aria-label="View source">
       <mat-icon>
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
           <path fill="none" d="M0 0h24v24H0V0z"></path>
@@ -12,8 +12,8 @@
       </mat-icon>
     </button>
 
-  <stackblitz-button [example]="example"></stackblitz-button>
-</div>
+    <stack-blitz-button [example]="example"></stack-blitz-button>
+  </div>
 
   <div class="docs-example-viewer-source" *ngIf="showSource">
     <mat-tab-group>
@@ -32,6 +32,8 @@
   </div>
 
   <div class="docs-example-viewer-body">
-    <ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>
+    <ng-template *ngIf="_exampleComponentType && _exampleModuleFactory"
+                 [ngComponentOutlet]="_exampleComponentType"
+                 [ngComponentOutletNgModuleFactory]="_exampleModuleFactory"></ng-template>
   </div>
 </div>

@@ -3,20 +3,19 @@ import {HttpTestingController} from '@angular/common/http/testing';
 import {NgModule} from '@angular/core';
 import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  MatAutocompleteModule,
-  MatInputModule,
-  MatSlideToggleModule,
-  MatSnackBar,
-} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
-import {EXAMPLE_COMPONENTS} from '@angular/material-examples';
+import {EXAMPLE_COMPONENTS} from '@angular/components-examples';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {DocsAppTestingModule} from '../../testing/testing-module';
 import {CopierService} from '../copier/copier.service';
 import {DocViewerModule} from '../doc-viewer/doc-viewer-module';
 import {ExampleViewer} from './example-viewer';
+import {AutocompleteExamplesModule} from '@angular/components-examples/material/autocomplete';
 
 const exampleKey = 'autocomplete-overview';
 
@@ -69,14 +68,14 @@ describe('ExampleViewer', () => {
     expect(console.error).toHaveBeenCalledWith('Could not find example: foobar');
   }));
 
-  it('should return assets path for example based on extension', async(() => {
+  it('should return docs-content path for example based on extension', async(() => {
     // set example
     component.example = exampleKey;
     fixture.detectChanges();
 
     // get example file path for each extension
     const extensions = ['ts', 'css', 'html'];
-    const basePath = '/assets/examples/';
+    const basePath = '/docs-content/examples-highlighted/';
 
     extensions.forEach(extension => {
       const expected = `${basePath}${exampleKey}-example-${extension}.html`;
@@ -128,7 +127,7 @@ describe('ExampleViewer', () => {
     });
 
     it('should call copier service when clicked', (() => {
-      const copierService: CopierService = TestBed.get(CopierService);
+      const copierService: CopierService = TestBed.inject(CopierService);
       const spy = spyOn(copierService, 'copyText');
       expect(spy.calls.count()).toBe(0, 'before click');
       button.click();
@@ -137,8 +136,8 @@ describe('ExampleViewer', () => {
     }));
 
     it('should display a message when copy succeeds', (() => {
-      const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
-      const copierService: CopierService = TestBed.get(CopierService);
+      const snackBar: MatSnackBar = TestBed.inject(MatSnackBar);
+      const copierService: CopierService = TestBed.inject(CopierService);
       spyOn(snackBar, 'open');
       spyOn(copierService, 'copyText').and.returnValue(true);
       button.click();
@@ -146,8 +145,8 @@ describe('ExampleViewer', () => {
     }));
 
     it('should display an error when copy fails', (() => {
-      const snackBar: MatSnackBar = TestBed.get(MatSnackBar);
-      const copierService: CopierService = TestBed.get(CopierService);
+      const snackBar: MatSnackBar = TestBed.inject(MatSnackBar);
+      const copierService: CopierService = TestBed.inject(CopierService);
       spyOn(snackBar, 'open');
       spyOn(copierService, 'copyText').and.returnValue(false);
       button.click();
@@ -169,19 +168,18 @@ describe('ExampleViewer', () => {
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    AutocompleteExamplesModule,
   ],
-  declarations: [EXAMPLE_COMPONENTS[exampleKey].component],
-  entryComponents: [EXAMPLE_COMPONENTS[exampleKey].component],
 })
 class TestExampleModule { }
 
 
-const FAKE_DOCS = {
-  '/assets/examples/autocomplete-overview-example-html.html':
+const FAKE_DOCS: {[key: string]: string} = {
+  '/docs-content/examples-highlighted/autocomplete-overview-example-html.html':
       '<div>my docs page</div>',
-  '/assets/examples/autocomplete-overview-example-ts.html':
+  '/docs-content/examples-highlighted/autocomplete-overview-example-ts.html':
       '<span>const a = 1;</span>',
-  '/assets/examples/autocomplete-overview-example-css.html':
+  '/docs-content/examples-highlighted/autocomplete-overview-example-css.html':
       '<pre>.class { color: black; }</pre>',
 };

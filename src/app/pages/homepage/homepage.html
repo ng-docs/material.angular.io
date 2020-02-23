@@ -13,26 +13,24 @@
   </div>
 </header>
 
-<div class="docs-homepage-promo">
+<main class="docs-homepage-promo">
   <div class="docs-homepage-row">
     <div class="docs-homepage-promo-img">
-      <docs-svg-viewer
-          src="../assets/img/homepage/sprintzerotoapp.svg"
-          scaleToContainer="true"></docs-svg-viewer>
+      <docs-svg-viewer src="../assets/img/homepage/sprintzerotoapp.svg"
+                       [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
       <h2 translation-result>从零开始快速构建应用</h2>
       <h2 translation-origin="off">Sprint from Zero to App</h2>
       <p translation-result>使用横跨 Web、Mobile 和桌面环境的综合性组件库构建现代应用。</p>
       <p translation-origin="off">Hit the ground running with comprehensive, modern UI components that work across
-        the web, mobile and desktop.</p>
+        the web, mobile, and desktop.</p>
     </div>
   </div>
   <div class="docs-homepage-row docs-homepage-reverse-row">
     <div class="docs-homepage-promo-img">
-      <docs-svg-viewer
-          src="../assets/img/homepage/fastandconsistent.svg"
-          scaleToContainer="true"></docs-svg-viewer>
+      <docs-svg-viewer src="../assets/img/homepage/fastandconsistent.svg"
+                       [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
       <h2 translation-result>快速且一致</h2>
@@ -44,23 +42,21 @@
   </div>
   <div class="docs-homepage-row">
     <div class="docs-homepage-promo-img">
-      <docs-svg-viewer
-          src="../assets/img/homepage/versatile.svg"
-          scaleToContainer="true"></docs-svg-viewer>
+      <docs-svg-viewer src="../assets/img/homepage/versatile.svg"
+                       [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
       <h2 translation-result>多才多艺</h2>
       <h2 translation-origin="off">Versatile</h2>
       <p translation-result>想保持品牌风格？喜欢某种颜色？没问题！支持无障碍性及国际化，迎接所有用户。</p>
-      <p translation-origin="off">Themable, for when you need to stay on brand or just have a favorite color.
+      <p translation-origin="off">Themeable, for when you need to stay on brand or just have a favorite color.
         Accessible and internationalized so that all users are welcome.</p>
     </div>
   </div>
   <div class="docs-homepage-row docs-homepage-reverse-row">
     <div class="docs-homepage-promo-img">
-      <docs-svg-viewer
-        src="../assets/img/homepage/optimized.svg"
-        scaleToContainer="true"></docs-svg-viewer>
+      <docs-svg-viewer src="../assets/img/homepage/optimized.svg"
+                       [scaleToContainer]="true"></docs-svg-viewer>
     </div>
     <div class="docs-homepage-promo-desc">
       <h2 translation-result>为 Angular 而优化</h2>
@@ -71,8 +67,10 @@
   </div>
   <div class="docs-homepage-bottom-start">
     <a translation-result mat-raised-button class="docs-button" routerLink="/guide/getting-started">快速上手</a>
-    <a translation-origin="off" mat-raised-button class="docs-button" routerLink="/guide/getting-started">Get started</a>
+    <a translation-origin="off" mat-raised-button class="docs-button" routerLink="/guide/getting-started" color="accent">
+      Get started
+    </a>
   </div>
-</div>
+</main>
 
 <app-footer></app-footer>

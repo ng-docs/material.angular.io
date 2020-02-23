@@ -1,5 +1,10 @@
 import {Injectable} from '@angular/core';
 
+export interface AdditionalApiDoc {
+  name: string;
+  path: string;
+}
+
 export interface DocItem {
   id: string;
   name: string;
@@ -8,6 +13,8 @@ export interface DocItem {
   summaryCn?: string;
   packageName?: string;
   examples?: string[];
+  apiDocId?: string;
+  additionalApiDocs?: AdditionalApiDoc[];
 }
 
 export interface DocCategory {
@@ -73,7 +80,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
             'autocomplete-filter',
             'autocomplete-optgroup',
             'autocomplete-auto-active-first-option',
-          ]
+          ],
+          additionalApiDocs: [{name: 'Testing', path: 'material-autocomplete-testing.html'}],
         },
         {
           id: 'checkbox',
@@ -81,7 +89,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '检查框',
           summaryCn: '获取用户输入的布尔值，且支持未决状态。',
           summary: 'Captures boolean input with an optional indeterminate mode.',
-          examples: ['checkbox-configurable']
+          examples: ['checkbox-configurable'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-checkbox-testing.html'}],
         },
         {
           id: 'datepicker',
@@ -145,7 +154,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '单选按钮',
           summaryCn: '允许用户从组中显示一个选项。',
           summary: 'Allows the user to select one option from a group.',
-          examples: ['radio-ng-model']
+          examples: ['radio-ng-model'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-radio-testing.html'}],
         },
         {
           id: 'select',
@@ -174,7 +184,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '滑竿',
           summaryCn: '允许用户以拖曳滑竿的方式输入一个值。',
           summary: 'Allows the user to input a value by dragging along a slider.',
-          examples: ['slider-configurable']
+          examples: ['slider-configurable'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-slider-testing.html'}],
         },
         {
           id: 'slide-toggle',
@@ -182,7 +193,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '滑块开关',
           summaryCn: '以可点击、可拖曳开关的形式捕获一个 boolean 值。',
           summary: 'Captures boolean values as a clickable and draggable switch.',
-          examples: ['slide-toggle-configurable']
+          examples: ['slide-toggle-configurable'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-slide-toggle-testing.html'}],
         },
       ]
     },
@@ -202,7 +214,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
             'menu-overview',
             'menu-icons',
             'nested-menu'
-          ]
+          ],
+          additionalApiDocs: [{name: 'Testing', path: 'material-menu-testing.html'}],
         },
         {
           id: 'sidenav',
@@ -220,7 +233,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
             'sidenav-autosize',
             'sidenav-fixed',
             'sidenav-responsive'
-          ]
+          ],
+          additionalApiDocs: [{name: 'Testing', path: 'material-sidenav-testing.html'}],
         },
         {
           id: 'toolbar',
@@ -304,7 +318,9 @@ const DOCS: {[key: string]: DocCategory[]} = {
             'tab-group-theme',
             'tab-group-async',
             'tab-nav-bar-basic',
-          ]},
+          ],
+          additionalApiDocs: [{name: 'Testing', path: 'material-tabs-testing.html'}],
+        },
         {
           id: 'tree',
           name: 'Tree',
@@ -333,7 +349,9 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '按钮',
           summaryCn: '带有一系列候选项的交互式按钮。',
           summary: 'An interactive button with a range of presentation options.',
-          examples: ['button-types']},
+          examples: ['button-types'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-button-testing.html'}],
+        },
         {
           id: 'button-toggle',
           name: 'Button toggle',
@@ -377,7 +395,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '进度圈',
           summaryCn: '圆形进度指示器。',
           summary: 'A circular progress indicator.',
-          examples: ['progress-spinner-configurable']
+          examples: ['progress-spinner-configurable'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-progress-spinner-testing.html'}],
         },
         {
           id: 'progress-bar',
@@ -385,7 +404,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '进度条',
           summaryCn: '线性进度指示器。',
           summary: 'A linear progress indicator.',
-          examples: ['progress-bar-configurable']
+          examples: ['progress-bar-configurable'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-progress-bar-testing.html'}],
         },
         {
           id: 'ripple',
@@ -418,7 +438,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '对话框',
           summaryCn: '一个用于显示动态内容的可配置的模态框。',
           summary: 'A configurable modal that displays dynamic content.',
-          examples: ['dialog-overview']
+          examples: ['dialog-overview'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-dialog-testing.html'}],
         },
         {
           id: 'snack-bar',
@@ -426,7 +447,8 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '快餐栏',
           summaryCn: '将简短的可操作消息显示为一个无打扰警报。',
           summary: 'Displays short actionable messages as an uninvasive alert.',
-          examples: ['snack-bar-component']
+          examples: ['snack-bar-component'],
+          additionalApiDocs: [{name: 'Testing', path: 'material-snack-bar-testing.html'}],
         },
         {
           id: 'tooltip',
@@ -477,6 +499,7 @@ const DOCS: {[key: string]: DocCategory[]} = {
           nameCn: '表格',
           summaryCn: '用于显示表格型数据的可配置组件。',
           summary: 'A configurable component for displaying tabular data.',
+          additionalApiDocs: [{name: 'Testing', path: 'material-table-testing.html'}],
           examples: [
             'table-basic',
             'table-basic-flex',
@@ -523,20 +546,36 @@ const DOCS: {[key: string]: DocCategory[]} = {
           examples: []
         },
         {
+          id: 'clipboard',
+          name: 'Clipboard',
+          summary: 'Helpers for working with the system clipboard.',
+          examples: [
+            'cdk-clipboard-overview'
+          ]
+        },
+        {
           id: 'drag-drop',
           name: 'Drag and Drop',
           nameCn: '拖放',
           summaryCn: '一些支持拖放型交互方式的指令',
           summary: 'Directives enabling drag-and-drop interactions',
           examples: [
-            'cdk-drag-drop-axis-lock',
-            'cdk-drag-drop-sorting',
             'cdk-drag-drop-overview',
-            'cdk-drag-drop-horizontal-sorting',
-            'cdk-drag-drop-custom-preview',
-            'cdk-drag-drop-root-element',
-            'cdk-drag-drop-handle',
+            'cdk-drag-drop-axis-lock',
+            'cdk-drag-drop-boundary',
             'cdk-drag-drop-connected-sorting',
+            'cdk-drag-drop-connected-sorting-group',
+            'cdk-drag-drop-custom-placeholder',
+            'cdk-drag-drop-custom-preview',
+            'cdk-drag-drop-delay',
+            'cdk-drag-drop-disabled',
+            'cdk-drag-drop-disabled-sorting',
+            'cdk-drag-drop-enter-predicate',
+            'cdk-drag-drop-free-drag-position',
+            'cdk-drag-drop-handle',
+            'cdk-drag-drop-horizontal-sorting',
+            'cdk-drag-drop-root-element',
+            'cdk-drag-drop-sorting'
           ],
         },
         {
@@ -605,12 +644,20 @@ const DOCS: {[key: string]: DocCategory[]} = {
       summaryCn: '不带样式的组件，具有一些实用功能。',
       summary: 'Unstyled components with useful functionality.',
       items: [
-        {id: 'stepper',
+        {
+          id: 'stepper',
           name: 'Stepper',
           nameCn: '步进器',
           summaryCn: '以分步进展的方式呈现内容。',
           summary: 'Presents content as steps through which to progress.',
-          examples: []
+          examples: [
+            'stepper-vertical',
+            'stepper-editable',
+            'stepper-optional',
+            'stepper-errors',
+            'stepper-label-position-bottom',
+            'stepper-states'
+          ]
         },
         {
           id: 'table',
@@ -630,6 +677,30 @@ const DOCS: {[key: string]: DocCategory[]} = {
         },
       ]
     },
+    {
+      id: 'testing',
+      name: 'Testing',
+      summary: 'Utilities for testing common components.',
+      items: [
+        {
+          id: 'test-harnesses',
+          name: 'Component Harnesses',
+          summary: 'Foundation for component test harnesses.',
+          examples: [],
+          apiDocId: 'cdk-testing',
+          additionalApiDocs: [
+            {
+              name: 'Testbed',
+              path: 'cdk-testing-testbed.html'
+            },
+            {
+              name: 'Protractor',
+              path: 'cdk-testing-protractor.html'
+            }
+          ],
+        }
+      ]
+    }
     // TODO(jelbourn): re-add utilities and a11y as top-level categories once we can generate
     // their API docs with dgeni. Currently our setup doesn't generate API docs for constants
     // and standalone functions (much of the utilities) and we have no way of generating API
@@ -637,21 +708,22 @@ const DOCS: {[key: string]: DocCategory[]} = {
   ]
 };
 
-for (let category of DOCS[COMPONENTS]) {
-  for (let doc of category.items) {
+for (const category of DOCS[COMPONENTS]) {
+  for (const doc of category.items) {
     doc.packageName = 'material';
   }
 }
 
-for (let category of DOCS[CDK]) {
-  for (let doc of category.items) {
+for (const category of DOCS[CDK]) {
+  for (const doc of category.items) {
     doc.packageName = 'cdk';
   }
 }
 
 const ALL_COMPONENTS = DOCS[COMPONENTS].reduce(
-  (result, category) => result.concat(category.items), []);
-const ALL_CDK = DOCS[CDK].reduce((result, cdk) => result.concat(cdk.items), []);
+  (result: DocItem[], category: DocCategory) => result.concat(category.items), []);
+const ALL_CDK = DOCS[CDK].reduce(
+  (result: DocItem[], cdk: DocCategory) => result.concat(cdk.items), []);
 const ALL_DOCS = ALL_COMPONENTS.concat(ALL_CDK);
 const ALL_CATEGORIES = DOCS[COMPONENTS].concat(DOCS[CDK]);
 
@@ -671,12 +743,12 @@ export class DocumentationItems {
     return [];
   }
 
-  getItemById(id: string, section: string): DocItem {
-    const sectionLookup = section == 'cdk' ? 'cdk' : 'material';
-    return ALL_DOCS.find(doc => doc.id === id && doc.packageName == sectionLookup);
+  getItemById(id: string, section: string): DocItem | undefined {
+    const sectionLookup = section === 'cdk' ? 'cdk' : 'material';
+    return ALL_DOCS.find(doc => doc.id === id && doc.packageName === sectionLookup);
   }
 
-  getCategoryById(id: string): DocCategory {
-    return ALL_CATEGORIES.find(c => c.id == id);
+  getCategoryById(id: string): DocCategory | undefined {
+    return ALL_CATEGORIES.find(c => c.id === id);
   }
 }

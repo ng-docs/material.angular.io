@@ -1,11 +1,11 @@
 import {Component, NgModule, OnDestroy, OnInit} from '@angular/core';
-import {MatCardModule} from '@angular/material';
+import {MatCardModule} from '@angular/material/card';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Params, RouterModule} from '@angular/router';
 import {DocumentationItems, SECTIONS} from '../../shared/documentation-items/documentation-items';
 import {ComponentPageTitle} from '../page-title/page-title';
 import {SvgViewerModule} from '../../shared/svg-viewer/svg-viewer';
-import {Observable, combineLatest, Subscription} from 'rxjs';
+import {combineLatest, Observable, Subscription} from 'rxjs';
 
 
 @Component({
@@ -33,20 +33,22 @@ export class ComponentCategoryList implements OnInit, OnDestroy {
       const sectionName = params['section'];
       const section = SECTIONS[sectionName];
       this._componentPageTitle.title = section.name;
-      this._componentPageTitle.titleCn = section.nameCn;
+      this._componentPageTitle.titleCn = section.nameCn || '';
       this._categoryListSummary = section.summaryCn || section.summary;
     });
   }
 
   ngOnDestroy() {
-    this.routeParamSubscription.unsubscribe();
+    if (this.routeParamSubscription) {
+      this.routeParamSubscription.unsubscribe();
+    }
   }
 }
 
 @NgModule({
-  imports: [SvgViewerModule, MatCardModule, CommonModule, RouterModule],
+  imports: [CommonModule, SvgViewerModule, MatCardModule, RouterModule],
   exports: [ComponentCategoryList],
   declarations: [ComponentCategoryList],
-  providers: [DocumentationItems, ComponentPageTitle],
+  providers: [DocumentationItems],
 })
 export class ComponentCategoryListModule { }

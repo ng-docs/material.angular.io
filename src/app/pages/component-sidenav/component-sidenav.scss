@@ -5,6 +5,7 @@ $sidenav-width: 240px;
 app-component-sidenav {
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .docs-component-viewer-sidenav-container {
@@ -131,7 +132,6 @@ app-component-sidenav {
       box-sizing: border-box;
       margin: 0;
       max-height: initial;
-      box-sizing: border-box;
     }
   }
 }
@@ -139,5 +139,9 @@ app-component-sidenav {
 @media (max-width: 720px) {
   .docs-component-viewer-sidenav-container {
     flex: 1 0 auto;
+  }
+
+  .docs-component-sidenav-body-content {
+    flex-direction: column;
   }
 }

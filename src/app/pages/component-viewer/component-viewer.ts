@@ -2,6 +2,7 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 import {CommonModule} from '@angular/common';
 import {
   Component,
+  Directive,
   ElementRef,
   NgModule,
   OnDestroy,
@@ -9,9 +10,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {MatTabsModule} from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
 import {ActivatedRoute, Params, Router, RouterModule} from '@angular/router';
-import {combineLatest, Observable, Subject} from 'rxjs';
+import {combineLatest, Observable, ReplaySubject, Subject} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
 import {DocViewerModule} from '../../shared/doc-viewer/doc-viewer-module';
 import {DocItem, DocumentationItems} from '../../shared/documentation-items/documentation-items';
@@ -26,7 +27,7 @@ import {ComponentPageTitle} from '../page-title/page-title';
   encapsulation: ViewEncapsulation.None,
 })
 export class ComponentViewer implements OnDestroy {
-  componentDocItem: DocItem;
+  componentDocItem = new ReplaySubject<DocItem>(1);
   sections: Set<string> = new Set(['overview', 'api']);
   private _destroyed = new Subject();
 
@@ -35,36 +36,88 @@ export class ComponentViewer implements OnDestroy {
               public _componentPageTitle: ComponentPageTitle,
               public docItems: DocumentationItems,
               ) {
+    const routeAndParentParams = [_route.params];
+    if (_route.parent) {
+      routeAndParentParams.push(_route.parent.params);
+    }
     // Listen to changes on the current route for the doc id (e.g. button/checkbox) and the
     // parent route for the section (material/cdk).
-    combineLatest(_route.params, _route.parent.params).pipe(
-        map((p: [Params, Params]) => ({id: p[0]['id'], section: p[1]['section']})),
-        map(p => ({doc: docItems.getItemById(p.id, p.section), section: p.section}),
-        takeUntil(this._destroyed))
-        ).subscribe(d => {
-          this.componentDocItem = d.doc;
-          if (this.componentDocItem) {
-            this._componentPageTitle.title = `${this.componentDocItem.name}`;
-            this._componentPageTitle.titleCn = `${this.componentDocItem.nameCn}`;
-            this.componentDocItem.examples.length ?
-                this.sections.add('examples') :
-                this.sections.delete('examples');
-          } else {
-            this.router.navigate(['/' + d.section]);
-          }
-        });
+    combineLatest(routeAndParentParams).pipe(
+      map((params: Params[]) => ({id: params[0]['id'], section: params[1]['section']})),
+      map((docIdAndSection: {id: string, section: string}) =>
+          ({doc: docItems.getItemById(docIdAndSection.id, docIdAndSection.section),
+            section: docIdAndSection.section}), takeUntil(this._destroyed))
+    ).subscribe((docItemAndSection: {doc: DocItem | undefined, section: string}) => {
+      if (docItemAndSection.doc !== undefined) {
+        this.componentDocItem.next(docItemAndSection.doc);
+        this._componentPageTitle.title = `${docItemAndSection.doc.name}`;
+        this._componentPageTitle.titleCn = `${docItemAndSection.doc.nameCn}`;
+        docItemAndSection.doc.examples && docItemAndSection.doc.examples.length ?
+          this.sections.add('examples') :
+          this.sections.delete('examples');
+      } else {
+        this.router.navigate(['/' + docItemAndSection.section]);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this._destroyed.next();
+    this._destroyed.complete();
   }
 
   titleOf(id: string): string {
-    return {
-      overview: '概览',
-      api: 'API',
-      examples: '范例'
-    }[id];
+    switch (id) {
+      case 'overview':
+        return '概览';
+      case 'api':
+        return 'API';
+      case 'examples':
+        return '范例';
+      default:
+        return id;
+    }
+  }
+}
+
+/**
+ * Base component class for views displaying docs on a particular component (overview, API,
+ * examples). Responsible for resetting the focus target on doc item changes and resetting
+ * the table of contents headers.
+ */
+@Directive()
+export class ComponentBaseView implements OnInit, OnDestroy {
+  @ViewChild('initialFocusTarget') focusTarget: ElementRef;
+  @ViewChild('toc') tableOfContents: TableOfContents;
+
+  showToc: Observable<boolean>;
+
+  destroyed = new Subject<void>();
+
+  constructor(public componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
+    this.showToc = breakpointObserver.observe('(max-width: 1200px)')
+      .pipe(map(result => !result.matches));
+  }
+
+  ngOnInit() {
+    this.componentViewer.componentDocItem.pipe(takeUntil(this.destroyed)).subscribe(() => {
+      // 100ms timeout is used to allow the page to settle before moving focus for screen readers.
+      setTimeout(() => this.focusTarget.nativeElement.focus({preventScroll: true}), 100);
+      if (this.tableOfContents) {
+        this.tableOfContents.resetHeaders();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+  }
+
+  updateTableOfContents(sectionName: string, docViewerContent: HTMLElement) {
+    if (this.tableOfContents) {
+      this.tableOfContents.addHeaders(sectionName, docViewerContent);
+      this.tableOfContents.updateScrollPosition();
+    }
   }
 }
 
@@ -73,25 +126,9 @@ export class ComponentViewer implements OnDestroy {
   templateUrl: './component-overview.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class ComponentOverview implements OnInit {
-  @ViewChild('initialFocusTarget') focusTarget: ElementRef;
-  @ViewChild('toc') tableOfContents: TableOfContents;
-  showToc: Observable<boolean>;
-
-  constructor(public componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
-    this.showToc = breakpointObserver.observe('(max-width: 1200px)')
-      .pipe(map(result => !result.matches));
-  }
-
-  ngOnInit() {
-    // 100ms timeout is used to allow the page to settle before moving focus for screen readers.
-    setTimeout(() => this.focusTarget.nativeElement.focus({preventScroll: true}), 100);
-  }
-
-  scrollToSelectedContentSection() {
-    if (this.tableOfContents) {
-      this.tableOfContents.updateScrollPosition();
-    }
+export class ComponentOverview extends ComponentBaseView {
+  constructor(componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
+    super(componentViewer, breakpointObserver);
   }
 }
 
@@ -101,14 +138,27 @@ export class ComponentOverview implements OnInit {
   styleUrls: ['./component-api.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ComponentApi extends ComponentOverview {}
+export class ComponentApi extends ComponentBaseView {
+  constructor(componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
+    super(componentViewer, breakpointObserver);
+  }
+
+  getApiDocumentUrl(doc: DocItem) {
+    const apiDocId = doc.apiDocId || `${doc.packageName}-${doc.id}`;
+    return `/docs-content/api-docs/${apiDocId}.html`;
+  }
+}
 
 @Component({
   selector: 'component-examples',
   templateUrl: './component-examples.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class ComponentExamples extends ComponentOverview {}
+export class ComponentExamples extends ComponentBaseView {
+  constructor(componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
+    super(componentViewer, breakpointObserver);
+  }
+}
 
 @NgModule({
   imports: [
@@ -120,6 +170,6 @@ export class ComponentExamples extends ComponentOverview {}
   ],
   exports: [ComponentViewer],
   declarations: [ComponentViewer, ComponentOverview, ComponentApi, ComponentExamples],
-  providers: [DocumentationItems, ComponentPageTitle],
+  providers: [DocumentationItems],
 })
 export class ComponentViewerModule {}

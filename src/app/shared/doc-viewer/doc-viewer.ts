@@ -1,4 +1,4 @@
-import {ComponentPortal, DomPortalHost} from '@angular/cdk/portal';
+import {ComponentPortal, DomPortalOutlet} from '@angular/cdk/portal';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
@@ -25,16 +25,20 @@ import {HeaderLink} from './header-link';
   template: 'Loading document...',
 })
 export class DocViewer implements OnDestroy {
-  private _portalHosts: DomPortalHost[] = [];
+  private _portalHosts: DomPortalOutlet[] = [];
   private _documentFetchSubscription: Subscription;
+
+  @Input() name: string;
 
   /** The URL of the document to display. */
   @Input()
-  set documentUrl(url: string) {
-    this._fetchDocument(url);
+  set documentUrl(url: string | undefined) {
+    if (url !== undefined) {
+      this._fetchDocument(url);
+    }
   }
 
-  @Output() contentRendered = new EventEmitter<void>();
+  @Output() contentRendered = new EventEmitter<HTMLElement>();
 
   /** The document text. It should not be HTML encoded. */
   textContent = '';
@@ -86,7 +90,7 @@ export class DocViewer implements OnDestroy {
     // until the Angular zone becomes stable.
     this._ngZone.onStable
       .pipe(take(1))
-      .subscribe(() => this.contentRendered.next());
+      .subscribe(() => this.contentRendered.next(this._elementRef.nativeElement));
   }
 
   /** Show an error that occurred when fetching a document. */
@@ -98,16 +102,18 @@ export class DocViewer implements OnDestroy {
 
   /** Instantiate a ExampleViewer for each example. */
   private _loadComponents(componentName: string, componentClass: any) {
-    let exampleElements =
+    const exampleElements =
         this._elementRef.nativeElement.querySelectorAll(`[${componentName}]`);
 
     Array.prototype.slice.call(exampleElements).forEach((element: Element) => {
-      let example = element.getAttribute(componentName);
-      let portalHost = new DomPortalHost(
+      const example = element.getAttribute(componentName);
+      const portalHost = new DomPortalOutlet(
           element, this._componentFactoryResolver, this._appRef, this._injector);
-      let examplePortal = new ComponentPortal(componentClass, this._viewContainerRef);
-      let exampleViewer = portalHost.attach(examplePortal);
-      (exampleViewer.instance as ExampleViewer).example = example;
+      const examplePortal = new ComponentPortal(componentClass, this._viewContainerRef);
+      const exampleViewer = portalHost.attach(examplePortal);
+      if (example !== null) {
+        (exampleViewer.instance as ExampleViewer).example = example;
+      }
 
       this._portalHosts.push(portalHost);
     });
