@@ -1,15 +1,16 @@
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {async, fakeAsync, flushMicrotasks, inject, TestBed} from '@angular/core/testing';
-import {ExampleData} from '@angular/components-examples';
+import {waitForAsync, fakeAsync, flushMicrotasks, inject, TestBed} from '@angular/core/testing';
+import {EXAMPLE_COMPONENTS, ExampleData, LiveExample} from '@angular/components-examples';
 import {StackBlitzWriter} from './stack-blitz-writer';
 
+const testExampleId = 'my-test-example-id';
 
 describe('StackBlitzWriter', () => {
   let stackBlitzWriter: StackBlitzWriter;
   let data: ExampleData;
   let http: HttpTestingController;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [],
@@ -28,18 +29,27 @@ describe('StackBlitzWriter', () => {
     data = new ExampleData('');
     data.componentNames = [];
     data.exampleFiles = ['test.ts', 'test.html', 'src/detail.ts'];
+    data.indexFilename = data.exampleFiles[0];
+
+    // Fake the example in the `EXAMPLE_COMPONENTS`. The stack blitz writer relies on
+    // module information for the example in order to read the example sources from disk.
+    EXAMPLE_COMPONENTS[testExampleId] = {module: {importSpecifier: 'cdk/my-comp'}} as LiveExample;
+  });
+
+  afterEach(() => {
+    delete EXAMPLE_COMPONENTS[testExampleId];
   });
 
   it('should append correct copyright', () => {
     expect(stackBlitzWriter._appendCopyright('test.ts', 'NoContent')).toBe(`NoContent
 
-/**  Copyright 2019 Google LLC. All Rights Reserved.
+/**  Copyright 2020 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
     can be found in the LICENSE file at http://angular.io/license */`);
 
     expect(stackBlitzWriter._appendCopyright('test.html', 'NoContent')).toBe(`NoContent
 
-<!-- Copyright 2019 Google LLC. All Rights Reserved.
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
     can be found in the LICENSE file at http://angular.io/license -->`);
 
@@ -54,9 +64,9 @@ describe('StackBlitzWriter', () => {
   it('should add files to form input', () => {
     const form = stackBlitzWriter._createFormElement('index.ts');
 
-    stackBlitzWriter._addFileToForm(form, data, 'NoContent', 'test.ts', 'path/to/file');
-    stackBlitzWriter._addFileToForm(form, data, 'Test', 'test.html', 'path/to/file');
-    stackBlitzWriter._addFileToForm(form, data, 'Detail', 'src/detail.ts', 'path/to/file');
+    stackBlitzWriter._addFileToForm(form, data, 'NoContent', 'test.ts', 'path/to/file', false);
+    stackBlitzWriter._addFileToForm(form, data, 'Test', 'test.html', 'path/to/file', false);
+    stackBlitzWriter._addFileToForm(form, data, 'Detail', 'src/detail.ts', 'path/to/file', false);
 
     expect(form.elements.length).toBe(3);
     expect(form.elements[0].getAttribute('name')).toBe('files[src/app/test.ts]');
@@ -66,7 +76,7 @@ describe('StackBlitzWriter', () => {
 
   it('should open a new window with stackblitz url', fakeAsync(() => {
     let form: HTMLFormElement;
-    stackBlitzWriter.constructStackBlitzForm(data).then((result: HTMLFormElement) => {
+    stackBlitzWriter.constructStackBlitzForm(testExampleId, data, false).then(result => {
       form = result;
       flushMicrotasks();
 
@@ -116,7 +126,7 @@ const TEST_URLS = [
   '/assets/stack-blitz/src/polyfills.ts',
   '/assets/stack-blitz/src/main.ts',
   '/assets/stack-blitz/src/app/material-module.ts',
-  '/docs-content/examples-source/test.ts',
-  '/docs-content/examples-source/test.html',
-  '/docs-content/examples-source/src/detail.ts',
+  `/docs-content/examples-source/cdk/my-comp/${testExampleId}/test.ts`,
+  `/docs-content/examples-source/cdk/my-comp/${testExampleId}/test.html`,
+  `/docs-content/examples-source/cdk/my-comp/${testExampleId}/src/detail.ts`,
 ];

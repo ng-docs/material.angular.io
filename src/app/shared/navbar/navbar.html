@@ -1,6 +1,11 @@
 <!-- TODO: figure out if the <nav> should go inside of a <header> element. -->
 <nav class="docs-navbar-header" aria-label="Top Toolbar"
      [class.is-next-version]="isNextVersion">
+  <div class="skip-link-wrapper" [class.cdk-visually-hidden]="skipLinkHidden" *ngIf="skipLinkHref">
+    <a mat-raised-button [href]="skipLinkHref" (focus)="skipLinkHidden = false" (blur)="skipLinkHidden = true" color="accent">
+      Skip to main content
+    </a>
+  </div>
   <a mat-button class="docs-button" routerLink="/" aria-label="Angular Material">
     <img class="docs-angular-logo"
          src="../../../assets/img/homepage/angular-white-transparent.svg"
@@ -10,7 +15,7 @@
   <a mat-button class="docs-navbar-hide-small docs-button"
      *ngFor="let key of sectionKeys"
      [routerLink]="key">{{sections[key].nameCn||sections[key].name}}</a>
-  <a translate-result mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">指南</a>
+  <a translate-result mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">使用指南</a>
   <a translation-origin="off" mat-button class="docs-navbar-hide-small docs-button" routerLink="guides">Guides</a>
   <div class="flex-spacer"></div>
   <version-picker></version-picker>

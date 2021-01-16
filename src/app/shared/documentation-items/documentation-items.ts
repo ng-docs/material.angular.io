@@ -1,29 +1,37 @@
 import {Injectable} from '@angular/core';
+import {EXAMPLE_COMPONENTS} from '@angular/components-examples';
 
 export interface AdditionalApiDoc {
   name: string;
   path: string;
 }
 
-export interface DocItem {
-  id: string;
-  name: string;
-  nameCn?: string;
-  summary?: string;
-  summaryCn?: string;
-  packageName?: string;
-  examples?: string[];
-  apiDocId?: string;
-  additionalApiDocs?: AdditionalApiDoc[];
+export interface ExampleSpecs {
+  prefix: string;
+  exclude?: string[];
 }
 
-export interface DocCategory {
+export interface DocItem {
+  /** Id of the doc item. Used in the URL for linking to the doc. */
   id: string;
+  /** Display name of the doc item. */
   name: string;
   nameCn?: string;
-  items: DocItem[];
+  /** Short summary of the doc item. */
   summary?: string;
   summaryCn?: string;
+  /** Package which contains the doc item. */
+  packageName?: string;
+  /** Specifications for which examples to be load. */
+  exampleSpecs: ExampleSpecs;
+  /** List of examples. */
+  examples?: string[];
+  /** Optional id of the API document file. */
+  apiDocId?: string;
+  /** Optional path to the overview file of this doc item. */
+  overviewPath?: string;
+  /** List of additional API docs. */
+  additionalApiDocs?: AdditionalApiDoc[];
 }
 
 export interface DocSection {
@@ -33,705 +41,608 @@ export interface DocSection {
   summaryCn?: string;
 }
 
+const exampleNames = Object.keys(EXAMPLE_COMPONENTS);
 const CDK = 'cdk';
 const COMPONENTS = 'components';
-export const SECTIONS: {[key: string]: DocSection} = {
+export const SECTIONS: { [key: string]: DocSection } = {
   [COMPONENTS]: {
     name: 'Components',
+    summary: 'Angular Material offers a wide variety of UI components based on the <a' +
+      ' href="https://material.io/components">Material Design specification</a>',
     nameCn: '组件',
-    summaryCn: 'Angular Material 包含一组控件，这些控件都基于 Material Design 规范实现了一些共同的交互模式。',
-    summary: 'Angular Material comprises a range of components which implement common ' +
-    'interaction patterns according to the Material Design specification.'
+    summaryCn: `Angular Material 包含一大组基于 <a href="https://material.io/components">Material Design 规范</a>的 UI 组件。`,
   },
   [CDK]: {
     name: 'CDK',
+    summary: 'The Component Dev Kit (CDK) is a set of behavior primitives for building UI' +
+      ' components.',
     nameCn: '组件开发包',
-    summaryCn: '组件开发工具包（CDK）是一组工具库，它们实现了共同的交互模式，同时对其外观不做任何假设。' +
-      '它代表了 Angular Material 库中一些核心功能的抽象，没有使用任何专属于 Material Design 的样式。' +
-      '你可以将 CDK 看做经过充分测试的空白库，并基于它来开发你的自定义组件。',
-    summary: 'The Component Dev Kit (CDK) is a set of tools that implement common interaction ' +
-    'patterns whilst being unopinionated about their presentation. It represents an abstraction ' +
-    'of the core functionalities found in the Angular Material library, without any styling ' +
-    'specific to Material Design. Think of the CDK as a blank state of well-tested functionality ' +
-    'upon which you can develop your own bespoke components.'
+    summaryCn: '组件开发工具包（CDK）是一组用来构建 UI 组件的行为原语。',
   },
 };
 
 
-const DOCS: {[key: string]: DocCategory[]} = {
+export const DOCS: { [key: string]: DocItem[] } = {
   [COMPONENTS]: [
     {
-      id: 'forms',
-      name: 'Form Controls',
-      nameCn: '表单控件',
-      summaryCn: '一些用于收集和验证用户输入的控件',
-      summary: 'Controls that collect and validate user input.',
-      items: [
-        {
-          id: 'autocomplete',
-          name: 'Autocomplete',
-          nameCn: '自动完成',
-          summaryCn: '提供与用户输入有关联的选项。',
-          summary: 'Suggests relevant options as the user types.',
-          examples: [
-            'autocomplete-overview',
-            'autocomplete-simple',
-            'autocomplete-display',
-            'autocomplete-filter',
-            'autocomplete-optgroup',
-            'autocomplete-auto-active-first-option',
-          ],
-          additionalApiDocs: [{name: 'Testing', path: 'material-autocomplete-testing.html'}],
-        },
-        {
-          id: 'checkbox',
-          name: 'Checkbox',
-          nameCn: '检查框',
-          summaryCn: '获取用户输入的布尔值，且支持未决状态。',
-          summary: 'Captures boolean input with an optional indeterminate mode.',
-          examples: ['checkbox-configurable'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-checkbox-testing.html'}],
-        },
-        {
-          id: 'datepicker',
-          name: 'Datepicker',
-          nameCn: '日期选择器',
-          summaryCn: '捕获日期，和其内部表示形式无关。',
-          summary: 'Captures dates, agnostic about their internal representation.',
-          examples: [
-            'datepicker-overview',
-            'datepicker-start-view',
-            'datepicker-value',
-            'datepicker-min-max',
-            'datepicker-filter',
-            'datepicker-events',
-            'datepicker-disabled',
-            'datepicker-touch',
-            'datepicker-api',
-            'datepicker-locale',
-            'datepicker-moment',
-            'datepicker-formats',
-
-          ]
-        },
-        {
-          id: 'form-field',
-          name: 'Form field',
-          nameCn: '表单字段',
-          summaryCn: '包装表单字段，来让它们的显示保持一致。',
-          summary: 'Wraps input fields so they are displayed consistently.',
-          examples: [
-            'form-field-overview',
-            'form-field-label',
-            'form-field-appearance',
-            'form-field-hint',
-            'form-field-error',
-            'form-field-prefix-suffix',
-            'form-field-theming',
-            'form-field-custom-control',
-          ]
-        },
-        {
-          id: 'input',
-          name: 'Input',
-          nameCn: '输入框',
-          summaryCn: '让原生输入框可用于表单字段中。',
-          summary: 'Enables native inputs to be used within a Form field.',
-          examples: [
-            'input-overview',
-            'input-error-state-matcher',
-            'text-field-autosize-textarea',
-            'input-clearable',
-            'input-errors',
-            'input-form',
-            'input-hint',
-            'input-prefix-suffix',
-          ]
-        },
-        {
-          id: 'radio',
-          name: 'Radio button',
-          nameCn: '单选按钮',
-          summaryCn: '允许用户从组中显示一个选项。',
-          summary: 'Allows the user to select one option from a group.',
-          examples: ['radio-ng-model'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-radio-testing.html'}],
-        },
-        {
-          id: 'select',
-          name: 'Select',
-          nameCn: '选择框',
-          summaryCn: '允许用户从下拉框中选择一个或多个选项。',
-          summary: 'Allows the user to select one or more options using a dropdown.',
-          examples: [
-            'select-overview',
-            'select-value-binding',
-            'select-form',
-            'select-hint-error',
-            'select-disabled',
-            'select-reset',
-            'select-optgroup',
-            'select-multiple',
-            'select-custom-trigger',
-            'select-no-ripple',
-            'select-panel-class',
-            'select-error-state-matcher',
-          ]
-        },
-        {
-          id: 'slider',
-          name: 'Slider',
-          nameCn: '滑竿',
-          summaryCn: '允许用户以拖曳滑竿的方式输入一个值。',
-          summary: 'Allows the user to input a value by dragging along a slider.',
-          examples: ['slider-configurable'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-slider-testing.html'}],
-        },
-        {
-          id: 'slide-toggle',
-          name: 'Slide toggle',
-          nameCn: '滑块开关',
-          summaryCn: '以可点击、可拖曳开关的形式捕获一个 boolean 值。',
-          summary: 'Captures boolean values as a clickable and draggable switch.',
-          examples: ['slide-toggle-configurable'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-slide-toggle-testing.html'}],
-        },
-      ]
+      id: 'autocomplete',
+      name: 'Autocomplete',
+      summary: 'Suggests relevant options as the user types.',
+      nameCn: '自动完成',
+      summaryCn: '提供与用户输入有关联的选项。',
+      exampleSpecs: {
+        prefix: 'autocomplete-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-autocomplete-testing.html'}],
     },
     {
-      id: 'nav',
-      name: 'Navigation',
-      nameCn: '导航',
-      summaryCn: '菜单、侧边栏、工具栏，用于组织你的内容',
-      summary: 'Menus, sidenavs and toolbars that organise your content.',
-      items: [
-        {
-          id: 'menu',
-          name: 'Menu',
-          nameCn: '菜单',
-          summary: 'A floating panel of nestable options.',
-          examples: [
-            'menu-overview',
-            'menu-icons',
-            'nested-menu'
-          ],
-          additionalApiDocs: [{name: 'Testing', path: 'material-menu-testing.html'}],
-        },
-        {
-          id: 'sidenav',
-          name: 'Sidenav',
-          nameCn: '侧边栏',
-          summaryCn: '一个固定在屏幕一侧的内容容器。',
-          summary: 'A container for content that is fixed to one side of the screen.',
-          examples: [
-            'sidenav-overview',
-            'sidenav-drawer-overview',
-            'sidenav-position',
-            'sidenav-open-close',
-            'sidenav-mode',
-            'sidenav-disable-close',
-            'sidenav-autosize',
-            'sidenav-fixed',
-            'sidenav-responsive'
-          ],
-          additionalApiDocs: [{name: 'Testing', path: 'material-sidenav-testing.html'}],
-        },
-        {
-          id: 'toolbar',
-          name: 'Toolbar',
-          nameCn: '工具栏',
-          summaryCn: '一个顶级标题和控件的容器。',
-          summary: 'A container for top-level titles and controls.',
-          examples: ['toolbar-multirow']
-        },
-      ]
+      id: 'badge',
+      name: 'Badge',
+      summary: 'A small value indicator that can be overlaid on another object.',
+      nameCn: '徽章',
+      summaryCn: '可以挂在其它对象上方的小型数值指示器。',
+      exampleSpecs: {
+        prefix: 'badge-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-badge-testing.html'}],
+    },
+    {
+      id: 'bottom-sheet',
+      name: 'Bottom Sheet',
+      summary: 'A large interactive panel primarily for mobile devices.',
+      nameCn: '底部操作表',
+      summaryCn: '主要用于移动设备的大型交互面板。',
+      exampleSpecs: {
+        prefix: 'bottom-sheet-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-bottom-sheet-testing.html'}],
+    },
+    {
+      id: 'button',
+      name: 'Button',
+      summary: 'An interactive button with a range of presentation options.',
+      nameCn: '按钮',
+      summaryCn: '带有一系列候选项的交互式按钮。',
+      exampleSpecs: {
+        prefix: 'button-',
+        exclude: ['button-toggle-']
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-button-testing.html'}],
+    },
+    {
+      id: 'button-toggle',
+      name: 'Button toggle',
+      summary: 'A groupable on/off toggle for enabling and disabling options.',
+      nameCn: '开关按钮',
+      summaryCn: '用来启用或禁用候选项的可分组开关。',
+      exampleSpecs: {
+        prefix: 'button-toggle-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-button-toggle-testing.html'}],
+    },
+    {
+      id: 'card',
+      name: 'Card',
+      summary: 'A styled container for pieces of itemized content.',
+      nameCn: '卡片',
+      summaryCn: '用于存放逐项内容的样式化容器。',
+      exampleSpecs: {
+        prefix: 'card-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-card-testing.html'}],
+    },
+    {
+      id: 'checkbox',
+      name: 'Checkbox',
+      summary: 'Captures boolean input with an optional indeterminate mode.',
+      nameCn: '检查框',
+      summaryCn: '获取用户输入的布尔值，且支持未决状态。',
+      exampleSpecs: {
+        prefix: 'checkbox-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-checkbox-testing.html'}],
+    },
+    {
+      id: 'chips',
+      name: 'Chips',
+      summary: 'Presents a list of items as a set of small, tactile entities.',
+      nameCn: '芯片',
+      summaryCn: '将列表中的条目呈现为一组小的触觉实体。',
+      exampleSpecs: {
+        prefix: 'chips-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-chips-testing.html'}],
+    },
+    {
+      id: 'datepicker',
+      name: 'Datepicker',
+      summary: 'Captures dates, agnostic about their internal representation.',
+      nameCn: '日期选择器',
+      summaryCn: '捕获日期，和其内部表示形式无关。',
+      exampleSpecs: {
+        prefix: 'date',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-datepicker-testing.html'}],
+    },
+    {
+      id: 'dialog',
+      name: 'Dialog',
+      summary: 'A configurable modal that displays dynamic content.',
+      nameCn: '对话框',
+      summaryCn: '一个用于显示动态内容的可配置的模态框。',
+      exampleSpecs: {
+        prefix: 'dialog-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-dialog-testing.html'}],
+    },
+    {
+      id: 'divider',
+      name: 'Divider',
+      summary: 'A vertical or horizontal visual divider.',
+      nameCn: '分隔器',
+      summaryCn: '垂直或水平的视觉分割器。',
+      exampleSpecs: {
+        prefix: 'divider-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-divider-testing.html'}],
+    },
+    {
+      id: 'expansion',
+      name: 'Expansion Panel',
+      summary: 'A container which can be expanded to reveal more content.',
+      nameCn: '可展开面板',
+      summaryCn: '可以展开，以揭示更多内容的容器。',
+      exampleSpecs: {
+        prefix: 'expansion-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-expansion-testing.html'}],
+    },
+    {
+      id: 'form-field',
+      name: 'Form field',
+      summary: 'Wraps input fields so they are displayed consistently.',
+      nameCn: '表单字段',
+      summaryCn: '包装表单字段，来让它们的显示保持一致。',
+      exampleSpecs: {
+        prefix: 'form-field-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-form-field-testing.html'}],
+    },
+    {
+      id: 'grid-list',
+      name: 'Grid list',
+      summary: 'A flexible structure for presenting content items in a grid.',
+      nameCn: '网格列表',
+      summaryCn: '一种在网格中展示逐项内容的灵活结构。',
+      exampleSpecs: {
+        prefix: 'grid-list-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-grid-list-testing.html'}],
+    },
+    {
+      id: 'icon',
+      name: 'Icon',
+      summary: 'Renders a specified icon.',
+      nameCn: '图标',
+      summaryCn: '渲染一个指定的图标。',
+      exampleSpecs: {
+        prefix: 'icon-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-icon-testing.html'}],
+    },
+    {
+      id: 'input',
+      name: 'Input',
+      summary: 'Enables native inputs to be used within a Form field.',
+      nameCn: '输入框',
+      summaryCn: '让原生输入框可用于表单字段中。',
+      exampleSpecs: {
+        prefix: 'input-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-input-testing.html'}],
+    },
+    {
+      id: 'list',
+      name: 'List',
+      summary: 'Presents conventional lists of items.',
+      nameCn: '列表',
+      summaryCn: '提供传统的条目清单。',
+      exampleSpecs: {
+        prefix: 'list-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-list-testing.html'}],
+    },
+    {
+      id: 'menu',
+      name: 'Menu',
+      summary: 'A floating panel of nestable options.',
+      nameCn: '菜单',
+      summaryCn: '一些嵌套选项的浮动面板。',
+      exampleSpecs: {
+        prefix: 'menu-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-menu-testing.html'}],
+    },
+    {
+      id: 'paginator',
+      name: 'Paginator',
+      summary: 'Controls for displaying paged data.',
+      nameCn: '分页器',
+      summaryCn: '用于显示分页信息的控件。',
+      exampleSpecs: {
+        prefix: 'paginator-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-paginator-testing.html'}],
+    },
+    {
+      id: 'progress-bar',
+      name: 'Progress bar',
+      summary: 'A linear progress indicator.',
+      nameCn: '进度条',
+      summaryCn: '线性进度指示器。',
+      exampleSpecs: {
+        prefix: 'progress-bar-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-progress-bar-testing.html'}],
+    },
+    {
+      id: 'progress-spinner',
+      name: 'Progress spinner',
+      summary: 'A circular progress indicator.',
+      nameCn: '进度圈',
+      summaryCn: '圆形进度指示器。',
+      exampleSpecs: {
+        prefix: 'progress-spinner-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-progress-spinner-testing.html'}],
+    },
+    {
+      id: 'radio',
+      name: 'Radio button',
+      summary: 'Allows the user to select one option from a group.',
+      nameCn: '单选按钮',
+      summaryCn: '允许用户从组中显示一个选项。',
+      exampleSpecs: {
+        prefix: 'radio-',
+
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-radio-testing.html'}],
+    },
+    {
+      id: 'ripple',
+      name: 'Ripples',
+      overviewPath: 'material/core/ripple/ripple.html',
+      summary: 'Directive for adding Material Design ripple effects',
+      nameCn: '水波',
+      summaryCn: '用于添加 Material Design 水波效果的指令',
+      exampleSpecs: {
+        prefix: 'ripple-',
+      },
+    },
+    {
+      id: 'select',
+      name: 'Select',
+      summary: 'Allows the user to select one or more options using a dropdown.',
+      nameCn: '选择框',
+      summaryCn: '允许用户从下拉框中选择一个或多个选项。',
+      exampleSpecs: {
+        prefix: 'select-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-select-testing.html'}],
+    },
+    {
+      id: 'sidenav',
+      name: 'Sidenav',
+      summary: 'A container for content that is fixed to one side of the screen.',
+      nameCn: '侧边栏',
+      summaryCn: '一个固定在屏幕一侧的内容容器。',
+      exampleSpecs: {
+        prefix: 'sidenav-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-sidenav-testing.html'}],
+    },
+    {
+      id: 'slide-toggle',
+      name: 'Slide toggle',
+      summary: 'Captures boolean values as a clickable and draggable switch.',
+      nameCn: '滑块开关',
+      summaryCn: '以可点击、可拖曳开关的形式捕获一个 boolean 值。',
+      exampleSpecs: {
+        prefix: 'slide-toggle-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-slide-toggle-testing.html'}],
+    },
+    {
+      id: 'slider',
+      name: 'Slider',
+      summary: 'Allows the user to input a value by dragging along a slider.',
+      nameCn: '滑竿',
+      summaryCn: '允许用户以拖曳滑竿的方式输入一个值。',
+      exampleSpecs: {
+        prefix: 'slider-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-slider-testing.html'}],
+    },
+    {
+      id: 'snack-bar',
+      name: 'Snackbar',
+      summary: 'Displays short actionable messages as an uninvasive alert.',
+      nameCn: '快餐栏',
+      summaryCn: '将简短的可操作消息显示为一个无打扰警报。',
+      exampleSpecs: {
+        prefix: 'snack-bar-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-snack-bar-testing.html'}],
+    },
+    {
+      id: 'sort',
+      name: 'Sort header',
+      summary: 'Allows the user to configure how tabular data is sorted.',
+      nameCn: '排序头',
+      summaryCn: '让用户可以指定表格型数据该如何排序。',
+      exampleSpecs: {
+        prefix: 'sort-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-sort-testing.html'}],
+    },
+    {
+      id: 'stepper',
+      name: 'Stepper',
+      summary: 'Presents content as steps through which to progress.',
+      nameCn: '步进器',
+      summaryCn: '以分步进展的方式呈现内容。',
+      exampleSpecs: {
+        prefix: 'stepper-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-stepper-testing.html'}],
+    },
+    {
+      id: 'table',
+      name: 'Table',
+      summary: 'A configurable component for displaying tabular data.',
+      nameCn: '表格',
+      summaryCn: '用于显示表格型数据的可配置组件。',
+      exampleSpecs: {
+        prefix: 'table-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-table-testing.html'}],
+    },
+    {
+      id: 'tabs',
+      name: 'Tabs',
+      summary: 'Only presents one view at a time from a provided set of views.',
+      nameCn: '选项卡',
+      summaryCn: '在指定的一组视图中，只同时呈现一个视图',
+      exampleSpecs: {
+        prefix: 'tab-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-tabs-testing.html'}],
+    },
+    {
+      id: 'toolbar',
+      name: 'Toolbar',
+      summary: 'A container for top-level titles and controls.',
+      nameCn: '工具栏',
+      summaryCn: '一个顶级标题和控件的容器。',
+      exampleSpecs: {
+        prefix: 'toolbar-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-toolbar-testing.html'}],
+    },
+    {
+      id: 'tooltip',
+      name: 'Tooltip',
+      summary: 'Displays floating content when an object is hovered.',
+      nameCn: '提示框',
+      summaryCn: '当鼠标移到某个对象之上时显示浮动内容。',
+      exampleSpecs: {
+        prefix: 'tooltip-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-tooltip-testing.html'}],
+    },
+    {
+      id: 'tree',
+      name: 'Tree',
+      summary: 'Presents hierarchical content as an expandable tree.',
+      nameCn: '树',
+      summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
+      exampleSpecs: {
+        prefix: 'tree-',
+      },
+    },
+  ],
+  [CDK]: [
+    {
+      id: 'a11y',
+      name: 'Accessibility',
+      summary: 'Utilities for screen readers, focus and more.',
+      nameCn: '无障碍性',
+      summaryCn: '供屏幕阅读器使用的工具，如焦点控制等。',
+      exampleSpecs: {
+        prefix: 'focus-monitor-',
+      },
+    },
+    {
+      id: 'bidi',
+      name: 'Bidirectionality',
+      summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
+      nameCn: '文字方向',
+      summaryCn: '用于响应 LTR/RTL 布局方向变化的工具。',
+      exampleSpecs: {
+        prefix: 'cdk-bidi-',
+      },
+    },
+    {
+      id: 'clipboard',
+      name: 'Clipboard',
+      summary: 'Helpers for working with the system clipboard.',
+      nameCn: '剪贴板',
+      summaryCn: '帮你使用系统剪贴板的工具。',
+      exampleSpecs: {
+        prefix: 'cdk-clipboard-',
+      },
+    },
+    {
+      id: 'drag-drop',
+      name: 'Drag and Drop',
+      summary: 'Directives enabling drag-and-drop interactions',
+      nameCn: '拖放',
+      summaryCn: '一些支持拖放型交互方式的指令',
+      exampleSpecs: {
+        prefix: 'cdk-drag-drop-',
+      },
     },
     {
       id: 'layout',
       name: 'Layout',
+      summary: 'Utilities to respond to changes in viewport size.',
       nameCn: '布局',
-      summaryCn: '用于表示内容的基本构造块',
-      summary: 'Essential building blocks for presenting your content.',
-      items: [
-        {
-          id: 'card',
-          name: 'Card',
-          nameCn: '卡片',
-          summaryCn: '用于存放逐项内容的样式化容器。',
-          summary: 'A styled container for pieces of itemized content.',
-          examples: ['card-fancy']
-        },
-        {
-          id: 'divider',
-          name: 'Divider',
-          nameCn: '分隔器',
-          summaryCn: '垂直或水平的视觉分割器。',
-          summary: 'A vertical or horizontal visual divider.',
-          examples: ['divider-overview']
-        },
-        {
-          id: 'expansion',
-          name: 'Expansion Panel',
-          nameCn: '可展开面板',
-          summaryCn: '可以展开，以揭示更多内容的容器。',
-          summary: 'A container which can be expanded to reveal more content.',
-          examples: ['expansion-overview', 'expansion-steps']
-        },
-        {
-          id: 'grid-list',
-          name: 'Grid list',
-          nameCn: '网格列表',
-          summaryCn: '一种在网格中展示逐项内容的灵活结构。',
-          summary: 'A flexible structure for presenting content items in a grid.',
-          examples: ['grid-list-dynamic']
-        },
-        {
-          id: 'list',
-          name: 'List',
-          nameCn: '列表',
-          summaryCn: '提供传统的条目清单。',
-          summary: 'Presents conventional lists of items.',
-          examples: ['list-sections']
-        },
-        {
-          id: 'stepper',
-          name: 'Stepper',
-          nameCn: '步进器',
-          summaryCn: '以分步进展的方式呈现内容。',
-          summary: 'Presents content as steps through which to progress.',
-          examples: ['stepper-overview']
-        },
-        {
-          id: 'tabs',
-          name: 'Tabs',
-          nameCn: '选项卡',
-          summaryCn: '在指定的一组视图中，只同时呈现一个视图',
-          summary: 'Only presents one view at a time from a provided set of views.',
-          examples: [
-            'tab-group-basic',
-            'tab-group-custom-label',
-            'tab-group-dynamic-height',
-            'tab-group-dynamic',
-            'tab-group-header-below',
-            'tab-group-lazy-loaded',
-            'tab-group-stretched',
-            'tab-group-theme',
-            'tab-group-async',
-            'tab-nav-bar-basic',
-          ],
-          additionalApiDocs: [{name: 'Testing', path: 'material-tabs-testing.html'}],
-        },
-        {
-          id: 'tree',
-          name: 'Tree',
-          nameCn: '树',
-          summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
-          summary: 'Presents hierarchical content as an expandable tree.',
-          examples: [
-          'tree-dynamic',
-          'tree-flat-overview',
-          'tree-checklist',
-          'tree-nested-overview',
-          'tree-loadmore',
-        ]},
-      ]
+      summaryCn: '用于响应视口尺寸变化的工具。',
+      exampleSpecs: {
+        prefix: 'cdk-layout-',
+      },
     },
     {
-      id: 'buttons',
-      name: 'Buttons & Indicators',
-      nameCn: '按钮与指示器',
-      summaryCn: '按钮、开关、状态指示器、进度指示器',
-      summary: 'Buttons, toggles, status and progress indicators.',
-      items: [
+      id: 'observers',
+      name: 'Observers',
+      summary: 'Utilities to respond to changes to element properties.',
+      nameCn: '观察者',
+      summaryCn: '用来响应元素属性变化的实用工具。',
+      exampleSpecs: {
+        prefix: 'cdk-observers-',
+      },
+    },
+    {
+      id: 'overlay',
+      name: 'Overlay',
+      summary: 'Utilities for dynamically displaying floating content.',
+      nameCn: '浮层',
+      summaryCn: '用于动态显示浮动内容的工具。',
+      exampleSpecs: {
+        prefix: 'cdk-overlay-',
+      },
+    },
+    {
+      id: 'platform',
+      name: 'Platform',
+      summary: 'Provides information about the user\'s platform.',
+      nameCn: '平台',
+      summaryCn: '提供关于用户所用平台的信息。',
+      exampleSpecs: {
+        prefix: 'cdk-platform-',
+      },
+    },
+    {
+      id: 'portal',
+      name: 'Portal',
+      summary: 'Utilities for dynamically displaying content into a target.',
+      nameCn: '门户',
+      summaryCn: '用于把内容动态显示到目标中的工具。',
+      exampleSpecs: {
+        prefix: 'cdk-portal-',
+      },
+    },
+    {
+      id: 'scrolling',
+      name: 'Scrolling',
+      summary: 'Directives for managing scroll events.',
+      nameCn: '滚动',
+      summaryCn: '用于管理滚动事件的指令。',
+      exampleSpecs: {
+        prefix: 'cdk-virtual-scroll-',
+      },
+    },
+    {
+      id: 'stepper',
+      name: 'Stepper',
+      summary: 'Presents content as steps through which to progress.',
+      nameCn: '步进器',
+      summaryCn: '以分步进展的方式呈现内容。',
+      exampleSpecs: {
+        prefix: 'cdk-custom-stepper-',
+      },
+    },
+    {
+      id: 'table',
+      name: 'Table',
+      summary: 'A configurable component for displaying tabular data.',
+      nameCn: '表格',
+      summaryCn: '显示表格型数据的可配置组件。',
+      exampleSpecs: {
+        prefix: 'cdk-table-',
+      },
+    },
+    {
+      id: 'test-harnesses',
+      name: 'Component Harnesses',
+      summary: 'Foundation for component test harnesses.',
+      nameCn: '组件测试工具',
+      summaryCn: '组件测试工具的基石。',
+      exampleSpecs: {
+        prefix: 'cdk-test-harnesses-',
+      },
+      overviewPath: 'cdk/testing/test-harnesses.html',
+      apiDocId: 'cdk-testing',
+      additionalApiDocs: [
         {
-          id: 'button',
-          name: 'Button',
-          nameCn: '按钮',
-          summaryCn: '带有一系列候选项的交互式按钮。',
-          summary: 'An interactive button with a range of presentation options.',
-          examples: ['button-types'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-button-testing.html'}],
+          name: 'Testbed',
+          path: 'cdk-testing-testbed.html'
         },
         {
-          id: 'button-toggle',
-          name: 'Button toggle',
-          nameCn: '开关按钮',
-          summaryCn: '用来启用或禁用候选项的可分组开关。',
-          summary: 'A groupable on/off toggle for enabling and disabling options.',
-          examples: ['button-toggle-exclusive']
-        },
-        {
-          id: 'badge',
-          name: 'Badge',
-          nameCn: '徽章',
-          summaryCn: '可以挂在其它对象上方的小型数值指示器。',
-          summary: 'A small value indicator that can be overlaid on another object.',
-          examples: ['badge-overview']
-        },
-        {
-          id: 'chips',
-          name: 'Chips',
-          nameCn: '芯片',
-          summaryCn: '将列表中的条目呈现为一组小的触觉实体。',
-          summary: 'Presents a list of items as a set of small, tactile entities.',
-          examples: [
-            'chips-overview',
-            'chips-autocomplete',
-            'chips-input',
-            'chips-stacked',
-          ]
-        },
-        {
-          id: 'icon',
-          name: 'Icon',
-          nameCn: '图标',
-          summaryCn: '渲染一个指定的图标。',
-          summary: 'Renders a specified icon.',
-          examples: ['icon-svg']
-        },
-        {
-          id: 'progress-spinner',
-          name: 'Progress spinner',
-          nameCn: '进度圈',
-          summaryCn: '圆形进度指示器。',
-          summary: 'A circular progress indicator.',
-          examples: ['progress-spinner-configurable'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-progress-spinner-testing.html'}],
-        },
-        {
-          id: 'progress-bar',
-          name: 'Progress bar',
-          nameCn: '进度条',
-          summaryCn: '线性进度指示器。',
-          summary: 'A linear progress indicator.',
-          examples: ['progress-bar-configurable'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-progress-bar-testing.html'}],
-        },
-        {
-          id: 'ripple',
-          name: 'Ripples',
-          nameCn: '水波',
-          summaryCn: '用于添加 Material Design 水波效果的指令',
-          summary: 'Directive for adding Material Design ripple effects',
-          examples: ['ripple-overview']
+          name: 'Protractor',
+          path: 'cdk-testing-protractor.html'
         }
-      ]
+      ],
     },
     {
-      id: 'modals',
-      name: 'Popups & Modals',
-      nameCn: '弹框与模态框',
-      summaryCn: '可以动态显示和隐藏的浮层组件',
-      summary: 'Floating components that can be dynamically shown or hidden.',
-      items: [
-        {
-          id: 'bottom-sheet',
-          name: 'Bottom Sheet',
-          nameCn: '底部操作表',
-          summaryCn: '主要用于移动设备的大型交互面板。',
-          summary: 'A large interactive panel primarily for mobile devices.',
-          examples: ['bottom-sheet-overview']
-        },
-        {
-          id: 'dialog',
-          name: 'Dialog',
-          nameCn: '对话框',
-          summaryCn: '一个用于显示动态内容的可配置的模态框。',
-          summary: 'A configurable modal that displays dynamic content.',
-          examples: ['dialog-overview'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-dialog-testing.html'}],
-        },
-        {
-          id: 'snack-bar',
-          name: 'Snackbar',
-          nameCn: '快餐栏',
-          summaryCn: '将简短的可操作消息显示为一个无打扰警报。',
-          summary: 'Displays short actionable messages as an uninvasive alert.',
-          examples: ['snack-bar-component'],
-          additionalApiDocs: [{name: 'Testing', path: 'material-snack-bar-testing.html'}],
-        },
-        {
-          id: 'tooltip',
-          name: 'Tooltip',
-          nameCn: '提示框',
-          summaryCn: '当鼠标移到某个对象之上时显示浮动内容。',
-          summary: 'Displays floating content when an object is hovered.',
-          examples: [
-            'tooltip-overview',
-            'tooltip-position',
-            'tooltip-custom-class',
-            'tooltip-delay',
-            'tooltip-disabled',
-            'tooltip-manual',
-            'tooltip-message',
-            'tooltip-modified-defaults',
-            'tooltip-auto-hide',
-          ]
-        },
-      ]
+      id: 'text-field',
+      name: 'Text field',
+      summary: 'Utilities for working with text input fields.',
+      nameCn: '文本字段',
+      summaryCn: '用来和文本输入框协同工作的工具。',
+      exampleSpecs: {
+        prefix: 'text-field-',
+      },
     },
     {
-      id: 'tables',
-      name: 'Data table',
-      nameCn: '数据表',
-      summaryCn: '用于显示表格型数据并与之交互的工具',
-      summary: 'Tools for displaying and interacting with tabular data.',
-      items: [
-        {
-          id: 'paginator',
-          name: 'Paginator',
-          nameCn: '分页器',
-          summaryCn: '用于显示分页信息的控件。',
-          summary: 'Controls for displaying paged data.',
-          examples: ['paginator-configurable']
-        },
-        {
-          id: 'sort',
-          name: 'Sort header',
-          nameCn: '排序头',
-          summaryCn: '让用户可以指定表格型数据该如何排序。',
-          summary: 'Allows the user to configure how tabular data is sorted.',
-          examples: ['sort-overview']
-        },
-        {
-          id: 'table',
-          name: 'Table',
-          nameCn: '表格',
-          summaryCn: '用于显示表格型数据的可配置组件。',
-          summary: 'A configurable component for displaying tabular data.',
-          additionalApiDocs: [{name: 'Testing', path: 'material-table-testing.html'}],
-          examples: [
-            'table-basic',
-            'table-basic-flex',
-            'table-dynamic-columns',
-            'table-expandable-rows',
-            'table-filtering',
-            'table-footer-row',
-            'table-http',
-            'table-multiple-header-footer',
-            'table-overview',
-            'table-pagination',
-            'table-row-context',
-            'table-selection',
-            'table-sorting',
-            'table-sticky-columns',
-            'table-sticky-footer',
-            'table-sticky-header',
-        ]},
-      ]
-    }
+      id: 'tree',
+      name: 'Tree',
+      summary: 'Presents hierarchical content as an expandable tree.',
+      nameCn: '树',
+      summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
+      exampleSpecs: {
+        prefix: 'cdk-tree-',
+      },
+    },
   ],
-  [CDK] : [
-    {
-      id: 'component-composition',
-      name: 'Common Behaviors',
-      nameCn: '常用行为',
-      summaryCn: '用于实现应用中常用功能的工具',
-      summary: 'Tools for implementing common application features.',
-      items: [
-        {
-          id: 'a11y',
-          name: 'Accessibility',
-          nameCn: '无障碍性',
-          summaryCn: '供屏幕阅读器使用的工具，如焦点控制等。',
-          summary: 'Utilities for screen readers, focus and more.',
-          examples: []
-        },
-        {
-          id: 'bidi',
-          name: 'Bidirectionality',
-          nameCn: '文字方向',
-          summaryCn: '用于响应 LTR/RTL 布局方向变化的工具。',
-          summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
-          examples: []
-        },
-        {
-          id: 'clipboard',
-          name: 'Clipboard',
-          summary: 'Helpers for working with the system clipboard.',
-          examples: [
-            'cdk-clipboard-overview'
-          ]
-        },
-        {
-          id: 'drag-drop',
-          name: 'Drag and Drop',
-          nameCn: '拖放',
-          summaryCn: '一些支持拖放型交互方式的指令',
-          summary: 'Directives enabling drag-and-drop interactions',
-          examples: [
-            'cdk-drag-drop-overview',
-            'cdk-drag-drop-axis-lock',
-            'cdk-drag-drop-boundary',
-            'cdk-drag-drop-connected-sorting',
-            'cdk-drag-drop-connected-sorting-group',
-            'cdk-drag-drop-custom-placeholder',
-            'cdk-drag-drop-custom-preview',
-            'cdk-drag-drop-delay',
-            'cdk-drag-drop-disabled',
-            'cdk-drag-drop-disabled-sorting',
-            'cdk-drag-drop-enter-predicate',
-            'cdk-drag-drop-free-drag-position',
-            'cdk-drag-drop-handle',
-            'cdk-drag-drop-horizontal-sorting',
-            'cdk-drag-drop-root-element',
-            'cdk-drag-drop-sorting'
-          ],
-        },
-        {
-          id: 'layout',
-          name: 'Layout',
-          nameCn: '布局',
-          summaryCn: '用于响应视口尺寸变化的工具。',
-          summary: 'Utilities to respond to changes in viewport size.',
-          examples: []
-        },
-        {
-          id: 'observers',
-          name: 'Observers',
-          nameCn: '观察者',
-          summary: 'Utilities to respond to changes to element properties.',
-          examples: []
-        },
-        {
-          id: 'overlay',
-          name: 'Overlay',
-          nameCn: '浮层',
-          summaryCn: '用于动态显示浮动内容的工具。',
-          summary: 'Utilities for dynamically displaying floating content.',
-          examples: []
-        },
-        {
-          id: 'platform',
-          name: 'Platform',
-          nameCn: '平台',
-          summaryCn: '提供关于用户所用平台的信息。',
-          summary: 'Provides information about the user\'s platform.',
-          examples: [
-            'cdk-platform-overview',
-          ]
-        },
-        {
-          id: 'portal',
-          name: 'Portal',
-          nameCn: '门户',
-          summaryCn: '用于把内容动态显示到目标中的工具。',
-          summary: 'Utilities for dynamically displaying content into a target.',
-          examples: []
-        },
-        {
-          id: 'scrolling',
-          name: 'Scrolling',
-          nameCn: '滚动',
-          summaryCn: '用于管理滚动事件的指令。',
-          summary: 'Directives for managing scroll events.',
-          examples: []
-        },
-        {
-          id: 'text-field',
-          name: 'Text field',
-          nameCn: '文本字段',
-          summaryCn: '用来和文本输入框协同工作的工具。',
-          summary: 'Utilities for working with text input fields.',
-          examples: []
-        },
-      ]
-    },
-    {
-      id: 'components',
-      name: 'Components',
-      nameCn: '组件',
-      summaryCn: '不带样式的组件，具有一些实用功能。',
-      summary: 'Unstyled components with useful functionality.',
-      items: [
-        {
-          id: 'stepper',
-          name: 'Stepper',
-          nameCn: '步进器',
-          summaryCn: '以分步进展的方式呈现内容。',
-          summary: 'Presents content as steps through which to progress.',
-          examples: [
-            'stepper-vertical',
-            'stepper-editable',
-            'stepper-optional',
-            'stepper-errors',
-            'stepper-label-position-bottom',
-            'stepper-states'
-          ]
-        },
-        {
-          id: 'table',
-          name: 'Table',
-          nameCn: '表格',
-          summaryCn: '显示表格型数据的可配置组件。',
-          summary: 'A configurable component for displaying tabular data.',
-          examples: []
-        },
-        {
-          id: 'tree',
-          name: 'Tree',
-          nameCn: '树',
-          summaryCn: '把一些层次化的内容呈现为一棵可展开的树。',
-          summary: 'Presents hierarchical content as an expandable tree.',
-          examples: []
-        },
-      ]
-    },
-    {
-      id: 'testing',
-      name: 'Testing',
-      summary: 'Utilities for testing common components.',
-      items: [
-        {
-          id: 'test-harnesses',
-          name: 'Component Harnesses',
-          summary: 'Foundation for component test harnesses.',
-          examples: [],
-          apiDocId: 'cdk-testing',
-          additionalApiDocs: [
-            {
-              name: 'Testbed',
-              path: 'cdk-testing-testbed.html'
-            },
-            {
-              name: 'Protractor',
-              path: 'cdk-testing-protractor.html'
-            }
-          ],
-        }
-      ]
-    }
-    // TODO(jelbourn): re-add utilities and a11y as top-level categories once we can generate
-    // their API docs with dgeni. Currently our setup doesn't generate API docs for constants
-    // and standalone functions (much of the utilities) and we have no way of generating API
-    // docs more granularly than directory-level (within a11y) (same for viewport).
-  ]
+  // TODO(jelbourn): re-add utilities and a11y as top-level categories once we can generate
+  // their API docs with dgeni. Currently our setup doesn't generate API docs for constants
+  // and standalone functions (much of the utilities) and we have no way of generating API
+  // docs more granularly than directory-level (within a11y) (same for viewport).
 };
 
-for (const category of DOCS[COMPONENTS]) {
-  for (const doc of category.items) {
-    doc.packageName = 'material';
-  }
+for (const doc of DOCS[COMPONENTS]) {
+  doc.packageName = 'material';
+  doc.examples =
+    exampleNames
+      .filter(key => key.match(RegExp(`^${doc.exampleSpecs.prefix}`)) &&
+        !doc.exampleSpecs.exclude?.some(excludeName => key.indexOf(excludeName) === 0));
 }
 
-for (const category of DOCS[CDK]) {
-  for (const doc of category.items) {
-    doc.packageName = 'cdk';
-  }
+for (const doc of DOCS[CDK]) {
+  doc.packageName = 'cdk';
+  doc.examples =
+    exampleNames
+      .filter(key => key.match(RegExp(`^${doc.exampleSpecs.prefix}`)) &&
+        !doc.exampleSpecs.exclude?.includes(key));
 }
 
-const ALL_COMPONENTS = DOCS[COMPONENTS].reduce(
-  (result: DocItem[], category: DocCategory) => result.concat(category.items), []);
-const ALL_CDK = DOCS[CDK].reduce(
-  (result: DocItem[], cdk: DocCategory) => result.concat(cdk.items), []);
+const ALL_COMPONENTS = DOCS[COMPONENTS];
+const ALL_CDK = DOCS[CDK];
 const ALL_DOCS = ALL_COMPONENTS.concat(ALL_CDK);
-const ALL_CATEGORIES = DOCS[COMPONENTS].concat(DOCS[CDK]);
 
 @Injectable()
 export class DocumentationItems {
-  getCategories(section: string): DocCategory[] {
-    return DOCS[section];
-  }
 
   getItems(section: string): DocItem[] {
     if (section === COMPONENTS) {
@@ -746,9 +657,5 @@ export class DocumentationItems {
   getItemById(id: string, section: string): DocItem | undefined {
     const sectionLookup = section === 'cdk' ? 'cdk' : 'material';
     return ALL_DOCS.find(doc => doc.id === id && doc.packageName === sectionLookup);
-  }
-
-  getCategoryById(id: string): DocCategory | undefined {
-    return ALL_CATEGORIES.find(c => c.id === id);
   }
 }

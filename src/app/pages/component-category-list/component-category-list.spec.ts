@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ActivatedRoute, Params} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {DocsAppTestingModule} from '../../testing/testing-module';
@@ -8,7 +8,7 @@ describe('ComponentCategoryList', () => {
   let fixture: ComponentFixture<ComponentCategoryList>;
   let params: BehaviorSubject<Params>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     params = new BehaviorSubject<Params>({});
 
     const fakeActivatedRoute = {
@@ -28,7 +28,7 @@ describe('ComponentCategoryList', () => {
     fixture = TestBed.createComponent(ComponentCategoryList);
   });
 
-  it('should render a card for every category', () => {
+  it('should render a card for every component', () => {
     // Usually the component category list component won't be instantiated if the activated
     // route does not contain a `section` param. In case there is no section param before
     // `ngOnInit` subscribes to the activated route params, and an error will be raised.
@@ -36,9 +36,9 @@ describe('ComponentCategoryList', () => {
     fixture.detectChanges();
 
     const component = fixture.componentInstance;
-    const categories = component.docItems.getCategories('components');
+    const components = component.docItems.getItems('components');
     const cards = fixture
         .nativeElement.querySelectorAll('.docs-component-category-list-card');
-    expect(cards.length).toEqual(categories.length);
+    expect(cards.length).toEqual(components.length);
   });
 });

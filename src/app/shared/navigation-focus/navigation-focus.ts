@@ -1,24 +1,27 @@
-import {NgModule, OnInit, Directive, ElementRef, HostBinding} from '@angular/core';
+import {NgModule, Directive, ElementRef, HostBinding, OnDestroy} from '@angular/core';
+import {NavigationFocusService} from './navigation-focus.service';
 
-/** The timeout id of the previous focus change. */
-let lastTimeoutId = -1;
-
+let uid = 0;
 @Directive({
   selector: '[focusOnNavigation]',
 })
-export class NavigationFocus implements OnInit {
-  @HostBinding('tabindex') role = '-1';
+export class NavigationFocus implements OnDestroy {
+  @HostBinding('tabindex') readonly tabindex = '-1';
+  @HostBinding('style.outline') readonly outline = 'none';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private navigationFocusService: NavigationFocusService) {
+    if (!el.nativeElement.id) {
+      el.nativeElement.id = `skip-link-target-${uid++}`;
+    }
+    this.navigationFocusService.requestFocusOnNavigation(el.nativeElement);
+    this.navigationFocusService.requestSkipLinkFocus(el.nativeElement);
+  }
 
-  ngOnInit() {
-    clearTimeout(lastTimeoutId);
-    // 100ms timeout is used to allow the page to settle before moving focus for screen readers.
-    lastTimeoutId = window.setTimeout(() => this.el.nativeElement.focus({preventScroll: true}),
-      100);
+  ngOnDestroy() {
+    this.navigationFocusService.relinquishFocusOnNavigation(this.el.nativeElement);
+    this.navigationFocusService.relinquishSkipLinkFocus(this.el.nativeElement);
   }
 }
-
 @NgModule({
   declarations: [NavigationFocus],
   exports: [NavigationFocus],

@@ -1,9 +1,8 @@
 <ng-container *ngIf="componentViewer.componentDocItem | async; let docItem">
-  <h2 class="cdk-visually-hidden" tabindex="-1" #initialFocusTarget>
+  <h2 class="cdk-visually-hidden" tabindex="-1">
     {{docItem?.id}} 概览
   </h2>
-  <doc-viewer
-      documentUrl="/docs-content/overviews/{{docItem?.packageName}}/{{docItem?.id}}.html"
+  <doc-viewer [documentUrl]="getOverviewDocumentUrl(docItem!)"
       class="docs-component-view-text-content docs-component-overview"
       (contentRendered)="updateTableOfContents('Overview Content', $event)">
   </doc-viewer>

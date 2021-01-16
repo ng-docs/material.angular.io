@@ -1,14 +1,14 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {VERSION} from '@angular/material/core';
-import {ExampleData} from '@angular/components-examples';
+import {EXAMPLE_COMPONENTS, ExampleData} from '@angular/components-examples';
 
 import {materialVersion} from '../version/version';
 
 const STACKBLITZ_URL = 'https://run.stackblitz.com/api/angular/v1';
 
 const COPYRIGHT =
-  `Copyright 2019 Google LLC. All Rights Reserved.
+  `Copyright 2020 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that
     can be found in the LICENSE file at http://angular.io/license`;
 
@@ -17,14 +17,14 @@ const COPYRIGHT =
  * structure is defined in the Material repository, but we include the docs-content as assets in
  * in the CLI configuration.
  */
-const DOCS_CONTENT_PATH = '/docs-content/examples-source/';
+const DOCS_CONTENT_PATH = '/docs-content/examples-source';
 
 const TEMPLATE_PATH = '/assets/stack-blitz/';
 const TEMPLATE_FILES = [
   '.editorconfig',
   '.gitignore',
   'angular.json',
-  'browserslist',
+  '.browserslistrc',
   'package.json',
   'tsconfig.json',
   'tsconfig.app.json',
@@ -37,8 +37,27 @@ const TEMPLATE_FILES = [
   'src/app/material-module.ts'
 ];
 
+const TEST_TEMPLATE_PATH = '/assets/stack-blitz-tests/';
+const TEST_TEMPLATE_FILES = [
+  '.editorconfig',
+  '.gitignore',
+  'angular.json',
+  '.browserslistrc',
+  'package.json',
+  'src/test.ts',
+  'tsconfig.json',
+  'tsconfig.app.json',
+  'tsconfig.spec.json',
+  'tslint.json',
+  'src/index.html',
+  'src/styles.scss',
+  'src/polyfills.ts',
+  'src/main.ts',
+  'src/test/jasmine-setup.ts',
+];
+
 const TAGS: string[] = ['angular', 'material', 'example'];
-const angularVersion = '^9.0.0';
+const angularVersion = '^11.0.0';
 
 const dependencies = {
   '@angular/cdk': materialVersion,
@@ -52,12 +71,32 @@ const dependencies = {
   '@angular/platform-browser': angularVersion,
   '@angular/platform-browser-dynamic': angularVersion,
   '@angular/router': angularVersion,
-  'angular-in-memory-web-api': '~0.9.0',
-  'core-js': '^2.6.11',
-  'moment': '^2.24.0',
-  'rxjs': '>=6.5.4 <7.0.0',
-  'tslib': '^1.10.0',
-  'zone.js': '~0.10.2',
+  'angular-in-memory-web-api': '~0.11.0',
+  'moment': '^2.29.1',
+  'rxjs': '^6.6.3',
+  'tslib': '^2.0.3',
+  'zone.js': '^0.11.2',
+};
+
+const testDependencies = {
+  '@angular/cdk': materialVersion,
+  '@angular/animations': angularVersion,
+  '@angular/common': angularVersion,
+  '@angular/compiler': angularVersion,
+  '@angular/core': angularVersion,
+  '@angular/forms': angularVersion,
+  '@angular/material': materialVersion,
+  '@angular/material-moment-adapter': materialVersion,
+  '@angular/platform-browser': angularVersion,
+  '@angular/platform-browser-dynamic': angularVersion,
+  '@angular/router': angularVersion,
+  '@types/jasmine': '^3.6.0',
+  'angular-in-memory-web-api': '~0.11.0',
+  'jasmine-core': '^3.6.0',
+  'moment': '^2.29.1',
+  'rxjs': '^6.6.3',
+  'tslib': '^2.0.3',
+  'zone.js': '^0.11.2',
 };
 
 /**
@@ -87,25 +126,36 @@ export class StackBlitzWriter {
    * Returns an HTMLFormElement that will open a new StackBlitz template with the example data when
    * called with submit().
    */
-  constructStackBlitzForm(data: ExampleData): Promise<HTMLFormElement> {
-    const indexFile = `src%2Fapp%2F${data.indexFilename}.ts`;
+  constructStackBlitzForm(exampleId: string,
+                          data: ExampleData,
+                          isTest: boolean): Promise<HTMLFormElement> {
+    const liveExample = EXAMPLE_COMPONENTS[exampleId];
+    const indexFile = `src%2Fapp%2F${data.indexFilename}`;
     const form = this._createFormElement(indexFile);
+    const baseExamplePath =
+      `${DOCS_CONTENT_PATH}/${liveExample.module.importSpecifier}/${exampleId}/`;
 
     TAGS.forEach((tag, i) => this._appendFormInput(form, `tags[${i}]`, tag));
     this._appendFormInput(form, 'private', 'true');
     this._appendFormInput(form, 'description', data.description);
-    this._appendFormInput(form, 'dependencies', JSON.stringify(dependencies));
+    this._appendFormInput(form,
+      'dependencies',
+      JSON.stringify(isTest ? testDependencies : dependencies));
 
     return new Promise(resolve => {
-      const templateContents = TEMPLATE_FILES
-          .map(file => this._readFile(form, data, file, TEMPLATE_PATH));
+      const templateContents = (isTest ? TEST_TEMPLATE_FILES : TEMPLATE_FILES)
+        .map(file => this._readFile(form,
+          data,
+          file,
+          isTest ? TEST_TEMPLATE_PATH : TEMPLATE_PATH,
+          isTest));
 
       const exampleContents = data.exampleFiles
-          .map(file => this._readFile(form, data, file, DOCS_CONTENT_PATH));
+        .map(file => this._readFile(form, data, file, baseExamplePath, isTest));
 
       // TODO(josephperrott): Prevent including assets to be manually checked.
       if (data.selectorName === 'icon-svg-example') {
-        this._readFile(form, data, 'assets/img/examples/thumbup-icon.svg', '', false);
+        this._readFile(form, data, 'assets/img/examples/thumbup-icon.svg', '', isTest, false);
       }
 
       Promise.all(templateContents.concat(exampleContents)).then(() => {
@@ -138,15 +188,17 @@ export class StackBlitzWriter {
    * @param data example metadata about the example
    * @param filename file name of the example
    * @param path path to the src
+   * @param isTest whether file is part of a test example
    * @param prependApp whether to prepend the 'app' prefix to the path
    */
   _readFile(form: HTMLFormElement,
             data: ExampleData,
             filename: string,
             path: string,
+            isTest: boolean,
             prependApp = true): void {
     this._http.get(path + filename, {responseType: 'text'}).subscribe(
-      response => this._addFileToForm(form, data, response, filename, path, prependApp),
+      response => this._addFileToForm(form, data, response, filename, path, isTest, prependApp),
       error => console.log(error)
     );
   }
@@ -158,6 +210,7 @@ export class StackBlitzWriter {
    * @param content file contents
    * @param filename file name of the example
    * @param path path to the src
+   * @param isTest whether file is part of a test example
    * @param prependApp whether to prepend the 'app' prefix to the path
    */
   _addFileToForm(form: HTMLFormElement,
@@ -165,8 +218,9 @@ export class StackBlitzWriter {
                  content: string,
                  filename: string,
                  path: string,
+                 isTest: boolean,
                  prependApp = true) {
-    if (path === TEMPLATE_PATH) {
+    if (path === (isTest ? TEST_TEMPLATE_PATH : TEMPLATE_PATH)) {
       content = this._replaceExamplePlaceholderNames(data, filename, content);
     } else if (prependApp) {
       filename = 'src/app/' + filename;
@@ -187,8 +241,10 @@ export class StackBlitzWriter {
       // Replace the component selector in `index,html`.
       // For example, <material-docs-example></material-docs-example> will be replaced as
       // <button-demo></button-demo>
-      fileContent = fileContent.replace(/material-docs-example/g, data.selectorName);
-      fileContent = fileContent.replace(/{{version}}/g, VERSION.full);
+      fileContent = fileContent
+        .replace(/material-docs-example/g, data.selectorName)
+        .replace(/{{title}}/g, data.description)
+        .replace(/{{version}}/g, VERSION.full);
     } else if (fileName === 'src/main.ts') {
       const joinedComponentNames = data.componentNames.join(', ');
       // Replace the component name in `main.ts`.
@@ -211,12 +267,14 @@ export class StackBlitzWriter {
       // Replace `bootstrap: [MaterialDocsExample]`
       // will be replaced as `bootstrap: [ButtonDemo]`
       // This assumes the first component listed in the main component
-      const componentList = data.componentNames[0];
       fileContent = fileContent.
         replace(/bootstrap: \[MaterialDocsExample]/g,
-          `bootstrap: [${componentList}]`);
+          `bootstrap: [${data.componentNames[0]}]`);
 
-      fileContent = fileContent.replace(/material-docs-example/g, data.indexFilename);
+      const dotIndex = data.indexFilename.lastIndexOf('.');
+      const importFileName = data.indexFilename.slice(0, dotIndex === -1 ? undefined : dotIndex);
+      fileContent = fileContent.replace(/material-docs-example/g, importFileName);
+
     }
     return fileContent;
   }

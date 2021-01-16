@@ -20,6 +20,12 @@ PROJECT_ID["v7", "prod"]="v7-material-angular-io"
 
 PROJECT_ID["v8", "prod"]="v8-material-angular-io"
 
+PROJECT_ID["v9", "prod"]="v9-material-angular-io"
+
+PROJECT_ID["v10", "prod"]="v10-material-angular-io"
+
+PROJECT_ID["next", "prod"]="beta-angular-material-io"
+
 version=${1:-stable}
 mode=${2:-dev}
 projectId=${PROJECT_ID[$version, $mode]}

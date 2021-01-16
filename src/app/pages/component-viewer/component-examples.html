@@ -1,8 +1,10 @@
 <ng-container *ngIf="componentViewer.componentDocItem | async; let docItem">
-  <span class="cdk-visually-hidden" tabindex="-1" #initialFocusTarget>
+  <span class="cdk-visually-hidden" tabindex="-1">
     {{docItem?.id}} 的范例
   </span>
   <example-viewer
     *ngFor="let example of docItem?.examples"
-    [example]="example"></example-viewer>
+    [example]="example"
+    [showCompactToggle]="false"
+    [view]="'demo'"></example-viewer>
 </ng-container>

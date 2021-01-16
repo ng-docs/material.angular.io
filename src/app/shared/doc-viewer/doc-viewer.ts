@@ -43,6 +43,29 @@ export class DocViewer implements OnDestroy {
   /** The document text. It should not be HTML encoded. */
   textContent = '';
 
+  private static initExampleViewer(exampleViewerComponent: ExampleViewer,
+                                   example: string,
+                                   file: string | null,
+                                   region: string | null) {
+    exampleViewerComponent.example = example;
+    if (file) {
+      // if the html div has field `file` then it should be in compact view to show the code
+      // snippet
+      exampleViewerComponent.view = 'snippet';
+      exampleViewerComponent.showCompactToggle = true;
+      exampleViewerComponent.file = file;
+      if (region) {
+        // `region` should only exist when `file` exists but not vice versa
+        // It is valid for embedded example snippets to show the whole file (esp short files)
+        exampleViewerComponent.region = region;
+      }
+    } else {
+      // otherwise it is an embedded demo
+      exampleViewerComponent.view = 'demo';
+    }
+
+  }
+
   constructor(private _appRef: ApplicationRef,
               private _componentFactoryResolver: ComponentFactoryResolver,
               private _elementRef: ElementRef,
@@ -78,10 +101,8 @@ export class DocViewer implements OnDestroy {
       const absoluteUrl = `${location.pathname}#${fragmentUrl}`;
       return `href="${this._domSanitizer.sanitize(SecurityContext.URL, absoluteUrl)}"`;
     });
-
     this._elementRef.nativeElement.innerHTML = rawDocument;
     this.textContent = this._elementRef.nativeElement.textContent;
-
     this._loadComponents('material-docs-example', ExampleViewer);
     this._loadComponents('header-link', HeaderLink);
 
@@ -105,16 +126,18 @@ export class DocViewer implements OnDestroy {
     const exampleElements =
         this._elementRef.nativeElement.querySelectorAll(`[${componentName}]`);
 
-    Array.prototype.slice.call(exampleElements).forEach((element: Element) => {
+    [...exampleElements].forEach((element: Element) => {
       const example = element.getAttribute(componentName);
+      const region = element.getAttribute('region');
+      const file = element.getAttribute('file');
       const portalHost = new DomPortalOutlet(
           element, this._componentFactoryResolver, this._appRef, this._injector);
       const examplePortal = new ComponentPortal(componentClass, this._viewContainerRef);
       const exampleViewer = portalHost.attach(examplePortal);
+      const exampleViewerComponent = exampleViewer.instance as ExampleViewer;
       if (example !== null) {
-        (exampleViewer.instance as ExampleViewer).example = example;
+        DocViewer.initExampleViewer(exampleViewerComponent, example, file, region);
       }
-
       this._portalHosts.push(portalHost);
     });
   }

@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {
   Component,
   Directive,
-  ElementRef,
   NgModule,
   OnDestroy,
   OnInit,
@@ -19,6 +18,7 @@ import {DocItem, DocumentationItems} from '../../shared/documentation-items/docu
 import {TableOfContents} from '../../shared/table-of-contents/table-of-contents';
 import {TableOfContentsModule} from '../../shared/table-of-contents/table-of-contents.module';
 import {ComponentPageTitle} from '../page-title/page-title';
+import {NavigationFocusModule} from '../../shared/navigation-focus/navigation-focus';
 
 @Component({
   selector: 'app-component-viewer',
@@ -87,7 +87,6 @@ export class ComponentViewer implements OnDestroy {
  */
 @Directive()
 export class ComponentBaseView implements OnInit, OnDestroy {
-  @ViewChild('initialFocusTarget') focusTarget: ElementRef;
   @ViewChild('toc') tableOfContents: TableOfContents;
 
   showToc: Observable<boolean>;
@@ -101,8 +100,6 @@ export class ComponentBaseView implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentViewer.componentDocItem.pipe(takeUntil(this.destroyed)).subscribe(() => {
-      // 100ms timeout is used to allow the page to settle before moving focus for screen readers.
-      setTimeout(() => this.focusTarget.nativeElement.focus({preventScroll: true}), 100);
       if (this.tableOfContents) {
         this.tableOfContents.resetHeaders();
       }
@@ -113,9 +110,9 @@ export class ComponentBaseView implements OnInit, OnDestroy {
     this.destroyed.next();
   }
 
-  updateTableOfContents(sectionName: string, docViewerContent: HTMLElement) {
+  updateTableOfContents(sectionName: string, docViewerContent: HTMLElement, sectionIndex = 0) {
     if (this.tableOfContents) {
-      this.tableOfContents.addHeaders(sectionName, docViewerContent);
+      this.tableOfContents.addHeaders(sectionName, docViewerContent, sectionIndex);
       this.tableOfContents.updateScrollPosition();
     }
   }
@@ -129,6 +126,16 @@ export class ComponentBaseView implements OnInit, OnDestroy {
 export class ComponentOverview extends ComponentBaseView {
   constructor(componentViewer: ComponentViewer, breakpointObserver: BreakpointObserver) {
     super(componentViewer, breakpointObserver);
+  }
+
+  getOverviewDocumentUrl(doc: DocItem) {
+    // Use the explicit overview path if specified. Otherwise, compute an overview path based
+    // on the package name and doc item id. Overviews for components are commonly stored in a
+    // folder named after the component while the overview file is named similarly. e.g.
+    //    `cdk#overlay`     -> `cdk/overlay/overlay.md`
+    //    `material#button` -> `material/button/button.md`
+    const overviewPath = doc.overviewPath || `${doc.packageName}/${doc.id}/${doc.id}.html`;
+    return `/docs-content/overviews/${overviewPath}`;
   }
 }
 
@@ -167,6 +174,7 @@ export class ComponentExamples extends ComponentBaseView {
     DocViewerModule,
     CommonModule,
     TableOfContentsModule,
+    NavigationFocusModule,
   ],
   exports: [ComponentViewer],
   declarations: [ComponentViewer, ComponentOverview, ComponentApi, ComponentExamples],

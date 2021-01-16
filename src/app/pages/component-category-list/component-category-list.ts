@@ -6,6 +6,7 @@ import {DocumentationItems, SECTIONS} from '../../shared/documentation-items/doc
 import {ComponentPageTitle} from '../page-title/page-title';
 import {SvgViewerModule} from '../../shared/svg-viewer/svg-viewer';
 import {combineLatest, Observable, Subscription} from 'rxjs';
+import {NavigationFocusModule} from '../../shared/navigation-focus/navigation-focus';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class ComponentCategoryList implements OnInit, OnDestroy {
 }
 
 @NgModule({
-  imports: [CommonModule, SvgViewerModule, MatCardModule, RouterModule],
+  imports: [CommonModule, SvgViewerModule, MatCardModule, RouterModule, NavigationFocusModule],
   exports: [ComponentCategoryList],
   declarations: [ComponentCategoryList],
   providers: [DocumentationItems],

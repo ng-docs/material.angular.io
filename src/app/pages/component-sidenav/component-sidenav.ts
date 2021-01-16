@@ -11,12 +11,12 @@ import {
 import {DocumentationItems} from '../../shared/documentation-items/documentation-items';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
-import {ActivatedRoute, NavigationEnd, Params, Router, RouterModule, Routes} from '@angular/router';
+import {ActivatedRoute, Params, RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ComponentHeaderModule} from '../component-page-header/component-page-header';
 import {FooterModule} from '../../shared/footer/footer';
-import {combineLatest, Observable, Subject} from 'rxjs';
-import {filter, map, startWith, switchMap, takeUntil} from 'rxjs/operators';
+import {combineLatest, Observable, Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {BreakpointObserver} from '@angular/cdk/layout';
@@ -24,7 +24,6 @@ import {
   ComponentCategoryList,
   ComponentCategoryListModule
 } from '../component-category-list/component-category-list';
-import {ComponentList, ComponentListModule} from '../component-list';
 import {
   ComponentApi,
   ComponentExamples,
@@ -39,6 +38,8 @@ import {StackBlitzButtonModule} from '../../shared/stack-blitz';
 import {SvgViewerModule} from '../../shared/svg-viewer/svg-viewer';
 import {MatDrawerToggleResult} from '@angular/material/sidenav/drawer';
 import {MatListModule} from '@angular/material/list';
+import {NavigationFocusModule} from '../../shared/navigation-focus/navigation-focus';
+import {NavigationFocusService} from '../../shared/navigation-focus/navigation-focus.service';
 
 // These constants are used by the ComponentSidenav for orchestrating the MatSidenav in a responsive
 // way. This includes hiding the sidenav, defaulting it to open, changing the mode from over to
@@ -48,7 +49,7 @@ import {MatListModule} from '@angular/material/list';
 // These breakpoint values need to stay in sync with the related Sass variables in
 // src/styles/_constants.scss.
 const EXTRA_SMALL_WIDTH_BREAKPOINT = 720;
-const SMALL_WIDTH_BREAKPOINT = 959;
+const SMALL_WIDTH_BREAKPOINT = 939;
 
 @Component({
   selector: 'app-component-sidenav',
@@ -56,15 +57,16 @@ const SMALL_WIDTH_BREAKPOINT = 959;
   styleUrls: ['./component-sidenav.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ComponentSidenav implements OnInit {
+export class ComponentSidenav implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   params: Observable<Params>;
   isExtraScreenSmall: Observable<boolean>;
   isScreenSmall: Observable<boolean>;
+  private subscriptions = new Subscription();
 
   constructor(public docItems: DocumentationItems,
               private _route: ActivatedRoute,
-              private _router: Router,
+              private _navigationFocusService: NavigationFocusService,
               zone: NgZone,
               breakpoints: BreakpointObserver) {
     this.isExtraScreenSmall =
@@ -79,15 +81,18 @@ export class ComponentSidenav implements OnInit {
     this.params = combineLatest(
         this._route.pathFromRoot.map(route => route.params), Object.assign);
 
-    this._router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map((event) => this.isScreenSmall)
-    ).subscribe((shouldCloseSideNav) => {
-        if (shouldCloseSideNav && this.sidenav) {
-          this.sidenav.close();
+    this.subscriptions.add(
+      this._navigationFocusService.navigationEndEvents.pipe(map(() => this.isScreenSmall))
+      .subscribe((shouldCloseSideNav) => {
+          if (shouldCloseSideNav && this.sidenav) {
+            this.sidenav.close();
+          }
         }
-      }
-    );
+      ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   toggleSidenav(sidenav: MatSidenav): Promise<MatDrawerToggleResult> {
@@ -107,90 +112,38 @@ export class ComponentSidenav implements OnInit {
     ]),
   ],
 })
-export class ComponentNav implements OnInit, OnDestroy {
+export class ComponentNav {
   @Input() params: Observable<Params>;
-  expansions: {[key: string]: boolean} = {};
   currentItemId: string;
-  private _onDestroy = new Subject<void>();
 
-  constructor(public docItems: DocumentationItems, private _router: Router) {}
-
-  ngOnInit() {
-    this._router.events.pipe(
-      startWith(null),
-      switchMap(() => this.params),
-      takeUntil(this._onDestroy)
-    ).subscribe(params => this.setExpansions(params));
-  }
-
-  ngOnDestroy() {
-    this._onDestroy.next();
-    this._onDestroy.complete();
-  }
-
-  /** Set the expansions based on the route url */
-  setExpansions(params: Params) {
-    const categories = this.docItems.getCategories(params.section);
-    for (const category of (categories || [])) {
-
-      let match = false;
-      for (const item of category.items) {
-        if (this._router.url.indexOf(item.id) > -1) {
-          match = true;
-          this.currentItemId = item.id;
-          break;
-        }
-      }
-
-      if (!this.expansions[category.id]) {
-        this.expansions[category.id] = match;
-      }
-    }
-  }
-
-  /** Gets the expanded state */
-  _getExpandedState(category: string) {
-    return this.getExpanded(category) ? 'expanded' : 'collapsed';
-  }
-
-  /** Toggles the expanded state */
-  toggleExpand(category: string) {
-    this.expansions[category] = !this.expansions[category];
-  }
-
-  /** Gets whether expanded or not */
-  getExpanded(category: string): boolean {
-    return this.expansions[category] === undefined ? true : this.expansions[category];
-  }
+  constructor(public docItems: DocumentationItems) {}
 }
 
-const routes: Routes = [ {
-  path : '',
-  component : ComponentSidenav,
-  children : [
-    {path : '', redirectTo : 'categories', pathMatch : 'full'},
-    {path : 'component/:id', redirectTo : ':id', pathMatch : 'full'},
-    {path : 'category/:id', redirectTo : '/categories/:id', pathMatch : 'full'},
+const routes: Routes = [{
+  path: '',
+  component: ComponentSidenav,
+  children: [
+    {path: 'component/:id', redirectTo: ':id', pathMatch: 'full'},
+    {path: 'category/:id', redirectTo: '/categories/:id', pathMatch: 'full'},
     {
-      path : 'categories',
-      children : [
-        {path : '', component : ComponentCategoryList},
-        {path : ':id', component : ComponentList},
+      path: 'categories',
+      children: [
+        {path: '', component: ComponentCategoryList},
       ],
     },
     {
-      path : ':id',
-      component : ComponentViewer,
-      children : [
-        {path : '', redirectTo : 'overview', pathMatch : 'full'},
-        {path : 'overview', component : ComponentOverview, pathMatch : 'full'},
-        {path : 'api', component : ComponentApi, pathMatch : 'full'},
-        {path : 'examples', component : ComponentExamples, pathMatch : 'full'},
-        {path : '**', redirectTo : 'overview'},
+      path: ':id',
+      component: ComponentViewer,
+      children: [
+        {path: '', redirectTo: 'overview', pathMatch: 'full'},
+        {path: 'overview', component: ComponentOverview, pathMatch: 'full'},
+        {path: 'api', component: ComponentApi, pathMatch: 'full'},
+        {path: 'examples', component: ComponentExamples, pathMatch: 'full'}
       ],
     },
+    {path: '**', redirectTo: '/404'}
   ]
-} ];
+}];
 
 @NgModule({
   imports: [
@@ -200,7 +153,6 @@ const routes: Routes = [ {
     CommonModule,
     ComponentCategoryListModule,
     ComponentHeaderModule,
-    ComponentListModule,
     ComponentViewerModule,
     DocViewerModule,
     FooterModule,
@@ -208,10 +160,10 @@ const routes: Routes = [ {
     HttpClientModule,
     CdkAccordionModule,
     MatIconModule,
-    MatSidenavModule,
     StackBlitzButtonModule,
     SvgViewerModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NavigationFocusModule
   ],
   exports: [ComponentSidenav],
   declarations: [ComponentSidenav, ComponentNav],

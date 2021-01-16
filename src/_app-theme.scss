@@ -1,11 +1,12 @@
-@import '../node_modules/@angular/material/theming';
+@import '~@angular/material/theming';
 
 @import './app/pages/component-category-list/component-category-list-theme';
-@import './app/pages/component-list/component-list-theme';
 @import './app/pages/component-sidenav/component-sidenav-theme';
 @import './app/pages/component-viewer/component-viewer-theme';
 @import './app/pages/guide-list/guide-list-theme';
 @import './app/pages/homepage/homepage-theme';
+@import './app/pages/not-found/not-found-theme';
+@import './app/shared/carousel/carousel-theme';
 @import './app/shared/example-viewer/example-viewer-theme';
 @import './app/shared/footer/footer-theme';
 @import './app/shared/navbar/navbar-theme';
@@ -44,9 +45,8 @@
   .is-next-version {
     background: mat-color($next-theme, 900) !important;
   }
-
+  @include carousel-theme($theme);
   @include component-category-list-theme($theme);
-  @include component-list-theme($theme);
   @include component-viewer-sidenav-theme($theme);
   @include component-viewer-theme($theme);
   @include docs-site-api-theme($theme);
@@ -57,6 +57,7 @@
   @include footer-theme($theme);
   @include guide-list-theme($theme);
   @include home-page-theme($theme);
+  @include not-found-theme($theme);
   @include nav-bar-theme($theme);
   @include table-of-contents-theme($theme);
 }

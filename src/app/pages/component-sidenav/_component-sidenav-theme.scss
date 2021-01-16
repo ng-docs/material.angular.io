@@ -1,4 +1,4 @@
-@import '../../../../node_modules/@angular/material/theming';
+@import '~@angular/material/theming';
 @import '../../../styles/constants';
 
 @mixin component-viewer-sidenav-theme($theme) {
@@ -10,38 +10,31 @@
   $nav-background-focus-opacity: if($is-dark-theme, 0.25, 0.08);
 
   .docs-component-viewer-nav-content {
-    background: rgba(0, 0, 0, $nav-background-opacity);
+    border-right: 1px solid mat-color($foreground, divider);
 
     &::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, .26);
     }
 
-    .docs-nav-content-btn {
-      color: rgba(mat-color($foreground, text), 0.7);
-      font-family: Roboto, "Helvetica Neue", sans-serif;
-
-      &:focus {
-        // override the default background
-        background: rgba(0, 0, 0, $nav-background-focus-opacity);
-      }
-    }
-
-    hr {
-      border: none;
-      border-top: solid 1px rgba(mat-color($foreground, secondary-text), .1)
-    }
-
     a {
-      color: mat-color($foreground, secondary-text);
+      color: map-get($foreground, secondary-text);
 
-      &.docs-component-viewer-sidenav-item-selected,
       &:hover {
-        color: mat-color($primary, if($is-dark-theme, 200, default));
+        color: mat-color($foreground, text);
       }
 
       &.docs-component-viewer-sidenav-item-selected {
-        background: rgba(0, 0, 0, $nav-background-focus-opacity);
+        background: rgba(mat-color($primary, default), 0.15);
+        color: lighten(mat-color($primary, default), if($is-dark-theme, 25%, 0));
       }
+
+      &.docs-component-viewer-sidenav-item-selected:hover {
+        background: rgba(mat-color($primary, default), 0.3);
+      }
+    }
+
+    .mat-list-item {
+      color: rgba(mat-color($foreground, secondary-text), 0.65);
     }
   }
 
