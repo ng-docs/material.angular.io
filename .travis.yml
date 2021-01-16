@@ -15,11 +15,7 @@ addons:
   chrome: stable
 
 install:
-  - npm install
+  - yarn
 
 script:
   - ./scripts/ci/deploy-cn.sh
-
-cache:
-  directories:
-    - node_modules
