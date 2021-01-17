@@ -18,7 +18,7 @@ export class ComponentPageTitle {
   }
 
   set title(title: string) {
-    this._title = title || '首页';
+    this._title = title || '';
     this.updateTitle();
   }
 
@@ -29,7 +29,7 @@ export class ComponentPageTitle {
   }
 
   set titleCn(titleCn: string) {
-    this._titleCn = titleCn || 'Home';
+    this._titleCn = titleCn || '首页';
     this.updateTitle();
   }
 
