@@ -44,6 +44,7 @@ export interface DocSection {
 const exampleNames = Object.keys(EXAMPLE_COMPONENTS);
 const CDK = 'cdk';
 const COMPONENTS = 'components';
+const GUIDES = 'guides';
 export const SECTIONS: { [key: string]: DocSection } = {
   [COMPONENTS]: {
     name: 'Components',
@@ -58,6 +59,12 @@ export const SECTIONS: { [key: string]: DocSection } = {
       ' components.',
     nameCn: '组件开发包',
     summaryCn: '组件开发工具包（CDK）是一组用来构建 UI 组件的行为原语。',
+  },
+  [GUIDES]: {
+    name: 'Guides',
+    summary: '',
+    nameCn: '使用指南',
+    summaryCn: '',
   },
 };
 
@@ -105,7 +112,7 @@ export const DOCS: { [key: string]: DocItem[] } = {
       summaryCn: '带有一系列候选项的交互式按钮。',
       exampleSpecs: {
         prefix: 'button-',
-        exclude: ['button-toggle-']
+        exclude: ['button-toggle-'],
       },
       additionalApiDocs: [{name: 'Testing', path: 'material-button-testing.html'}],
     },
@@ -586,12 +593,12 @@ export const DOCS: { [key: string]: DocItem[] } = {
       additionalApiDocs: [
         {
           name: 'Testbed',
-          path: 'cdk-testing-testbed.html'
+          path: 'cdk-testing-testbed.html',
         },
         {
           name: 'Protractor',
-          path: 'cdk-testing-protractor.html'
-        }
+          path: 'cdk-testing-protractor.html',
+        },
       ],
     },
     {

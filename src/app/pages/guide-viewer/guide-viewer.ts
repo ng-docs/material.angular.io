@@ -34,12 +34,13 @@ export class GuideViewer implements OnInit {
 
   ngOnInit(): void {
     if (this.guide !== undefined) {
-      this._componentPageTitle.titleCn = this.guide.name;
+      this._componentPageTitle.title = this.guide.name;
+      this._componentPageTitle.titleCn = this.guide.nameCn;
     }
   }
 }
 
-const routes: Routes = [ {path : '', component : GuideViewer} ];
+const routes: Routes = [{path: '', component: GuideViewer}];
 
 // This module needs to include all of the modules required by the examples in the guides.
 // For example, the custom form-field guide requires the ReactiveFormsModule.
@@ -53,4 +54,5 @@ const routes: Routes = [ {path : '', component : GuideViewer} ];
   declarations: [GuideViewer],
   providers: [GuideItems],
 })
-export class GuideViewerModule {}
+export class GuideViewerModule {
+}
