@@ -543,7 +543,7 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'portal',
       name: 'Portal',
       summary: 'Utilities for dynamically displaying content into a target.',
-      nameCn: '门户',
+      nameCn: '传送点',
       summaryCn: '用于把内容动态显示到目标中的工具。',
       exampleSpecs: {
         prefix: 'cdk-portal-',
