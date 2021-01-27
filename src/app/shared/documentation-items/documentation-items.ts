@@ -153,7 +153,7 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'chips',
       name: 'Chips',
       summary: 'Presents a list of items as a set of small, tactile entities.',
-      nameCn: '芯片',
+      nameCn: '纸片',
       summaryCn: '将列表中的条目呈现为一组小的触觉实体。',
       exampleSpecs: {
         prefix: 'chips-',
@@ -320,8 +320,8 @@ export const DOCS: { [key: string]: DocItem[] } = {
       name: 'Ripples',
       overviewPath: 'material/core/ripple/ripple.html',
       summary: 'Directive for adding Material Design ripple effects',
-      nameCn: '水波',
-      summaryCn: '用于添加 Material Design 水波效果的指令',
+      nameCn: '涟漪',
+      summaryCn: '用于添加 Material Design 涟漪效果的指令',
       exampleSpecs: {
         prefix: 'ripple-',
       },
@@ -440,7 +440,7 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'tooltip',
       name: 'Tooltip',
       summary: 'Displays floating content when an object is hovered.',
-      nameCn: '提示框',
+      nameCn: '工具提示',
       summaryCn: '当鼠标移到某个对象之上时显示浮动内容。',
       exampleSpecs: {
         prefix: 'tooltip-',
