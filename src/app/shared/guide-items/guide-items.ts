@@ -90,6 +90,14 @@ const GUIDES = [
     overview: 'Write tests with component harnesses for convenience and meaningful results.',
     overviewCn: '使用组件测试工具编写测试，以获得便利性，并输出更有意义的结果。',
   },
+  {
+    id: 'deploy-to-local',
+    name: `Deploy to local`,
+    nameCn: '部署到本地环境',
+    document: '/docs-content/guides/deploy-to-local.html',
+    overview: 'Deploy this document to a local environment for use in an intranet or offline environment',
+    overviewCn: '将本文档部署到局域网或本地环境，以便在企业内网或脱机等环境下使用',
+  },
 ];
 
 @Injectable()
