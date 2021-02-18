@@ -363,8 +363,8 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'slider',
       name: 'Slider',
       summary: 'Allows the user to input a value by dragging along a slider.',
-      nameCn: '滑竿',
-      summaryCn: '允许用户以拖曳滑竿的方式输入一个值。',
+      nameCn: '滑杆',
+      summaryCn: '允许用户以拖曳滑杆的方式输入一个值。',
       exampleSpecs: {
         prefix: 'slider-',
       },
