@@ -186,7 +186,7 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'divider',
       name: 'Divider',
       summary: 'A vertical or horizontal visual divider.',
-      nameCn: '分隔器',
+      nameCn: '分割器',
       summaryCn: '垂直或水平的视觉分割器。',
       exampleSpecs: {
         prefix: 'divider-',
