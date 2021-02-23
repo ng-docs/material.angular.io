@@ -11,7 +11,7 @@
   <span>
     <doc-viewer [documentUrl]="getApiDocumentUrl(docItem!)"
       class="docs-component-view-text-content docs-component-api"
-      (contentRendered)="updateTableOfContents(docItem!.name, $event)">
+      (contentRendered)="updateTableOfContents(docItem!.nameCn + ' API 目录', $event)">
     </doc-viewer>
 
     <doc-viewer *ngFor="let additionalApiDoc of docItem!.additionalApiDocs; let index = index"
