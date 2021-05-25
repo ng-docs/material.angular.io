@@ -1,6 +1,6 @@
 <ng-container *ngIf="componentViewer.componentDocItem | async; let docItem">
   <span class="cdk-visually-hidden" tabindex="-1">
-    Examples for {{docItem.id}}
+    {{docItem.id}} 的范例
   </span>
   <example-viewer
     *ngFor="let example of docItem.examples"

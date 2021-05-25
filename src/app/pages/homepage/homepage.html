@@ -3,10 +3,13 @@
   <div class="docs-header-section">
     <div class="docs-header-headline">
       <h1 class="mat-h1">Angular Material</h1>
-      <h2> Material Design components for Angular</h2>
+      <h2 translation-result> Material Design 组件库 for Angular</h2>
+      <h2 translation-origin="off"> Material Design components for Angular</h2>
     </div>
     <div class="docs-header-start">
-      <a mat-raised-button class="docs-button" routerLink="/guide/getting-started">Get started</a>
+      <a translation-result mat-raised-button class="docs-button" routerLink="/guide/getting-started">快速上手</a>
+      <a translation-origin="off" mat-raised-button class="docs-button" routerLink="/guide/getting-started">Get
+        started</a>
     </div>
   </div>
 </header>
@@ -14,27 +17,36 @@
 <main class="docs-homepage-promo">
   <div class="docs-homepage-row docs-introduction">
     <div class="docs-homepage-row-column">
-      <h2>High quality</h2>
-      <p>
+      <h2 translation-result>高质量</h2>
+      <h2 translation-origin="off">High quality</h2>
+      <p translation-result>支持国际化和无障碍性的组件，为每一个人设计。测试充分，保障性能和可靠性。</p>
+      <p translation-origin="off">
         Internationalized and accessible components for everyone. Well tested to ensure performance and reliability.
       </p>
-      <p>Straightforward APIs with consistent cross platform behaviour.</p>
+      <p translation-result>直白的 API，在各个平台上具有一致的行为。</p>
+      <p translation-origin="off">Straightforward APIs with consistent cross platform behaviour.</p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Versatile</h2>
-      <p>
+      <h2 translation-result>多才多艺</h2>
+      <h2 translation-origin="off">Versatile</h2>
+      <p translation-result>提供了很多工具，帮助开发者构建支持常用交互模式的自定义组件。</p>
+      <p translation-origin="off">
         Provide tools that help developers build their own custom components with common interaction patterns.
       </p>
-      <p>
+      <p translation-result>可在 Material Design 规范的框架内进行定制。</p>
+      <p translation-origin="off">
         Customizable within the bounds of the Material Design specification.
       </p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Frictionless</h2>
-      <p>
+      <h2 translation-result>无缝集成</h2>
+      <h2 translation-origin="off">Frictionless</h2>
+      <p translation-result>由 Angular 团队构建，与 Angular 无缝集成</p>
+      <p translation-origin="off">
         Built by the Angular team to integrate seamlessly with Angular.
       </p>
-      <p>
+      <p translation-result>从草稿阶段开始，或空降到现有应用。</p>
+      <p translation-origin="off">
         Start from scratch or drop into your existing applications.
       </p>
     </div>
@@ -43,19 +55,20 @@
   <mat-divider></mat-divider>
 
   <div class="docs-homepage-featured-components docs-homepage-carousel-row">
-    <h2>Featured components</h2>
+    <h2 translation-result>特性组件</h2>
+    <h2 translation-origin="off">Featured components</h2>
     <app-carousel [itemWidth]="260" [aria-label]="'Featured components'">
       <a *ngFor="let comp of getTopComponents()" carousel-item class='docs-featured-components-carousel-item'
-         routerLink="/components/{{comp}}">
+         routerLink="/components/{{comp.id}}">
         <div class="docs-homepage-img-container">
-          <img alt="" src="../../../assets/screenshots/{{comp}}.scene.png" role="presentation">
+          <img alt="" src="../../../assets/screenshots/{{comp.id}}.scene.png" role="presentation">
         </div>
-        {{(comp[0].toUpperCase() + comp.slice(1)).replace('-', ' ')}}
+        <p>{{comp.nameCn}}&nbsp;<small>{{comp.name}}</small></p>
       </a>
     </app-carousel>
 
     <a class="docs-link" routerLink="/components">
-      View all components
+      查看所有组件
       <mat-icon>chevron_right</mat-icon>
     </a>
   </div>
@@ -63,22 +76,23 @@
   <mat-divider></mat-divider>
 
   <div class="docs-homepage-guides docs-homepage-carousel-row">
-    <h2>Guides</h2>
+    <h2 translation-result>指南</h2>
+    <h2 translation-origin="off">Guides</h2>
     <app-carousel [itemWidth]="260" [aria-label]="'Guides'">
       <a carousel-item class='docs-homepage-guides-carousel-item' *ngFor="let guide of guideItems.getAllItems()"
          routerLink='/guide/{{guide.id}}'>
         <mat-card class="docs-homepage-guides-card">
-          <mat-card-title>{{guide.name}}</mat-card-title>
+          <mat-card-title>{{guide.nameCn}}</mat-card-title>
           <div class="docs-homepage-guides-card-divider"></div>
           <mat-card-content class="docs-component-category-list-card-summary">
-            {{guide.overview}}
+            {{guide.overviewCn}}
           </mat-card-content>
         </mat-card>
       </a>
     </app-carousel>
 
     <a class="docs-link" routerLink="/guides">
-      View all guides
+      查看所有指南
       <mat-icon>chevron_right</mat-icon>
     </a>
   </div>

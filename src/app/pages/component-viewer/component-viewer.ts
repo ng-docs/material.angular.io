@@ -54,7 +54,7 @@ export class ComponentViewer implements OnDestroy {
       if (docItemAndSection.doc !== undefined) {
         this.componentDocItem.next(docItemAndSection.doc);
         this._componentPageTitle.title = `${docItemAndSection.doc.name}`;
-
+        this._componentPageTitle.titleCn = `${docItemAndSection.doc.nameCn}`;
         if (docItemAndSection.doc.examples && docItemAndSection.doc.examples.length) {
           this.sections.add('examples');
         } else {
@@ -69,6 +69,19 @@ export class ComponentViewer implements OnDestroy {
   ngOnDestroy(): void {
     this._destroyed.next();
     this._destroyed.complete();
+  }
+
+  titleOf(id: string): string {
+    switch (id) {
+      case 'overview':
+        return '概览';
+      case 'api':
+        return 'API';
+      case 'examples':
+        return '范例';
+      default:
+        return id;
+    }
   }
 }
 

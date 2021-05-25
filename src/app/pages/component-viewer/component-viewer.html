@@ -7,7 +7,7 @@
         *ngFor="let section of sections"
         [routerLink]="section.toLowerCase()"
         routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">{{section}}</a>
+        [active]="rla.isActive">{{titleOf(section)}}</a>
   </nav>
 
   <div class="docs-component-viewer-content">

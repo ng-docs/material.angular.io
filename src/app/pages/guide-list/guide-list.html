@@ -1,5 +1,5 @@
 <header class="docs-primary-header">
-  <h1>Guides</h1>
+  <h1>指南 <small>Guides</small></h1>
 </header>
 
 <main focusOnNavigation aria-label="Guide list" id="guide-list" class="docs-guide">
@@ -7,10 +7,10 @@
   <a class='docs-guide-item' *ngFor="let guide of guideItems.getAllItems()"
      routerLink='/guide/{{guide.id}}'>
     <mat-card class="docs-guide-card">
-      <mat-card-title>{{guide.name}}</mat-card-title>
+      <mat-card-title>{{guide.nameCn}}</mat-card-title>
       <div class="docs-guide-card-divider"></div>
       <mat-card-content class="docs-guide-card-summary">
-        {{guide.overview}}
+        {{guide.overviewCn}}
       </mat-card-content>
     </mat-card>
   </a>

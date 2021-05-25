@@ -36,6 +36,7 @@ interface Link {
 })
 export class TableOfContents implements OnInit, AfterViewInit, OnDestroy {
   @Input() container: string | undefined;
+  @Input() headerSelectors = '.docs-markdown-h3:not([translation-origin]),.docs-markdown-h4:not([translation-origin])';
 
   _linkSections: LinkSection[] = [];
   _links: Link[] = [];
@@ -109,7 +110,9 @@ export class TableOfContents implements OnInit, AfterViewInit, OnDestroy {
   addHeaders(sectionName: string, docViewerContent: HTMLElement, sectionIndex = 0) {
     const headers = Array.from<HTMLHeadingElement>(docViewerContent.querySelectorAll('h3, h4'));
     const links: Link[] = [];
-    headers.forEach((header) => {
+    headers
+      .filter(header => !header.hasAttribute('translation-origin'))
+      .forEach((header) => {
       // remove the 'link' icon name from the inner text
       const name = header.innerText.trim().replace(/^link/, '');
       const {top} = header.getBoundingClientRect();

@@ -17,6 +17,10 @@ export class ComponentPageHeader {
   getTitle() {
     return this._componentPageTitle.title;
   }
+
+  getTitleCn() {
+    return this._componentPageTitle.titleCn;
+  }
 }
 
 @NgModule({

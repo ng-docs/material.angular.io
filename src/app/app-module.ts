@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
+import {APP_ID, NgModule} from '@angular/core';
 import {LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
@@ -10,17 +10,21 @@ import {NavBarModule} from './shared/navbar';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'material-docs'}),
     BrowserAnimationsModule,
     RouterModule.forRoot(MATERIAL_DOCS_ROUTES, {
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
-      relativeLinkResolution: 'corrected'
+      relativeLinkResolution: 'corrected',
     }),
     NavBarModule,
   ],
   declarations: [MaterialDocsApp],
-  providers: [{provide: LocationStrategy, useClass: PathLocationStrategy}],
+  providers: [
+    {provide: LocationStrategy, useClass: PathLocationStrategy},
+    {provide: APP_ID, useFactory: () => 'material-docs'},
+  ],
   bootstrap: [MaterialDocsApp],
 })
-export class AppModule {}
+export class AppModule {
+}
