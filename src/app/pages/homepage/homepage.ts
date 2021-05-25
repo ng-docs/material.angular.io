@@ -12,13 +12,14 @@ import {GuideItems} from '../../shared/guide-items/guide-items';
 import {CommonModule} from '@angular/common';
 import {CarouselModule} from '../../shared/carousel/carousel-module';
 import {Support} from '../../shared/support/support';
+import {DocItem, DOCS} from '../../shared/documentation-items/documentation-items';
 
 const TOP_COMPONENTS = ['datepicker', 'input', 'slide-toggle', 'slider', 'button'];
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.html',
-  styleUrls: ['./homepage.scss']
+  styleUrls: ['./homepage.scss'],
 })
 export class Homepage implements OnInit {
   @HostBinding('class.main-content') readonly mainContentClass = true;
@@ -29,10 +30,12 @@ export class Homepage implements OnInit {
 
   ngOnInit(): void {
     this._componentPageTitle.title = '';
+    this._componentPageTitle.titleCn = '';
   }
 
-  getTopComponents(): string[] {
-    return TOP_COMPONENTS;
+  getTopComponents(): DocItem[] {
+    // tslint:disable-next-line:no-non-null-assertion
+    return TOP_COMPONENTS.map(id => DOCS['components']!!.find(it => it.id === id)!!);
   }
 }
 

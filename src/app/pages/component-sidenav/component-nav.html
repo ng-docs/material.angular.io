@@ -5,7 +5,7 @@
            [routerLink]="'/' + section+ '/' + component.id"
            routerLinkActive="docs-component-viewer-sidenav-item-selected"
            [attr.aria-current]="currentItemId === component.id ? 'page': 'false'">
-          {{component.name}}
+          {{component.nameCn}}&nbsp;<small>{{component.name}}</small>
         </a>
       </mat-nav-list>
   </div>
