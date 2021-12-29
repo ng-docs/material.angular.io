@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 // Mixin to apply theme colors for generated API docs.
 @mixin theme($theme) {
@@ -10,27 +10,16 @@
   $foreground: map.get($theme, foreground);
   $is-dark-theme: map.get($theme, is-dark);
 
-  @if $is-dark-theme {
-    .docs-api-method-name-cell {
-      color: mat.get-color-from-palette($primary, 200);
-    }
-
-    .docs-api-method-returns-type,
-    .docs-api-method-parameter-type {
-      color: mat.get-color-from-palette($primary, 200);
-    }
-  } @else {
-    .docs-api-method-name-cell {
-      color: mat.get-color-from-palette($primary, 800);
-    }
-
-    .docs-api-method-returns-type,
-    .docs-api-method-parameter-type {
-      color: mat.get-color-from-palette($primary, darker);
-    }
+  .docs-api-method-name-cell {
+    color: mat.get-color-from-palette($primary, if($is-dark-theme, 200, 800));
   }
 
-  .docs-api-async-method-marker {
+  .docs-api-method-returns-type,
+  .docs-api-method-parameter-type {
+    color: mat.get-color-from-palette($primary, if($is-dark-theme, 200, darker));
+  }
+
+  .docs-api-modifier-method-marker {
     $async-method-marker-hue: if($is-dark-theme, 200, 400);
     background-color: mat.get-color-from-palette($primary, $async-method-marker-hue);
     color: mat.get-color-from-palette($primary, '#{$async-method-marker-hue}-contrast');
@@ -45,6 +34,10 @@
   // Prevent p tags from not breaking, causing x axis overflows.
   .docs-api > p {
     word-break: break-word;
+  }
+
+  .docs-api a {
+    color: mat.get-color-from-palette($primary, if($is-dark-theme, 200, default));
   }
 
   .docs-api-class-name,

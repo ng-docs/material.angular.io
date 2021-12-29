@@ -24,11 +24,25 @@ PROJECT_ID["v9", "prod"]="v9-material-angular-io"
 
 PROJECT_ID["v10", "prod"]="v10-material-angular-io"
 
+PROJECT_ID["v11", "prod"]="v11-material-angular-io"
+
+PROJECT_ID["v12", "prod"]="v12-material-angular-io"
+
 PROJECT_ID["next", "prod"]="beta-angular-material-io"
 
 version=${1:-stable}
 mode=${2:-dev}
 projectId=${PROJECT_ID[$version, $mode]}
+
+# Prevent deployment if we have a pre-release version, using the cdk
+# version as a proxy for all components repo package versions.
+cdk_prerelease=$(cat package.json | grep cdk | egrep next\|rc || true)
+if [[ "${cdk_prerelease}" ]]; then
+  if [[ "${version}" == "stable" && "${mode}" == "prod" ]]; then
+    echo "Cannot publish a prerelease version to stable prod"
+    exit 1
+  fi
+fi
 
 echo ""
 echo "NOTE: Make sure to refresh the docs-content to match the new version of docs."

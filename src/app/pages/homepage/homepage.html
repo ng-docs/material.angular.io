@@ -55,10 +55,17 @@
   <mat-divider></mat-divider>
 
   <div class="docs-homepage-featured-components docs-homepage-carousel-row">
-    <h2 translation-result>特性组件</h2>
+    <div class="docs-homepage-header">
+      <h2 translation-result>特性组件</h2>
     <h2 translation-origin="off">Featured components</h2>
-    <app-carousel [itemWidth]="260" [aria-label]="'Featured components'">
-      <a *ngFor="let comp of getTopComponents()" carousel-item class='docs-featured-components-carousel-item'
+
+      <a class="docs-link" routerLink="/components">
+        View all components
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+    </div>
+    <app-carousel [aria-label]="'Featured components'">
+      <a *ngFor="let comp of getTopComponents()" carousel-item class="carousel-item docs-featured-components-carousel-item"
          routerLink="/components/{{comp.id}}">
         <div class="docs-homepage-img-container">
           <img alt="" src="../../../assets/screenshots/{{comp.id}}.scene.png" role="presentation">
@@ -66,20 +73,22 @@
         <p>{{comp.nameCn}}&nbsp;<small>{{comp.name}}</small></p>
       </a>
     </app-carousel>
-
-    <a class="docs-link" routerLink="/components">
-      查看所有组件
-      <mat-icon>chevron_right</mat-icon>
-    </a>
   </div>
 
   <mat-divider></mat-divider>
 
   <div class="docs-homepage-guides docs-homepage-carousel-row">
-    <h2 translation-result>指南</h2>
+    <div class="docs-homepage-header">
+      <h2 translation-result>指南</h2>
     <h2 translation-origin="off">Guides</h2>
-    <app-carousel [itemWidth]="260" [aria-label]="'Guides'">
-      <a carousel-item class='docs-homepage-guides-carousel-item' *ngFor="let guide of guideItems.getAllItems()"
+
+      <a class="docs-link" routerLink="/guides">
+        View all guides
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+    </div>
+    <app-carousel [aria-label]="'Guides'">
+      <a carousel-item class="carousel-item docs-homepage-guides-carousel-item" *ngFor="let guide of guideItems.getAllItems()"
          routerLink='/guide/{{guide.id}}'>
         <mat-card class="docs-homepage-guides-card">
           <mat-card-title>{{guide.nameCn}}</mat-card-title>
@@ -90,11 +99,6 @@
         </mat-card>
       </a>
     </app-carousel>
-
-    <a class="docs-link" routerLink="/guides">
-      查看所有指南
-      <mat-icon>chevron_right</mat-icon>
-    </a>
   </div>
 
 </main>

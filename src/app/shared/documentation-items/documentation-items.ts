@@ -155,6 +155,15 @@ export const DOCS: { [key: string]: DocItem[] } = {
       additionalApiDocs: [{name: 'Testing', path: 'material-chips-testing.html'}],
     },
     {
+      id: 'core',
+      name: 'Core',
+      summary: 'Reusable parts used by other components in the library.',
+      exampleSpecs: {
+        prefix: 'core-',
+      },
+      additionalApiDocs: [{name: 'Testing', path: 'material-core-testing.html'}],
+    },
+    {
       id: 'datepicker',
       name: 'Datepicker',
       summary: 'Captures dates, agnostic about their internal representation.',
@@ -464,6 +473,14 @@ export const DOCS: { [key: string]: DocItem[] } = {
       },
     },
     {
+      id: 'accordion',
+      name: 'Accordion',
+      summary: 'Component with one or more expandable sections.',
+      exampleSpecs: {
+        prefix: 'cdk-accordion-',
+      },
+    },
+    {
       id: 'bidi',
       name: 'Bidirectionality',
       summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
@@ -481,6 +498,22 @@ export const DOCS: { [key: string]: DocItem[] } = {
       summaryCn: '帮你使用系统剪贴板的工具。',
       exampleSpecs: {
         prefix: 'cdk-clipboard-',
+      },
+    },
+    {
+      id: 'coercion',
+      name: 'Coercion',
+      summary: 'Utility functions for coercing @Input into specific types.',
+      exampleSpecs: {
+        prefix: 'cdk-coercion-',
+      },
+    },
+    {
+      id: 'collections',
+      name: 'Collections',
+      summary: 'Utilities for managing collections.',
+      exampleSpecs: {
+        prefix: 'cdk-collections-',
       },
     },
     {
@@ -622,25 +655,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
   // docs more granularly than directory-level (within a11y) (same for viewport).
 };
 
-for (const doc of DOCS[COMPONENTS]) {
-  doc.packageName = 'material';
-  doc.examples =
-    exampleNames
-      .filter(key => key.match(RegExp(`^${doc.exampleSpecs.prefix}`)) &&
-        !doc.exampleSpecs.exclude?.some(excludeName => key.indexOf(excludeName) === 0));
-}
-
-for (const doc of DOCS[CDK]) {
-  doc.packageName = 'cdk';
-  doc.examples =
-    exampleNames
-      .filter(key => key.match(RegExp(`^${doc.exampleSpecs.prefix}`)) &&
-        !doc.exampleSpecs.exclude?.includes(key));
-}
-
-const ALL_COMPONENTS = DOCS[COMPONENTS];
-const ALL_CDK = DOCS[CDK];
-const ALL_DOCS = ALL_COMPONENTS.concat(ALL_CDK);
+const ALL_COMPONENTS = processDocs('material', DOCS[COMPONENTS]);
+const ALL_CDK = processDocs('cdk', DOCS[CDK]);
+const ALL_DOCS = [...ALL_COMPONENTS, ...ALL_CDK];
 
 @Injectable()
 export class DocumentationItems {
@@ -659,4 +676,15 @@ export class DocumentationItems {
     const sectionLookup = section === 'cdk' ? 'cdk' : 'material';
     return ALL_DOCS.find(doc => doc.id === id && doc.packageName === sectionLookup);
   }
+}
+
+function processDocs(packageName: string, docs: DocItem[]): DocItem[] {
+  for (const doc of docs) {
+    doc.packageName = packageName;
+    doc.examples = exampleNames.filter(key =>
+      key.match(RegExp(`^${doc.exampleSpecs.prefix}`)) &&
+      !doc.exampleSpecs.exclude?.some(excludeName => key.indexOf(excludeName) === 0));
+  }
+
+  return docs.sort((a, b) => a.name.localeCompare(b.name, 'en'));
 }

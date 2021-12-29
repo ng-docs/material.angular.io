@@ -9,7 +9,8 @@ Versions of this site are also available for
 - [v8](https://v8.material.angular.io/)
 - [v9](https://v9.material.angular.io/)
 - [v10](https://v10.material.angular.io/)
-- [v11](https://material.angular.io/)
+- [v11](https://v11.material.angular.io/)
+- [v12](https://material.angular.io/)
 
 ## Contributing
 
@@ -36,9 +37,9 @@ documentation content and examples. They are generated from:
 1. Make sure you have [NodeJS LTS](https://nodejs.org) installed
 1. Make sure you have [Yarn](https://yarnpkg.com) installed
 1. Install the project's dependencies
-  - `yarn install`
+   - `yarn install`
 1. Update to the latest version of the docs-content and examples
-  - `yarn build:content`
+   - `yarn build:content`
 
 ## Development Server
 

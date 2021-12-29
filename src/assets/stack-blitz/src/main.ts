@@ -1,36 +1,18 @@
-import {HttpClientModule} from '@angular/common/http';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatNativeDateModule} from '@angular/material/core';
-import {BrowserModule} from '@angular/platform-browser';
+import {VERSION as CDK_VERSION} from '@angular/cdk';
+import {VERSION as MAT_VERSION} from '@angular/material/core';
+import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DemoMaterialModule} from './app/material-module';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
-import {MaterialDocsExample} from './app/material-docs-example';
+import {AppModule} from './app/app.module';
+import {environment} from './environments/environment';
 
-// Default MatFormField appearance to 'fill' as that is the new recommended approach and the
-// `legacy` and `standard` appearances are scheduled for deprecation in version 10.
-// This makes the examples that use MatFormField render the same in StackBlitz as on the docs site.
-@NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    DemoMaterialModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-  ],
-  entryComponents: [MaterialDocsExample],
-  declarations: [MaterialDocsExample],
-  bootstrap: [MaterialDocsExample],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-  ]
-})
-export class AppModule {}
+if (environment.production) {
+  enableProdMode();
+}
+
+/* eslint-disable no-console */
+console.info('Angular CDK version', CDK_VERSION.full);
+console.info('Angular Material version', MAT_VERSION.full);
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
