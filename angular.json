@@ -329,6 +329,9 @@
   },
   "cli": {
     "analytics": "cf155f04-1636-4df9-9ce2-870ba25ad38d",
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@angular-eslint/schematics",
+    "cache": {
+      "enabled": false
+    }
   }
 }
