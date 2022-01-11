@@ -157,7 +157,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'core',
       name: 'Core',
+      nameCn: '核心',
       summary: 'Reusable parts used by other components in the library.',
+      summaryCn: '供库中其它组件使用的可复用部分。',
       exampleSpecs: {
         prefix: 'core-',
       },
@@ -475,7 +477,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'accordion',
       name: 'Accordion',
+      nameCn: '手风琴',
       summary: 'Component with one or more expandable sections.',
+      summaryCn: '带有一个或多个可展开区段的组件',
       exampleSpecs: {
         prefix: 'cdk-accordion-',
       },
@@ -503,7 +507,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'coercion',
       name: 'Coercion',
+      nameCn: '强制类型转换',
       summary: 'Utility functions for coercing @Input into specific types.',
+      summaryCn: '用于把 @Input 转换成特定类型的工具函数。',
       exampleSpecs: {
         prefix: 'cdk-coercion-',
       },
@@ -511,7 +517,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'collections',
       name: 'Collections',
+      nameCn: '集合',
       summary: 'Utilities for managing collections.',
+      summaryCn: '用于管理集合的实用工具。',
       exampleSpecs: {
         prefix: 'cdk-collections-',
       },
