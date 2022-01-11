@@ -25,6 +25,6 @@ cp index.html 404.html
 git add .
 git commit --allow-empty -am "${commitMessage}" || true
 
-git push prebuilt HEAD:master -f
+git push prebuilt HEAD:master
 
 cd -
