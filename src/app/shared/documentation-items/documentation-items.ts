@@ -527,7 +527,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'dialog',
       name: 'Dialog',
+      nameCn: '对话框',
       summary: 'Directives for building accessible dialogs.',
+      summaryCn: '用于构建无障碍化对话框的指令。',
       exampleSpecs: {
         prefix: 'cdk-dialog-',
       },
@@ -555,7 +557,9 @@ export const DOCS: { [key: string]: DocItem[] } = {
     {
       id: 'menu',
       name: 'Menu',
+      nameCn: '菜单',
       summary: 'Directives for building accessible menus.',
+      summaryCn: '用于构建无障碍化菜单的指令',
       exampleSpecs: {
         prefix: 'cdk-menu-',
       },
