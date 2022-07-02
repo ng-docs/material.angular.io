@@ -111,6 +111,7 @@ export class ComponentSidenav implements OnInit, OnDestroy {
 @Component({
   selector: 'app-component-nav',
   templateUrl: './component-nav.html',
+  styleUrls: ['./component-nav.scss'],
   animations: [
     trigger('bodyExpansion', [
       state('collapsed', style({height: '0px', display: 'none'})),
