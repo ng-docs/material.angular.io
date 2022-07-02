@@ -47,8 +47,10 @@ ui-debug.log
 .firebase/
 /typings
 
+.firebaserc
+
 #System Files
 .DS_Store
 Thumbs.db
 
-/prebuilt
+/material-cn-prebuilt

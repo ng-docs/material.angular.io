@@ -525,6 +525,14 @@ export const DOCS: { [key: string]: DocItem[] } = {
       },
     },
     {
+      id: 'dialog',
+      name: 'Dialog',
+      summary: 'Directives for building accessible dialogs.',
+      exampleSpecs: {
+        prefix: 'cdk-dialog-',
+      },
+    },
+    {
       id: 'drag-drop',
       name: 'Drag and Drop',
       summary: 'Directives enabling drag-and-drop interactions',
@@ -542,6 +550,14 @@ export const DOCS: { [key: string]: DocItem[] } = {
       summaryCn: '用于响应视口尺寸变化的工具。',
       exampleSpecs: {
         prefix: 'cdk-layout-',
+      },
+    },
+    {
+      id: 'menu',
+      name: 'Menu',
+      summary: 'Directives for building accessible menus.',
+      exampleSpecs: {
+        prefix: 'cdk-menu-',
       },
     },
     {
