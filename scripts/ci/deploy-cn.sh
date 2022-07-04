@@ -3,7 +3,8 @@
 set -e
 set -x
 
-yarn build:content
+# 不需要再更新 examples 包了，components 会负责更新它
+# yarn build:content
 
 yarn prod-build
 
