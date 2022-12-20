@@ -91,6 +91,22 @@ const GUIDES = [
     overviewCn: '使用组件测试工具编写测试，以获得便利性，并输出更有意义的结果。',
   },
   {
+    id: 'duplicate-theming-styles',
+    name: 'Duplicate theming styles',
+    nameCn: '消除重复主题样式',
+    document: '/docs-content/guides/duplicate-theming-styles.html',
+    overview: 'Learn about our new color mixins for Sass that avoid duplicating theming styles.',
+    overviewCn: '学习我们的新色彩 Sass mixin，以消除重复的主题样式'
+  },
+  {
+    id: 'mdc-migration',
+    name: 'Migrating to MDC-based Components',
+    nameCn: '迁移到基于 MDC 的组件',
+    document: '/docs-content/guides/v15-mdc-migration.html',
+    overview: 'Learn how to migrate your app to the new MDC-based components available in v15.',
+    overviewCn: '学习如何把你的应用迁移到 v15 中的新的基于 MDC 的组件'
+  },
+  {
     id: 'deploy-to-local',
     name: `Deploy to local`,
     nameCn: '部署到本地环境（译者）',

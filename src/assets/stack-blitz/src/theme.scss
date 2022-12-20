@@ -24,7 +24,8 @@ $theme: mat.define-light-theme((
     primary: $theme-primary,
     accent: $theme-accent,
     warn: $theme-warn,
-  )
+  ),
+  typography: mat.define-typography-config(),
 ));
 
 // Include theme styles for core and each component used in your app.

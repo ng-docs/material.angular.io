@@ -555,6 +555,14 @@ export const DOCS: { [key: string]: DocItem[] } = {
       },
     },
     {
+      id: 'listbox',
+      name: 'Listbox',
+      summary: 'Directives for building accessible listboxes.',
+      exampleSpecs: {
+        prefix: 'cdk-listbox-',
+      },
+    },
+    {
       id: 'menu',
       name: 'Menu',
       nameCn: '菜单',
