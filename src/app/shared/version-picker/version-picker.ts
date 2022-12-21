@@ -7,7 +7,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {normalizedMaterialVersion} from '../normalized-version';
 
-const versionUrl = 'https://material.angular.io/assets/versions.json';
+const versionUrl = '/assets/versions.json';
 
 /** Version information with title and redirect url */
 interface VersionInfo {
