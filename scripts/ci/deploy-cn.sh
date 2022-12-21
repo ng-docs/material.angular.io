@@ -11,13 +11,13 @@ yarn prod-build
 commitSha=$(git rev-parse --short HEAD)
 commitMessage=$(git log --oneline -n 1)
 
-if [[ ! -d "./material-cn-prebuilt" ]]; then
-  git clone git@github.com:ng-docs/material-cn-prebuilt.git
+if [[ ! -d "./material-preview.angular.cn" ]]; then
+  git clone git@github.com:ng-docs/material-preview.angular.cn.git
 fi
 
-cp -r ./dist/material-angular-io/* ./material-cn-prebuilt
+cp -r ./dist/material-angular-io/* ./material-preview.angular.cn
 
-cd ./material-cn-prebuilt
+cd ./material-preview.angular.cn
 
 cp index.html 404.html
 
