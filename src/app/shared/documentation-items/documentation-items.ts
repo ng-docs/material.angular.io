@@ -558,6 +558,8 @@ export const DOCS: { [key: string]: DocItem[] } = {
       id: 'listbox',
       name: 'Listbox',
       summary: 'Directives for building accessible listboxes.',
+      nameCn: '列表框',
+      summaryCn: '用于构建无障碍化列表框的指令。',
       exampleSpecs: {
         prefix: 'cdk-listbox-',
       },
