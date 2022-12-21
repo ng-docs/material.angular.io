@@ -8,8 +8,6 @@ set -x
 
 yarn prod-build
 
-nt mark './dist/**/*.html'
-
 commitSha=$(git rev-parse --short HEAD)
 commitMessage=$(git log --oneline -n 1)
 
