@@ -15,7 +15,7 @@ import {EXAMPLE_COMPONENTS, LiveExample, loadExample} from '@angular/components-
 import {CodeSnippet} from './code-snippet';
 import {normalizePath} from '../normalize-path';
 import {MatTabsModule} from '@angular/material/tabs';
-import {StackBlitzButton} from '../stack-blitz/stack-blitz-button';
+import {StackBlitzButton} from '../stack-blitz';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
