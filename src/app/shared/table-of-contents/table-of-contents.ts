@@ -9,7 +9,7 @@ import {
   NgZone,
   ChangeDetectorRef,
 } from '@angular/core';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, NgFor} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {fromEvent, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -40,7 +40,9 @@ interface Link {
 @Component({
   selector: 'table-of-contents',
   styleUrls: ['./table-of-contents.scss'],
-  templateUrl: './table-of-contents.html'
+  templateUrl: './table-of-contents.html',
+  standalone: true,
+  imports: [NgFor]
 })
 export class TableOfContents implements OnInit, AfterViewInit, OnDestroy {
   @Input() container: string | undefined;
@@ -152,6 +154,10 @@ export class TableOfContents implements OnInit, AfterViewInit, OnDestroy {
   private onScroll(): void {
     const scrollOffset = this.getScrollOffset();
     let hasChanged = false;
+
+    if (scrollOffset == null) {
+      return;
+    }
 
     for (let i = 0; i < this._links.length; i++) {
       // A link is considered active if the page is scrolled past the

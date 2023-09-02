@@ -36,20 +36,15 @@ export const TEMPLATE_FILES = [
   'angular.json',
   'karma.conf.js',
   'package.json',
-  'package-lock.json',
+  'yarn.lock',
   'tsconfig.app.json',
   'tsconfig.json',
   'tsconfig.spec.json',
   'src/index.html',
   'src/main.ts',
-  'src/material.module.ts',
-  'src/polyfills.ts',
   'src/styles.scss',
   'src/test.ts',
   'src/theme.scss',
-  'src/app/app.module.ts',
-  'src/environments/environment.prod.ts',
-  'src/environments/environment.ts',
 ];
 
 const PROJECT_TAGS = ['angular', 'material', 'cdk', 'web', 'example'];
@@ -130,7 +125,7 @@ export class StackBlitzWriter {
     const tasks: Promise<unknown>[] = [];
     const liveExample = EXAMPLE_COMPONENTS[exampleId];
     const exampleBaseContentPath =
-      `${DOCS_CONTENT_PATH}/${liveExample.module.importSpecifier}/${exampleId}/`;
+      `${DOCS_CONTENT_PATH}/${liveExample.importPath}/${exampleId}/`;
 
     for (const relativeFilePath of TEMPLATE_FILES) {
       tasks.push(
@@ -147,7 +142,7 @@ export class StackBlitzWriter {
       // Note: Since we join with paths from the example data, we normalize
       // the final target path. This is necessary because StackBlitz does
       // not and paths like `./bla.ts` would result in a directory called `.`.
-      const targetPath = normalizePath(`src/app/${relativeFilePath}`);
+      const targetPath = normalizePath(`src/example/${relativeFilePath}`);
 
       tasks.push(
         this._loadFile(exampleBaseContentPath + relativeFilePath)
@@ -208,34 +203,20 @@ export class StackBlitzWriter {
         .replace(/material-docs-example/g, data.selectorName)
         .replace(/\${title}/g, data.description);
     } else if (fileName === '.stackblitzrc') {
-      fileContent = fileContent.replace(/\${startCommand}/, isTest ? 'turbo test' : 'turbo start');
-    } else if (fileName === 'src/app/app.module.ts') {
-      const joinedComponentNames = data.componentNames.join(', ');
+      fileContent = fileContent.replace(/\${startCommand}/, isTest ? 'yarn test' : 'yarn start');
+    } else if (fileName === 'src/main.ts') {
+      const mainComponentName = data.componentNames[0];
+
       // Replace the component name in `main.ts`.
       // Replace `import {MaterialDocsExample} from 'material-docs-example'`
       // will be replaced as `import {ButtonDemo} from './button-demo'`
-      fileContent = fileContent.replace(/{MaterialDocsExample}/g, `{${joinedComponentNames}}`);
+      fileContent = fileContent.replace(/{MaterialDocsExample}/g, `{${mainComponentName}}`);
 
-      // Replace `declarations: [MaterialDocsExample]`
-      // will be replaced as `declarations: [ButtonDemo]`
+      // Replace `bootstrapApplication(MaterialDocsExample,`
+      // will be replaced as `bootstrapApplication(ButtonDemo,`
       fileContent = fileContent.replace(
-        /declarations: \[MaterialDocsExample]/g,
-        `declarations: [${joinedComponentNames}]`
-      );
-
-      // Replace `entryComponents: [MaterialDocsExample]`
-      // will be replaced as `entryComponents: [DialogContent]`
-      fileContent = fileContent.replace(
-        /entryComponents: \[MaterialDocsExample]/g,
-        `entryComponents: [${joinedComponentNames}]`
-      );
-
-      // Replace `bootstrap: [MaterialDocsExample]`
-      // will be replaced as `bootstrap: [ButtonDemo]`
-      // This assumes the first component listed in the main component
-      fileContent = fileContent.replace(
-        /bootstrap: \[MaterialDocsExample]/g,
-        `bootstrap: [${data.componentNames[0]}]`
+        /bootstrapApplication\(MaterialDocsExample,/g,
+        `bootstrapApplication(${mainComponentName},`
       );
 
       const dotIndex = data.indexFilename.lastIndexOf('.');

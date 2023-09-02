@@ -116,7 +116,7 @@ const GUIDES = [
   },
 ];
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class GuideItems {
 
   getAllItems(): GuideItem[] {

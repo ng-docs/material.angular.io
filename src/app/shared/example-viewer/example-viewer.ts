@@ -3,19 +3,23 @@ import {
   ElementRef,
   HostBinding,
   Input,
-  NgModuleFactory,
   OnInit,
   QueryList,
   Type,
   ViewChildren,
-  ɵNgModuleFactory,
 } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Clipboard} from '@angular/cdk/clipboard';
 
-import {EXAMPLE_COMPONENTS, LiveExample} from '@angular/components-examples';
+import {EXAMPLE_COMPONENTS, LiveExample, loadExample} from '@angular/components-examples';
 import {CodeSnippet} from './code-snippet';
 import {normalizePath} from '../normalize-path';
+import {MatTabsModule} from '@angular/material/tabs';
+import {StackBlitzButton} from '../stack-blitz/stack-blitz-button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {NgIf, NgFor, NgComponentOutlet} from '@angular/common';
 
 export type Views = 'snippet' | 'full' | 'demo';
 
@@ -29,6 +33,18 @@ const preferredExampleFileOrder = ['HTML', 'TS', 'CSS'];
   selector: 'example-viewer',
   templateUrl: './example-viewer.html',
   styleUrls: ['./example-viewer.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    StackBlitzButton,
+    MatTabsModule,
+    NgFor,
+    CodeSnippet,
+    NgComponentOutlet,
+  ],
 })
 export class ExampleViewer implements OnInit {
   @ViewChildren(CodeSnippet) readonly snippet!: QueryList<CodeSnippet>;
@@ -47,9 +63,6 @@ export class ExampleViewer implements OnInit {
 
   /** Component type for the current example. */
   _exampleComponentType: Type<any> | null = null;
-
-  /** Module factory that declares the example component. */
-  _exampleModuleFactory: NgModuleFactory<any> | null = null;
 
   /** View of the example component. */
   @Input() view: Views | undefined;
@@ -188,23 +201,10 @@ export class ExampleViewer implements OnInit {
   /** Loads the component and module factory for the currently selected example. */
   private async _loadExampleComponent() {
     if (this._example != null) {
-      const {componentName, module} = EXAMPLE_COMPONENTS[this._example];
-      // Lazily loads the example package that contains the requested example. Webpack needs to be
-      // able to statically determine possible imports for proper chunk generation. Explicitly
-      // specifying the path to the `fesm2015` folder as first segment instructs Webpack to generate
-      // chunks for each example flat esm2015 bundle. To avoid generating unnecessary chunks for
-      // source maps (which would never be loaded), we instruct Webpack to exclude source map
-      // files. More details: https://webpack.js.org/api/module-methods/#magic-comments.
-      const moduleExports: any = await import(
-        /* webpackExclude: /\.map$/ */
-        '@angular/components-examples/fesm2020/' + module.importSpecifier
-      );
+      const {componentName} = EXAMPLE_COMPONENTS[this._example];
+      // Lazily loads the example package that contains the requested example.
+      const moduleExports = await loadExample(this._example);
       this._exampleComponentType = moduleExports[componentName];
-      // The components examples package is built with Ivy. This means that no factory files are
-      // generated. To retrieve the factory of the AOT compiled module, we simply pass the module
-      // class symbol to Ivy's module factory constructor. There is no equivalent for View Engine,
-      // where factories are stored in separate files. Hence the API is currently Ivy-only.
-      this._exampleModuleFactory = new ɵNgModuleFactory(moduleExports[module.name]);
 
       // Since the data is loaded asynchronously, we can't count on the native behavior
       // that scrolls the element into view automatically. We do it ourselves while giving
