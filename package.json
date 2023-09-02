@@ -35,7 +35,7 @@
     "@angular/cdk-experimental": "^16.1.0",
     "@angular/common": "^16.1.0",
     "@angular/compiler": "^16.1.0",
-    "@angular/components-examples": "https://github.com/angular/material2-docs-content.git#9bef76ab6f8c5e7bec1356e2c38d77afc6451658",
+    "@angular/components-examples": "https://github.com/ng-docs/material2-docs-content.git",
     "@angular/core": "^16.1.0",
     "@angular/forms": "^16.1.0",
     "@angular/google-maps": "^16.1.0",
