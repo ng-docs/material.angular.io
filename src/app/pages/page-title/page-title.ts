@@ -7,7 +7,7 @@ import {Title} from '@angular/platform-browser';
 @Injectable({providedIn: 'root'})
 export class ComponentPageTitle {
   _title = '';
-  _originalTitle = 'Angular Material UI component library';
+  _originalTitle = 'Angular Material UI 组件库';
 
   get title(): string {
     return this._title;

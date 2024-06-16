@@ -1,6 +1,6 @@
 @if (componentViewer.componentDocItem | async; as docItem) {
   <span class="cdk-visually-hidden" tabindex="-1">
-    Examples for {{docItem.id}}
+    {{docItem.id}}的范例
   </span>
 
   @for (example of docItem.examples; track example) {

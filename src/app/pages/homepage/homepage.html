@@ -3,10 +3,10 @@
   <div class="docs-header-section">
     <div class="docs-header-headline">
       <h1 class="mat-h1">Angular Material</h1>
-      <h2>Material Design components for Angular</h2>
+      <h2>Material Design 组件库 for Angular</h2>
     </div>
     <div class="docs-header-start">
-      <a mat-raised-button class="docs-button" routerLink="/guide/getting-started">Get started</a>
+      <a mat-raised-button class="docs-button" routerLink="/guide/getting-started">快速入门</a>
     </div>
   </div>
   <app-logo class="docs-homepage-logo"/>
@@ -15,28 +15,28 @@
 <main class="docs-homepage-promo">
   <div class="docs-homepage-row docs-introduction">
     <div class="docs-homepage-row-column">
-      <h2>High quality</h2>
+      <h2>高质量</h2>
       <p>
-        Internationalized and accessible components for everyone. Well tested to ensure performance and reliability.
+        支持国际化和无障碍性的组件，为每一个人设计。测试充分，保障性能和可靠性。
       </p>
-      <p>Straightforward APIs with consistent cross platform behaviour.</p>
+      <p>直白的 API，在各个平台上具有一致的行为。</p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Versatile</h2>
+      <h2>多才多艺</h2>
       <p>
-        Provide tools that help developers build their own custom components with common interaction patterns.
+        提供了很多工具，帮助开发者构建支持常用交互模式的自定义组件。
       </p>
       <p>
-        Customizable within the bounds of the Material Design specification.
+        可在 Material Design 规范的框架内进行定制。
       </p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Frictionless</h2>
+      <h2>无缝集成</h2>
       <p>
-        Built by the Angular team to integrate seamlessly with Angular.
+        由 Angular 团队构建，与 Angular 无缝集成。
       </p>
       <p>
-        Start from scratch or drop into your existing applications.
+        从草稿阶段开始，或空降到现有应用。
       </p>
     </div>
   </div>
@@ -45,14 +45,14 @@
 
   <div class="docs-homepage-featured-components docs-homepage-carousel-row">
     <div class="docs-homepage-header">
-      <h2>Featured components</h2>
+      <h2>功能组件</h2>
 
       <a mat-button routerLink="/components">
-        View all components
+        查看所有组件
         <mat-icon matButtonIcon iconPositionEnd>chevron_right</mat-icon>
       </a>
     </div>
-    <app-carousel [aria-label]="'Featured components'">
+    <app-carousel [aria-label]="'功能组件'">
       @for (comp of getTopComponents(); track comp) {
         <a carousel-item class="carousel-item docs-featured-components-carousel-item"
            routerLink="/components/{{comp}}">
@@ -69,14 +69,14 @@
 
   <div class="docs-homepage-guides docs-homepage-carousel-row">
     <div class="docs-homepage-header">
-      <h2>Guides</h2>
+      <h2>使用指南</h2>
 
       <a mat-button routerLink="/guides">
-        View all guides
+        查看所有指南
         <mat-icon matButtonIcon iconPositionEnd>chevron_right</mat-icon>
       </a>
     </div>
-    <app-carousel aria-label="Guides">
+    <app-carousel aria-label="使用指南">
       @for (guide of guideItems.getAllItems(); track guide) {
         <a carousel-item class="carousel-item docs-homepage-guides-carousel-item"
            routerLink="/guide/{{guide.id}}"

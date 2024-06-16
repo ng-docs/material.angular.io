@@ -10,75 +10,75 @@ export interface GuideItem {
 const GUIDES = [
   {
     id: 'getting-started',
-    name: 'Getting started',
+    name: '快速上手',
     document: '/docs-content/guides/getting-started.html',
-    overview: 'Add Angular Material to your project!'
+    overview: '把 Angular Material 添加到你的项目中！',
   },
   {
     id: 'schematics',
-    name: 'Schematics',
+    name: '原理图',
     document: '/docs-content/guides/schematics.html',
-    overview: 'Use schematics to quickly generate views with Material Design components.'
+    overview: '使用原理图快速生成带有 Material Design 组件的视图。',
   },
   {
     id: 'theming',
-    name: 'Theming Angular Material',
+    name: 'Angular Material 主题',
     document: '/docs-content/guides/theming.html',
-    overview: 'Customize your application with Angular Material\'s theming system.'
+    overview: '使用 Angular Material 的主题体系定制你的应用。',
   },
   {
     id: 'theming-your-components',
-    name: 'Theming your own components',
+    name: '为你自己的组件设置主题',
     document: '/docs-content/guides/theming-your-components.html',
-    overview: 'Use Angular Material\'s theming system in your own custom components.'
+    overview: '在你的自定义组件中使用 Angular Material 的主题体系。',
   },
   {
     id: 'typography',
-    name: 'Customizing Typography',
+    name: '自定义排版',
     document: '/docs-content/guides/typography.html',
-    overview: 'Configure the typography settings for Angular Material components.'
+    overview: '为 Angular Material 组件配置排版设置。',
   },
   {
     id: 'customizing-component-styles',
-    name: 'Customizing component styles',
+    name: '自定义组件样式',
     document: '/docs-content/guides/customizing-component-styles.html',
-    overview: 'Understand how to approach style customization with Angular Material components.'
+    overview: '了解如何定制 Angular Material 组件的样式。',
   },
   {
     id: 'creating-a-custom-form-field-control',
-    name: 'Custom form field control',
+    name: '自定义表单控件',
     document: '/docs-content/guides/creating-a-custom-form-field-control.html',
-    overview: 'Build a custom control that integrates with `<mat-form-field>`.'
+    overview: '构建一个可以和 `<mat-form-field>` 集成的自定义表单控件。',
   },
   {
     id: 'elevation',
-    name: 'Elevation helpers',
+    name: '纵深助手',
     document: '/docs-content/guides/elevation.html',
-    overview: 'Enhance your components with elevation and depth.'
+    overview: '利用纵深感强化你的组件。',
   },
   {
     id: 'creating-a-custom-stepper-using-the-cdk-stepper',
-    name: 'Custom stepper using the CdkStepper',
+    name: '使用 CdkStepper 自定义步进器',
     document: '/docs-content/guides/creating-a-custom-stepper-using-the-cdk-stepper.html',
-    overview: 'Create a custom stepper components using Angular CDK.'
+    overview: '使用 Angular CDK 创建自定义步进器组件。',
   },
   {
     id: 'using-component-harnesses',
-    name: 'Testing with component harnesses',
+    name: '使用组件测试工具进行测试',
     document: '/docs-content/guides/using-component-harnesses.html',
-    overview: 'Write tests with component harnesses for convenience and meaningful results.'
+    overview: '使用组件测试工具编写测试，以获得便利性，并输出更有意义的结果。',
   },
   {
     id: 'duplicate-theming-styles',
-    name: 'Duplicate theming styles',
+    name: '消除重复主题样式',
     document: '/docs-content/guides/duplicate-theming-styles.html',
-    overview: 'Learn about our new color mixins for Sass that avoid duplicating theming styles.'
+    overview: '学习我们的新色彩 Sass mixin，以消除重复的主题样式'
   },
   {
     id: 'material-2-theming',
-    name: 'Theming Angular Material with Material 2',
+    name: '使用 Material 2 的主题',
     document: '/docs-content/guides/material-2.html',
-    overview: 'Customize your application with Angular Material\'s theming system.'
+    overview: '使用 Angular Material 的主题系统自定义你的应用'
   },
 ];
 

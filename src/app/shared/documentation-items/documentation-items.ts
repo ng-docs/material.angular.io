@@ -42,14 +42,12 @@ const CDK = 'cdk';
 const COMPONENTS = 'components';
 export const SECTIONS: { [key: string]: DocSection } = {
   [COMPONENTS]: {
-    name: 'Components',
-    summary: 'Angular Material offers a wide variety of UI components based on the <a' +
-      ' href="https://material.io/components">Material Design specification</a>'
+    name: '组件',
+    summary: `Angular Material 包含一大组基于 <a href="https://material.io/components">Material Design 规范</a>的 UI 组件。`,
   },
   [CDK]: {
-    name: 'CDK',
-    summary: 'The Component Dev Kit (CDK) is a set of behavior primitives for building UI' +
-      ' components.'
+    name: '组件开发包',
+    summary: '组件开发工具包（CDK）是一组用来构建 UI 组件的行为原语。',
   },
 };
 
@@ -58,8 +56,8 @@ const DOCS: { [key: string]: DocItem[] } = {
   [COMPONENTS]: [
     {
       id: 'autocomplete',
-      name: 'Autocomplete',
-      summary: 'Suggests relevant options as the user types.',
+      name: '自动完成',
+      summary: '提供与用户输入有关联的选项。',
       exampleSpecs: {
         prefix: 'autocomplete-',
       },
@@ -67,8 +65,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'badge',
-      name: 'Badge',
-      summary: 'A small value indicator that can be overlaid on another object.',
+      name: '徽章',
+      summary: '可以挂在其它对象上方的小型数值指示器。',
       exampleSpecs: {
         prefix: 'badge-',
       },
@@ -76,8 +74,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'bottom-sheet',
-      name: 'Bottom Sheet',
-      summary: 'A large interactive panel primarily for mobile devices.',
+      name: '底部操作表',
+      summary: '主要用于移动设备的大型交互面板。',
       exampleSpecs: {
         prefix: 'bottom-sheet-',
       },
@@ -85,8 +83,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'button',
-      name: 'Button',
-      summary: 'An interactive button with a range of presentation options.',
+      name: '按钮',
+      summary: '带有一系列候选项的交互式按钮。',
       exampleSpecs: {
         prefix: 'button-',
         exclude: ['button-toggle-']
@@ -95,8 +93,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'button-toggle',
-      name: 'Button toggle',
-      summary: 'A groupable on/off toggle for enabling and disabling options.',
+      name: '开关按钮',
+      summary: '用来启用或禁用候选项的可分组开关。',
       exampleSpecs: {
         prefix: 'button-toggle-',
       },
@@ -104,8 +102,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'card',
-      name: 'Card',
-      summary: 'A styled container for pieces of itemized content.',
+      name: '卡片',
+      summary: '用于存放逐项内容的样式化容器。',
       exampleSpecs: {
         prefix: 'card-',
       },
@@ -113,8 +111,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'checkbox',
-      name: 'Checkbox',
-      summary: 'Captures boolean input with an optional indeterminate mode.',
+      name: '检查框',
+      summary: '获取用户输入的布尔值，且支持未决状态。',
       exampleSpecs: {
         prefix: 'checkbox-',
       },
@@ -122,8 +120,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'chips',
-      name: 'Chips',
-      summary: 'Presents a list of items as a set of small, tactile entities.',
+      name: '纸片',
+      summary: '将列表中的条目呈现为一组小的触觉实体。',
       exampleSpecs: {
         prefix: 'chips-',
       },
@@ -131,8 +129,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'core',
-      name: 'Core',
-      summary: 'Reusable parts used by other components in the library.',
+      name: '核心',
+      summary: '供库中其它组件使用的可复用部分。',
       exampleSpecs: {
         prefix: 'core-',
       },
@@ -140,8 +138,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'datepicker',
-      name: 'Datepicker',
-      summary: 'Captures dates, agnostic about their internal representation.',
+      name: '日期选择器',
+      summary: '捕获日期，和其内部表示形式无关。',
       exampleSpecs: {
         prefix: 'date',
       },
@@ -149,8 +147,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'dialog',
-      name: 'Dialog',
-      summary: 'A configurable modal that displays dynamic content.',
+      name: '对话框',
+      summary: '一个用于显示动态内容的可配置的模态框。',
       exampleSpecs: {
         prefix: 'dialog-',
       },
@@ -158,8 +156,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'divider',
-      name: 'Divider',
-      summary: 'A vertical or horizontal visual divider.',
+      name: '分割器',
+      summary: '垂直或水平的视觉分割器。',
       exampleSpecs: {
         prefix: 'divider-',
       },
@@ -167,8 +165,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'expansion',
-      name: 'Expansion Panel',
-      summary: 'A container which can be expanded to reveal more content.',
+      name: '可展开面板',
+      summary: '可以展开，以揭示更多内容的容器。',
       exampleSpecs: {
         prefix: 'expansion-',
       },
@@ -176,8 +174,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'form-field',
-      name: 'Form field',
-      summary: 'Wraps input fields so they are displayed consistently.',
+      name: '表单字段',
+      summary: '包装表单字段，来让它们的显示保持一致。',
       exampleSpecs: {
         prefix: 'form-field-',
       },
@@ -185,8 +183,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'grid-list',
-      name: 'Grid list',
-      summary: 'A flexible structure for presenting content items in a grid.',
+      name: '网格列表',
+      summary: '一种在网格中展示逐项内容的灵活结构。',
       exampleSpecs: {
         prefix: 'grid-list-',
       },
@@ -194,8 +192,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'icon',
-      name: 'Icon',
-      summary: 'Renders a specified icon.',
+      name: '图标',
+      summary: '渲染一个指定的图标。',
       exampleSpecs: {
         prefix: 'icon-',
       },
@@ -203,8 +201,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'input',
-      name: 'Input',
-      summary: 'Enables native inputs to be used within a Form field.',
+      name: '输入框',
+      summary: '让原生输入框可用于表单字段中。',
       exampleSpecs: {
         prefix: 'input-',
       },
@@ -212,8 +210,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'list',
-      name: 'List',
-      summary: 'Presents conventional lists of items.',
+      name: '列表',
+      summary: '提供传统的条目清单。',
       exampleSpecs: {
         prefix: 'list-',
       },
@@ -221,8 +219,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'menu',
-      name: 'Menu',
-      summary: 'A floating panel of nestable options.',
+      name: '菜单',
+      summary: '一些嵌套选项的浮动面板。',
       exampleSpecs: {
         prefix: 'menu-',
       },
@@ -230,8 +228,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'paginator',
-      name: 'Paginator',
-      summary: 'Controls for displaying paged data.',
+      name: '分页器',
+      summary: '用于显示分页信息的控件。',
       exampleSpecs: {
         prefix: 'paginator-',
       },
@@ -239,8 +237,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'progress-bar',
-      name: 'Progress bar',
-      summary: 'A linear progress indicator.',
+      name: '进度条',
+      summary: '线性进度指示器。',
       exampleSpecs: {
         prefix: 'progress-bar-',
       },
@@ -248,8 +246,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'progress-spinner',
-      name: 'Progress spinner',
-      summary: 'A circular progress indicator.',
+      name: '进度圈',
+      summary: '圆形进度指示器。',
       exampleSpecs: {
         prefix: 'progress-spinner-',
       },
@@ -257,8 +255,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'radio',
-      name: 'Radio button',
-      summary: 'Allows the user to select one option from a group.',
+      name: '单选按钮',
+      summary: '允许用户从组中显示一个选项。',
       exampleSpecs: {
         prefix: 'radio-',
 
@@ -267,17 +265,17 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'ripple',
-      name: 'Ripples',
       overviewPath: 'material/core/ripple/ripple.html',
-      summary: 'Directive for adding Material Design ripple effects',
+      name: '涟漪',
+      summary: '用于添加 Material Design 涟漪效果的指令',
       exampleSpecs: {
         prefix: 'ripple-',
       },
     },
     {
       id: 'select',
-      name: 'Select',
-      summary: 'Allows the user to select one or more options using a dropdown.',
+      name: '选择框',
+      summary: '允许用户从下拉框中选择一个或多个选项。',
       exampleSpecs: {
         prefix: 'select-',
       },
@@ -285,8 +283,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'sidenav',
-      name: 'Sidenav',
-      summary: 'A container for content that is fixed to one side of the screen.',
+      name: '侧边栏',
+      summary: '一个固定在屏幕一侧的内容容器。',
       exampleSpecs: {
         prefix: 'sidenav-',
       },
@@ -294,8 +292,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'slide-toggle',
-      name: 'Slide toggle',
-      summary: 'Captures boolean values as a clickable and draggable switch.',
+      name: '滑块开关',
+      summary: '以可点击、可拖曳开关的形式捕获一个 boolean 值。',
       exampleSpecs: {
         prefix: 'slide-toggle-',
       },
@@ -303,8 +301,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'slider',
-      name: 'Slider',
-      summary: 'Allows the user to input a value by dragging along a slider.',
+      name: '滑杆',
+      summary: '允许用户以拖曳滑杆的方式输入一个值。',
       exampleSpecs: {
         prefix: 'slider-',
       },
@@ -312,8 +310,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'snack-bar',
-      name: 'Snackbar',
-      summary: 'Displays short actionable messages as an uninvasive alert.',
+      name: '快餐栏',
+      summary: '将简短的可操作消息显示为一个无打扰警报。',
       exampleSpecs: {
         prefix: 'snack-bar-',
       },
@@ -321,8 +319,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'sort',
-      name: 'Sort header',
-      summary: 'Allows the user to configure how tabular data is sorted.',
+      name: '排序头',
+      summary: '让用户可以指定表格型数据该如何排序。',
       exampleSpecs: {
         prefix: 'sort-',
       },
@@ -330,8 +328,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'stepper',
-      name: 'Stepper',
-      summary: 'Presents content as steps through which to progress.',
+      name: '步进器',
+      summary: '以分步进展的方式呈现内容。',
       exampleSpecs: {
         prefix: 'stepper-',
       },
@@ -339,8 +337,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'table',
-      name: 'Table',
-      summary: 'A configurable component for displaying tabular data.',
+      name: '表格',
+      summary: '用于显示表格型数据的可配置组件。',
       exampleSpecs: {
         prefix: 'table-',
       },
@@ -348,8 +346,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'tabs',
-      name: 'Tabs',
-      summary: 'Only presents one view at a time from a provided set of views.',
+      name: '选项卡',
+      summary: '在指定的一组视图中，只同时呈现一个视图',
       exampleSpecs: {
         prefix: 'tab-',
       },
@@ -357,8 +355,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'toolbar',
-      name: 'Toolbar',
-      summary: 'A container for top-level titles and controls.',
+      name: '工具栏',
+      summary: '一个顶级标题和控件的容器。',
       exampleSpecs: {
         prefix: 'toolbar-',
       },
@@ -366,8 +364,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'tooltip',
-      name: 'Tooltip',
-      summary: 'Displays floating content when an object is hovered.',
+      name: '工具提示',
+      summary: '当鼠标移到某个对象之上时显示浮动内容。',
       exampleSpecs: {
         prefix: 'tooltip-',
       },
@@ -375,8 +373,8 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'tree',
-      name: 'Tree',
-      summary: 'Presents hierarchical content as an expandable tree.',
+      name: '树',
+      summary: '把一些层次化的内容呈现为一棵可展开的树。',
       exampleSpecs: {
         prefix: 'tree-',
       },
@@ -385,152 +383,152 @@ const DOCS: { [key: string]: DocItem[] } = {
   [CDK]: [
     {
       id: 'a11y',
-      name: 'Accessibility',
-      summary: 'Utilities for screen readers, focus and more.',
+      name: '无障碍性',
+      summary: '供屏幕阅读器使用的工具，如焦点控制等。',
       exampleSpecs: {
         prefix: 'focus-monitor-',
       },
     },
     {
       id: 'accordion',
-      name: 'Accordion',
-      summary: 'Component with one or more expandable sections.',
+      name: '手风琴',
+      summary: '带有一个或多个可展开区段的组件',
       exampleSpecs: {
         prefix: 'cdk-accordion-',
       },
     },
     {
       id: 'bidi',
-      name: 'Bidirectionality',
-      summary: 'Utilities to respond to changes in LTR/RTL layout direction.',
+      name: '文字方向',
+      summary: '用于响应 LTR/RTL 布局方向变化的工具。',
       exampleSpecs: {
         prefix: 'cdk-bidi-',
       },
     },
     {
       id: 'clipboard',
-      name: 'Clipboard',
-      summary: 'Helpers for working with the system clipboard.',
+      name: '剪贴板',
+      summary: '帮你使用系统剪贴板的工具。',
       exampleSpecs: {
         prefix: 'cdk-clipboard-',
       },
     },
     {
       id: 'coercion',
-      name: 'Coercion',
-      summary: 'Utility functions for coercing @Input into specific types.',
+      name: '强制类型转换',
+      summary: '用于把 @Input 转换成特定类型的工具函数。',
       exampleSpecs: {
         prefix: 'cdk-coercion-',
       },
     },
     {
       id: 'collections',
-      name: 'Collections',
-      summary: 'Utilities for managing collections.',
+      name: '集合',
+      summary: '用于管理集合的实用工具。',
       exampleSpecs: {
         prefix: 'cdk-collections-',
       },
     },
     {
       id: 'dialog',
-      name: 'Dialog',
-      summary: 'Directives for building accessible dialogs.',
+      name: '对话框',
+      summary: '用于构建无障碍化对话框的指令。',
       exampleSpecs: {
         prefix: 'cdk-dialog-',
       },
     },
     {
       id: 'drag-drop',
-      name: 'Drag and Drop',
-      summary: 'Directives enabling drag-and-drop interactions',
+      name: '拖放',
+      summary: '一些支持拖放型交互方式的指令',
       exampleSpecs: {
         prefix: 'cdk-drag-drop-',
       },
     },
     {
       id: 'layout',
-      name: 'Layout',
-      summary: 'Utilities to respond to changes in viewport size.',
+      name: '布局',
+      summary: '用于响应视口尺寸变化的工具。',
       exampleSpecs: {
         prefix: 'cdk-layout-',
       },
     },
     {
       id: 'listbox',
-      name: 'Listbox',
-      summary: 'Directives for building accessible listboxes.',
+      name: '列表框',
+      summary: '用于构建无障碍化列表框的指令。',
       exampleSpecs: {
         prefix: 'cdk-listbox-',
       },
     },
     {
       id: 'menu',
-      name: 'Menu',
-      summary: 'Directives for building accessible menus.',
+      name: '菜单',
+      summary: '用于构建无障碍化菜单的指令',
       exampleSpecs: {
         prefix: 'cdk-menu-',
       },
     },
     {
       id: 'observers',
-      name: 'Observers',
-      summary: 'Utilities to respond to changes to element properties.',
+      name: '观察者',
+      summary: '用来响应元素属性变化的实用工具。',
       exampleSpecs: {
         prefix: 'cdk-observers-',
       },
     },
     {
       id: 'overlay',
-      name: 'Overlay',
-      summary: 'Utilities for dynamically displaying floating content.',
+      name: '浮层',
+      summary: '用于动态显示浮动内容的工具。',
       exampleSpecs: {
         prefix: 'cdk-overlay-',
       },
     },
     {
       id: 'platform',
-      name: 'Platform',
-      summary: 'Provides information about the user\'s platform.',
+      name: '平台',
+      summary: '提供关于用户所用平台的信息。',
       exampleSpecs: {
         prefix: 'cdk-platform-',
       },
     },
     {
       id: 'portal',
-      name: 'Portal',
-      summary: 'Utilities for dynamically displaying content into a target.',
+      name: '传送点',
+      summary: '用于把内容动态显示到目标中的工具。',
       exampleSpecs: {
         prefix: 'cdk-portal-',
       },
     },
     {
       id: 'scrolling',
-      name: 'Scrolling',
-      summary: 'Directives for managing scroll events.',
+      name: '滚动',
+      summary: '用于管理滚动事件的指令。',
       exampleSpecs: {
         prefix: 'cdk-virtual-scroll-',
       },
     },
     {
       id: 'stepper',
-      name: 'Stepper',
-      summary: 'Presents content as steps through which to progress.',
+      name: '步进器',
+      summary: '以分步进展的方式呈现内容。',
       exampleSpecs: {
         prefix: 'cdk-custom-stepper-',
       },
     },
     {
       id: 'table',
-      name: 'Table',
-      summary: 'A configurable component for displaying tabular data.',
+      name: '表格',
+      summary: '显示表格型数据的可配置组件。',
       exampleSpecs: {
         prefix: 'cdk-table-',
       },
     },
     {
       id: 'test-harnesses',
-      name: 'Component Harnesses',
-      summary: 'Foundation for component test harnesses.',
+      name: '组件测试工具',
+      summary: '组件测试工具的基石。',
       exampleSpecs: {
         prefix: 'cdk-test-harnesses-',
       },
@@ -549,16 +547,16 @@ const DOCS: { [key: string]: DocItem[] } = {
     },
     {
       id: 'text-field',
-      name: 'Text field',
-      summary: 'Utilities for working with text input fields.',
+      name: '文本字段',
+      summary: '用来和文本输入框协同工作的工具。',
       exampleSpecs: {
         prefix: 'text-field-',
       },
     },
     {
       id: 'tree',
-      name: 'Tree',
-      summary: 'Presents hierarchical content as an expandable tree.',
+      name: '树',
+      summary: '把一些层次化的内容呈现为一棵可展开的树。',
       exampleSpecs: {
         prefix: 'cdk-tree-',
       },
